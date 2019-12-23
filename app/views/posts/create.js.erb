@@ -1,0 +1,7 @@
+
+  // js code for successful save
+  console.log("creating post");
+  $("textarea").val("");
+  $('#feed').prepend("<%= j render @post %>");
+  $(".modal").css("display", "none");
+  console.log("prepend");

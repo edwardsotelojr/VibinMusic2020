@@ -1,0 +1,17 @@
+<div class="row justify-content-center">
+</div>
+<div id="likedsongs" style="display:block;">
+<% @likedsongs.each do |song| %>
+    <% @song = Song.find(song.song_id) %>
+    <%= render partial: "songs/song", locals: {song: @song}%>
+<% end %>
+</div>
+<hr>
+<div id="yoursongs" style="display:none;">
+<% @songs.each do |song| %>
+    <%= render partial: "songs/song", locals: {song:   song}%>
+<% end %>
+</div>
+<script>
+
+</script>

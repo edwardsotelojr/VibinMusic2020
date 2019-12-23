@@ -1,0 +1,255 @@
+<div id="users" class="users">
+  <div class="header">
+    <div class="profileName" id="profileName">
+      <span class="badge badge-primary text-white"><%= @user.name %></span>
+    </div>
+    <div class="profileUsername" id="profileUsername">
+      <p><span class="badge badge-primary text-white">@<%= @user.username %></span></p>
+    </div>
+    <div class="profileLocation" id="profileLocation">
+      <p><span class="badge badge-primary text-white"><%= @user.zipcode %></span></p>
+    </div>
+    <div class="profileAvatar" id="profileAvatar">
+      <% if @user.avatar.attached? %>
+        <%= image_tag (@user.avatar), class: "avatar" %>
+      <% else %>
+        <img src="http://localhost:3000/default-avatar.jpg" class="avatar">
+      <% end %>
+    </div>
+    <div class="profileBio" id="profileBio">
+      <p><span class="badge badge-success"> <%= @user.bio %></span></p>
+    </div>
+    <% if @user.firstHeader.attached? %>
+      <div class="leftHeader" style="background-image: url(<%= url_for(@user.firstHeader)%>)">
+        <div class="profileFavoriteSong" id="profileFavoriteSong">
+          <span class="badge badge-secondary">Favorite Song</span>
+        </div>
+        <!-- display the top 5 most played song by user -->
+        <div class="profileFavoriteSongs" id="profileFavoriteSongs">
+          <% @favoriteSongs.each do |song| %>
+           <div class="favoriteSongRow">
+             <div style="position: relative; float: left;">
+             <% if Song.find(song.song_id).cover_image.presence %>
+               <%= image_tag url_for(Song.find(song.song_id).cover_image), class: "favoriteSongRowCoverImage" %>
+             <% end %>
+           </div>
+           <div style="position: relative; float: left;">
+             <p><%= Song.find(song.song_id).title %><br>@<%= Song.find(song.song_id).user.username %></p>
+           </div>
+         </div>
+         <% end %>
+        </div>
+      </div>
+      <div class="rightHeader" style="background-image: url(<%= url_for(@user.secondHeader)%>)">
+        <div class="profileFavoriteArtist" id="profileFavoriteArtist">
+          <span class="badge badge-secondary">Favorite Artists</span>
+        </div>
+        <!-- display the top 5 most played song by user -->
+        <div class="profileFavoriteArtists" id="profileFavoriteArtists">
+          <% @favoriteArtists.each do |artist| %>
+            <div class="favoriteArtistRow">
+              <% if User.find(artist.user_id).avatar.attached? %>
+                <%= image_tag (User.find(artist.user_id).avatar), class: "favoriteSongRowCoverImage" %>
+              <% else %>
+                <img src="http://localhost:3000/default-avatar.jpg" class="favoriteSongRowCoverImage">
+              <% end %>
+              <p><%= User.find(artist.user_id).name %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="leftHeader" style="background-image: url('http://localhost:3000/default-avatar.jpg')">
+      </div>
+      <div class="rightHeader" style="background-image: url('http://localhost:3000/default-avatar.jpg')">
+        <div class="profileFavorite" style="width: 40%;">
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="headermini">
+    <p>When window width is small</p>
+  </div>
+  <div class="ads">
+    <p>Ad Column</p>
+  </div>
+  <div class="userData">
+    <div class="row-fluid" style='width:100%; background-color: #e2e7f2;'>
+      <ul class="nav nav-tabs " id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="Posts-tab" data-toggle="tab" href="#Posts" role="tab" aria-controls="Posts" aria-selected="true">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Music-tab" data-toggle="tab" href="#Music" role="tab" aria-controls="Music" aria-selected="false">Music</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Playlists-tab" data-toggle="tab" href="#Playlists" role="tab" aria-controls="Playlists" aria-selected="false">Playlists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Media-tab" data-toggle="tab" href="#Media" role="tab" aria-controls="Media" aria-selected="false">Media</a>
+        </li>
+        <li class="nav-item" id="MusicButtons" style="display: block;">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-sm" id="your">Your Songs</button>
+            <button type="button" class="btn btn-sm" id="like">Liked Songs</button>
+          </div>
+        </li>
+        <% if current_user.id != @user.id %>
+          <li class="nav-item">
+            <%= link_to 'send a message', new_message_path(receiver_id: @user.id) %>
+          </li>
+        <% end %>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mr-2">
+          <%= render 'follow_form' if logged_in? %>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active user-post border border-primary" id="Posts" role="tabpanel" aria-labelledby="Posts-tab"><%= render "posts/userfeed" %></div>
+      <div class="tab-pane fade user-post" id="Music" role="tabpanel" aria-labelledby="Music-tab"><%= render "songs/show_music" %></div>
+      <div class="tab-pane fade" id="Playlists" role="tabpanel" aria-labelledby="Playlists-tab"></div>
+      <div class="tab-pane fade" id="Media" role="tabpanel" aria-labelledby="Media-tab"><%= render "posts/PhotosOnly" %></div>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+
+</div>
+<!--
+        <div class="row justify-content-center " style="width:auto;">
+          <div class="col">
+            <center>
+              <span class="badge badge-secondary" style="">   Followers </span>
+            </center>
+          </div>
+          <div class="col">
+            <center>
+              <span class="badge badge-secondary" style="">   Following </span>
+            </center>
+          </div>
+        </div>
+        <div class="row justify-content-center " style="width:auto;">
+          <div class="col">
+            <center>
+              <h4 id="followers"><%= link_to @user.followers.count, followers_user_path(@user), :class => "badge badge-primary", :style => "line-height:10px; color:white;" %></h4>
+            </center>
+          </div>
+          <div class="col">
+            <center>
+              <h4 id="following"><%= link_to @user.following.count, following_user_path(@user), :class => "badge badge-primary", :style => "line-height:10px; color:white; " %></h4>
+            </center>
+          </div>
+        </div>
+      </div>
+
+    <div class="row-fluid border border-primary bg-success" style='width:100%;'>
+      <ul class="nav nav-tabs " id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="Posts-tab" data-toggle="tab" href="#Posts" role="tab" aria-controls="Posts" aria-selected="true">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Music-tab" data-toggle="tab" href="#Music" role="tab" aria-controls="Music" aria-selected="false">Music</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Playlists-tab" data-toggle="tab" href="#Playlists" role="tab" aria-controls="Playlists" aria-selected="false">Playlists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Media-tab" data-toggle="tab" href="#Media" role="tab" aria-controls="Media" aria-selected="false">Media</a>
+        </li>
+        <li class="nav-item" id="MusicButtons" style="display: block;">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-sm" id="your">Your Songs</button>
+            <button type="button" class="btn btn-sm" id="like">Liked Songs</button>
+          </div>
+        </li>
+        <% if current_user.id == @user.id %>
+          <li class="nav-item">
+            <%= link_to "Add Music", new_song_url, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Settings", edit_user_url(current_user), class: "nav-link" %>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to 'send a message', new_message_path(receiver_id: @user.id) %>
+          </li>
+        <% end %>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mr-2">
+          <%= render 'follow_form' if logged_in? %>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active user-post border border-primary" id="Posts" role="tabpanel" aria-labelledby="Posts-tab"><%= render "posts/userfeed" %></div>
+      <div class="tab-pane fade user-post" id="Music" role="tabpanel" aria-labelledby="Music-tab"><%= render "songs/show_music" %></div>
+      <div class="tab-pane fade" id="Playlists" role="tabpanel" aria-labelledby="Playlists-tab"></div>
+      <div class="tab-pane fade" id="Media" role="tabpanel" aria-labelledby="Media-tab"><%= render "posts/PhotosOnly" %></div>
+    </div>
+-->
+  <script>
+      $(function (){
+        var headerWidth = $('.header').width();
+        var userDataWidth = $('.userData').width();
+        var nameWidth = $('#profileName').width() / 2;
+        var usernameWidth = $('#profileUsername').width() / 2;
+        var locationWidth = $('#profileLocation').width()/ 2;
+        var avatarWidth = $('#profileAvatar').width() / 2;
+        var bioWidth = $('#profileBio').width() / 2;
+        var profileFavoriteSong = $('#profileFavoriteSong').width() / 2;
+        var profileFavoriteArtist = $('#profileFavoriteArtist').width() / 2;
+        $('#profileName').css('left', ((headerWidth / 2) - nameWidth) + 'px');
+        $('#profileUsername').css('left', ((headerWidth / 2) - usernameWidth) + 'px');
+        $('#profileLocation').css('left', ((headerWidth / 2) - locationWidth) + "px");
+        $('#profileAvatar').css('left', ((headerWidth / 2) - avatarWidth) + "px");
+        $('#profileBio').css('left', ((headerWidth / 2) - bioWidth) + "px");
+        $('#profileFavoriteSong').css('margin-left', ((headerWidth / 4) - profileFavoriteSong) + 'px');
+        $('#profileFavoriteArtist').css('margin-left', ((headerWidth / 4) - profileFavoriteArtist) + 'px');
+        $(window).on('resize', function(){
+          headerWidth = $('.header').width();
+          $('#profileName').css('left', ((headerWidth / 2) - nameWidth) + 'px');
+          $('#profileUsername').css('left', ((headerWidth / 2) - usernameWidth) + 'px');
+          $('#profileLocation').css('left', ((headerWidth / 2) - locationWidth) + "px");
+          $('#profileAvatar').css('left', ((headerWidth / 2) - avatarWidth) + "px");
+          $('#profileBio').css('left', ((headerWidth / 2) - bioWidth) + "px");
+          $('#profileFavoriteSong').css('margin-left', ((headerWidth / 4) - profileFavoriteSong) + 'px');
+          $('#profileFavoriteArtist').css('margin-left', ((headerWidth / 4) - profileFavoriteArtist) + 'px');
+          $('.leftHeader').css('width', (headerWidth / 2));
+          $('.rightHeader').css('width', (headerWidth / 2));
+        });
+      });
+
+      //$('#profileFavoriteSongs').css('left', 'calc(50% - 0px)');
+
+
+      /*
+        $(document).on("click", "#Music-tab", function () {
+          console.log("lol");
+          $("#MusicButtons").css("display", "block");
+        });
+        $(document).on("click", "#Posts-tab", function () {
+          $("#MusicButtons").css("display", "none");
+        });
+        $(document).on("click", "#Playlists-tab", function () {
+          $("#MusicButtons").css("display", "none");
+        });
+        $(document).on("click", "#Media-tab", function () {
+          $("#MusicButtons").css("display", "none");
+        });
+
+          $("#your").on("click", function () {
+              $("#yoursongs").css("display", "block");
+              $("#likedsongs").css("display", "none");
+              console.log("moa");
+          });
+          $("#like").on("click", function () {
+              $("#yoursongs").css("display", "none");
+              $("#likedsongs").css("display", "block");
+          });*/
+  </script>
+</div>

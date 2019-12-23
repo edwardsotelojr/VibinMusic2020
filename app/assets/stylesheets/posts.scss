@@ -1,0 +1,74 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.postLeft{
+  margin-top: 5px;
+  max-width: 150px;
+  position: relative;
+  float: left;
+}
+
+.postCenter{
+  min-width: 150px;
+  max-width: calc(100% - 240px);
+  position: relative;
+  float: left;
+}
+
+.imagePost{
+  max-height: 300px;
+  display: inline-block;
+}
+
+.postRight{
+  max-width: 90px;
+  position: relative;
+  float: left;
+}
+
+.post-ava {
+  display: block;
+  height: 90px;
+  width: 90px;
+  border-radius: 50px;
+  border-color: white;
+  border-style: solid;
+}
+.post {
+  display: block;
+  overflow: hidden;
+  background-color: #4d7ce3;
+  width: 100%;
+  margin-bottom: 10px;
+  min-height: 150px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #C2D5E3;
+}
+.post-image{
+  height:105%;
+  object-fit:cover;
+  width:105%;
+  display: inline-block;
+  overflow: hidden;
+}
+.img-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  border: solid white 1px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  //position: relative;
+}
+
+.form-content{
+
+  border-radius:5px;
+  width: 100%;
+  overflow:hidden;
+  display:block;
+  font-size: 25px;
+  padding-bottom: 10px;
+}

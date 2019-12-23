@@ -1,0 +1,15 @@
+<h1>Playlists#index</h1>
+<p>Find me in app/views/playlists/index.html.erb</p>
+
+<script>
+    $("#playlists").sortable({
+        update: function (a, ui) {
+            console.log($(this).sortable('serialize'));
+            Rails.ajax({
+                url: $(this).data("url"),
+                type: "PATCH",
+                data: $(this).sortable('serialize')
+            })
+        }
+    });
+</script>

@@ -1,0 +1,44 @@
+<% playlists = current_user.playlists if !current_user.nil? %>
+<% if playlists.nil? || playlists.length == 0 %>
+  <%= form_for :playlist, :url => {:action => :create, :controller => :playlists, :id => @playlist} do |x| %>
+    <%= x.text_field :title, id: "playlist_text_Field", placeholder: "New Playlist Title" %>
+    <%= x.submit "Create", id: "Playlist_button" %>
+  <% end %>
+<% else %>
+  <h4><%= current_user.username %>'s Playlists </h4>
+  <div class="addPlaylist">
+    <%= form_for :playlist, :url => {:action => :create, :controller => :playlists, :id => @playlist} do |x| %>
+      <%= x.text_field :title, id: "playlist_text_Field", placeholder: "New Playlist Title" %>
+      <%= x.submit "Create" %>
+    <% end %>
+  </div>
+  <% playlists.each do |f| %>
+    <div class="addPlaylist">
+      <% url = getPlaylistImage(f.id) %>
+      <img class=logo src="<%= url.nil? ? "default-avatar.jpg" : image_url(url) %>"/>
+      <h5 onclick='SelectedSong(null, null,null,false,<%=playlistToArray(f.id).to_json%>, <%= f.id.to_json %>,<%=f.id %>)'>
+        <%= f.title %></h5>
+      <% if @inPlaylist != nil %>
+        <% if !inPlaylist.include?(f.id) %>
+          <button id="SongtoPlaylist_<%= f.id %>" class="add_to_playlist" onclick="addtoPL(parseInt(get_current_song()),<%=f.id.to_i %>,'<%=f.id %>')">
+            <ion-icon id="ion_<%= f.id %>" name="add-circle"></ion-icon>
+          </button>
+        <% else %>
+          <button id="SongtoPlaylist_<%= f.id %>" class="add_to_playlist" onclick="removeFromPL(parseInt(get_current_song()),<%=f.id.to_i %>,' <%=f.id %>')">
+            <ion-icon id="ion_<%= f.id %>" name="remove-circle"></ion-icon>
+          </button>
+        <% end %>
+      <% end %>
+      <div class="displayOptions">
+        <button onclick="displayDropdown(<%=f.id %>)" class="PlaylistOptions" id="PlaylistOptionsButton">
+          <ion-icon name="more"></ion-icon>
+          <div class="options_list" id="option_list_<%= f.id %>">
+            <a href="">Play Album</a>
+            <a href="">Start Radio</a>
+            <a href="">Delete Album</a>
+            </div>
+        </button>
+      </div>
+    </div>
+  <% end %>
+<% end %>

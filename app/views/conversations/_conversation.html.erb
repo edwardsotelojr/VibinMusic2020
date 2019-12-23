@@ -1,0 +1,8 @@
+<div class="border border-primary">
+  Chat with <%= conversation.with(current_user).name %>
+  <br>
+  <em><%#= conversation.messages.last.content.truncate(50) %></em>
+  <br>
+  <%= link_to 'Open DM', conversation_path(conversation), remote: true %>
+  <hr>
+</div>
