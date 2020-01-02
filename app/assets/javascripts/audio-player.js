@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", function (e) {
         let muteButton = document.querySelector(".volume");
         let muteButtonIcon = muteButton.querySelector(".ion-volume-high");
         playButton = document.querySelector('.play');
-        let playButtonIcon = playButton.querySelector('.ion-play');
+        let playButtonIcon = playButton.querySelector('#play-icon');
         let fillBar = seekBar.querySelector('.fill');
         skipForward = document.querySelector('.skip_forward');
         shuffle = document.querySelector('.shuffle');
@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", function (e) {
         let renderPlaylist = document.getElementById("renderPlaylist");
         let renderAddPlaylist = document.getElementById("renderAddPlaylist");
         let broadcast = document.getElementById("broadcast_text");
-        let optionslistbutton = document.getElementById("PlaylistOptionsButton");
+        let optionslistbutton = document.querySelector(".options_list");
         broadcast.onclick = function () {
             let id = $("#broadcast_text").data("session");
             console.log(id + " uhuh");
@@ -58,15 +58,16 @@ window.addEventListener("DOMContentLoaded", function (e) {
 
         };
         window.onclick = function (event) {
+            console.log(event.target);
+            console.log(event.target != optionslistbutton);
+            console.log($(".options_list").is(":visible"));
+            console.log(event.target != document.querySelector("#ionIcon"));
             if (event.target == modal) {
                 modal.style.display = "none";
                 console.log("ffacs");
             } else if (event.target == addPlaylistModal) {
                 addPlaylistModal.style.display = "none";
                 console.log("sayo");
-            } else if (event.target == optionslistbutton) {
-                document.querySelector(".options_list").style.visibility = "hidden";
-                console.log("boonk gang2");
             }
         };
 

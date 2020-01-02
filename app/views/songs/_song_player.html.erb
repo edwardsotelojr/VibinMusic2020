@@ -13,7 +13,8 @@
     <div class="audio-player">
       <button class="shuffle border border-dark" onclick="shuffleSongs()"><i id="play-icon" class="ion-shuffle"></i>
       </button>
-      <button class="back border border-dark" onclick="backSong()"><i id="play-icon" class="ion-skip-backward"></i>
+      <button class="back border border-dark" id="play-icon" onclick="backSong()">
+        <i id="play-icon" class="ion-skip-backward"></i>
       </button>
       <button class="play border border-dark" onclick="playPause()"><i id="play-icon" class="ion-play"></i></button>
       <button class="skip_forward border border-dark">
@@ -27,8 +28,7 @@
       </div>
     </div>
   </div>
-  <div class="songDetails">
-  </div>
+
   <div class="right_footer">
     <div class="right_elements">
       <button id="broadcast_text" class="broadcast border border-dark" data-session="<%= current_user.id.to_json if logged_in? %>">
@@ -60,3 +60,10 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+
+
+</script>
