@@ -17,6 +17,12 @@ $imageSize: 140px;
   padding-bottom: 30px;
 }
 
+.playlist_avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 100000px;
+}
+
 .PlaylistOptions {
   display: block;
   width: 0px;
@@ -117,6 +123,8 @@ $imageSize: 140px;
   font-size: 17px;
   line-height: 30px;
   z-index: 2;
+  border: none;
+  outline: none;
 
   a {
     display: block;
@@ -133,11 +141,13 @@ $imageSize: 140px;
   height: 345px;
   width: 300px;
   margin: auto;
-  background: #425173;
+  background: #730E15;
   z-index: 0;
   top: 10px;
   border: 0;
   border-radius: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 
   button.play {
     position: absolute;

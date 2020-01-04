@@ -1,4 +1,61 @@
+<link rel="stylesheet" href="croppie.css" />
+<script src="js/modal-window.js"></script>
+<script src="js/modal-init.js"></script>
+<script src="croppie.js">
+    (function(){
+        var $content = $('#share-options').detach();
+
+        $('#share').on('click', function(){
+            modal.open({content: $content, width: 340, height:300});
+        });
+    }());
+
+  var modal = (function () {
+      var $window = $(window);
+      var $modal = $('<div class="modal" />');
+      var $content = $('<div class="modal-content" />');
+      var $close = $('<button role ="button" class="modal-close">close</button>');
+
+      $modal.append($content, $close);
+
+      $close.on('click', function (e) {
+          e.preventDefault();
+          modal.close();
+      });
+
+      return{
+          center: function () {
+              var top = Math.max($window.height() - $modal.outerHeight(), 0) / 2;
+              var left = Math.max($window.width() - $modal.outerWidth(), 0) / 2;
+              $modal.css({
+                  top: top + $window.scrollTop(),
+                  left: left + $window.scrollLeft()
+              });
+          },
+          open: function (settings) {
+              $content.empty().append(settings.content);
+
+              $modal.css({
+                  width: settings.width || 'auto';
+                  height: settings.height || 'auto';
+              }).appendTo('body');
+
+              modal.center();
+              $(window).on('resize').modal.center);
+          },
+          close: function () {
+             $content.empty();
+             $modal.detach();
+             $(window).off('resize', modal.center);
+          }
+      };
+  }());
+
+</script>
 <div id="SignUp">
+  <div id="share-options">
+    <p>modal</p>
+  </div>
   <div class="images">
     <div class="left-header">
       <%= image_tag "insert.png", :class => "left-header-image" %>
@@ -63,7 +120,6 @@
                                                           "Transgender Woman", "Transmasculine", "Transsexual", "Transsexual Female", "Transsexual Male",
                                                           "Transsexual Man", "Transsexual Person", "Transsexual Woman",
                                                           "Two-Spirit"]), class: "gender" %>
-
              </div>
              <div class="rowcss border border-primary">
                <!%= f.text_field :country, placeholder: "country", class: "country-box" %>
@@ -104,7 +160,6 @@
        </div>
      </center>
    </div>
-
    -->
 </div>
 
@@ -128,7 +183,6 @@
             var file = input[0].files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
-
                 image_base64 = e.target.result;
                 previewAvatar.attr("src", image_base64);
             };
@@ -139,7 +193,6 @@
             var file = input[0].files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
-
                 image_base64 = e.target.result;
                 previewFirstHeader.attr("src", image_base64);
             };
@@ -150,33 +203,12 @@
             var file = input[0].files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
-
                 image_base64 = e.target.result;
                 previewSecondHeader.attr("src", image_base64);
             };
             reader.readAsDataURL(file);
         });
 
-        $("#user_badgeColor").minicolors();
-        $('#user_badgeColor').on("change", function () {
-            var badgeColor = $(".minicolors-swatch-color").eq(0).css("background-color");
-            $('.name-box').css("background-color", badgeColor);
-            $('.username-box').css("background-color", badgeColor);
-            $('.bio-box').css("background-color", badgeColor);
-        });
-        $("#user_badgeTextColor").minicolors();
-        $('#user_badgeTextColor').on("change", function () {
-            var Color = $(".minicolors-swatch-color").eq(1).css("background-color");
-            $('.name-box').css("color", Color);
-            $('.username-box').css("color", Color);
-            $('.bio-box').css("color", Color);
-        });
-    });
-    $('#coordinates').on('click', function (e) {
-        e.preventDefault();
-        console.log("preventDefault");
-        results = Geocoder.search("Paris")
-        $("#longandlat").text(results.first.coordinates);
     });
 
 </script>
