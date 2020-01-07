@@ -84,6 +84,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    croppie_rails (2.4.0)
     elasticsearch (7.2.1)
       elasticsearch-api (= 7.2.1)
       elasticsearch-transport (= 7.2.1)
@@ -263,6 +264,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
+  croppie_rails
   elasticsearch-model
   elasticsearch-rails
   faker
@@ -295,4 +297,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   2.0.1
+   2.0.2

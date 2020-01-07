@@ -14,6 +14,7 @@
  *= require_self
 1 *= require active_storage_drag_and_drop
  *= require jquery.minicolors
+ *= require croppie
   */
 @import "bootstrap";
 
@@ -25,7 +26,7 @@
 }
 */
 
-
+g
 //
 ////
 ////// main
@@ -41,8 +42,6 @@ body {
 
 .main {
 
-  border-color: #2E2F30;
-  border-style: dashed;
   margin: 75px 50px 100px 50px;
   overflow-x: hidden;
   min-width: 450px;
@@ -68,47 +67,50 @@ a:hover {
 .navbar {
   position: fixed;
   z-index: 999;
-  background-color: #99abd3;
+  background-color: #eaa766;
   top: 0;
   width: 100%;
-  min-width: 600px;
+  min-width: 400px;
   height: 45px;
   overflow: hidden;
 
   .VibinTab {
     position: fixed;
     top: 0;
-    left: 10px;
-    width: 80px;
+    left: 1px;
+    width: 45px;
     height: 45px;
   }
 
   .ExploreTab {
     position: fixed;
     top: 0;
-    left: 90px;
-    width: 60px;
+    left: 46px;
+    width: 45px;
     height: 45px;
   }
 
   .GroupiesTab {
     position: fixed;
     top: 0;
-    left: 150px;
+    left: 91px;
     height: 45px;
-    width: 60px;
+    width: 45px;
   }
 
   .SearchBar {
     position: fixed;
     top: 5px;
-    left: 230px;
+    left: 142px;
     height: 35px;
-    width: 250px;
+    width: 220px;
     border-radius: 5px;
+    background-color: #ffe3c4;
   }
 
   .MessagesTab {
+    border-style: dashed;
+    border-color: #2E2F30;
     position: relative;
     float: left;
     height: 100%;
@@ -116,6 +118,8 @@ a:hover {
   }
 
   .messages {
+    border-style: dashed;
+    border-color: #2E2F30;
     height: 45px;
     width: 45px;
     margin-top: 3px;
@@ -139,14 +143,14 @@ a:hover {
     position: relative;
     float: left;
     width: 50px;
-    height: 50px;
+    height: 45px;
   }
 
   .userTabDiv {
     position: relative;
     float: left;
     width: 50px;
-    height: 50px;
+    height: 45px;
     padding: 0;
   }
 }
@@ -157,14 +161,16 @@ a:hover {
 
 
 .login {
-  position: relative;
   float: right;
-  width: 85px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 30px;
+  color: white;
 }
 
 .dropdown-content-login {
-  top: 50px;
+  top: 45px;
   right: 0;
   display: none;
   position: fixed;

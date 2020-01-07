@@ -1,73 +1,98 @@
-<link rel="stylesheet" href="croppie.css" />
-<script src="js/modal-window.js"></script>
-<script src="js/modal-init.js"></script>
-<script src="croppie.js">
-    (function(){
-        var $content = $('#share-options').detach();
 
-        $('#share').on('click', function(){
-            modal.open({content: $content, width: 340, height:300});
-        });
-    }());
-
-  var modal = (function () {
-      var $window = $(window);
-      var $modal = $('<div class="modal" />');
-      var $content = $('<div class="modal-content" />');
-      var $close = $('<button role ="button" class="modal-close">close</button>');
-
-      $modal.append($content, $close);
-
-      $close.on('click', function (e) {
-          e.preventDefault();
-          modal.close();
+<div id="SignUp">
+  <!-- Button trigger modal -->
+  <!---
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="modalBackdrop()">
+    Launch demo modal
+  </button>
+-->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: 372.656px;">
+          <div id="cropHeader">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="demo" id="demoo" style="height: 200px; width: 200px"> </div>
+ <br>
+  <br><div id="fin" style="height: 50px; width: 180px; border-style: dashed; overflow: hidden">  </div>
+  <script>
+      var basic = $('#fin').croppie({
+          viewport: {
+              width: 180,
+              height: 50,
+              enableZoom: false,
+              mouseWheelZoom: false
+          }
       });
 
-      return{
-          center: function () {
-              var top = Math.max($window.height() - $modal.outerHeight(), 0) / 2;
-              var left = Math.max($window.width() - $modal.outerWidth(), 0) / 2;
-              $modal.css({
-                  top: top + $window.scrollTop(),
-                  left: left + $window.scrollLeft()
-              });
+    var imagee = document.getElementById("demoo");
+    var cropbox = new Croppie(imagee, {
+          viewport: {
+              width: 180,
+              height: 50,
+              showZoomer: false
           },
-          open: function (settings) {
-              $content.empty().append(settings.content);
+          url: 'default-avatar.jpg',
+      });
+      $(".demo").mouseup(function () {
+          console.log(cropbox.get().points);
+          console.log(cropbox.get().zoom);
+          basic.croppie('bind', {
+              url: 'default-avatar.jpg',
+              points: cropbox.get().points,
+              zoom: cropbox.get().zoom
+          });
+      });
+  </script>
+  -->
 
-              $modal.css({
-                  width: settings.width || 'auto';
-                  height: settings.height || 'auto';
-              }).appendTo('body');
-
-              modal.center();
-              $(window).on('resize').modal.center);
-          },
-          close: function () {
-             $content.empty();
-             $modal.detach();
-             $(window).off('resize', modal.center);
-          }
-      };
-  }());
-
-</script>
-<div id="SignUp">
-  <div id="share-options">
-    <p>modal</p>
-  </div>
-  <div class="images">
+  <div class="images" id="header">
     <div class="left-header">
       <%= image_tag "insert.png", :class => "left-header-image" %>
     </div>
-    <img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;">
+    <!--<img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
     <div class="right-header">
       <%= image_tag "insert.png", :class => "right-header-image" %>
     </div>
   </div>
   <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader">
   <input hidden class="photo_upload" type="file" name="user[secondHeader]" id="secondHeader">
-
+  <button id="mod" style="display: none" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+<script>
+  $(function () {
+      var headerboxWidth = document.getElementById("header");
+      $("#firstHeader").change(function(imgg) {
+          $('#mod').click();
+          modalBackdrop();
+          var input = $(imgg.currentTarget);
+          var file = input[0].files[0];
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              image_base64 = e.target.result;
+              previewFirstHeader.attr("src", image_base64);
+          };
+          reader.readAsDataURL(file);
+      });
+  });
+</script>
 
   <!---
    <div class="LeftMenu">
@@ -165,7 +190,18 @@
 
 
 <script>
+  function modalBackdrop(){
+      setTimeout(
+          function()
+          {
+              console.log($(".modal-backdrop").css("z-index", 0));
+          }, 100);
+
+
+  }
+
     $(function () {
+
         $(".upload-preview").on("click", function () {
             $("#avatar").trigger("click");
         });
@@ -188,14 +224,7 @@
             };
             reader.readAsDataURL(file);
         });
-        $("#firstHeader").change(function (event) {
-            var input = $(event.currentTarget);
-            var file = input[0].files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                image_base64 = e.target.result;
-                previewFirstHeader.attr("src", image_base64);
-            };
+
             reader.readAsDataURL(file);
         });
         $("#secondHeader").change(function (event) {
