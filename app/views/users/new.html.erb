@@ -16,9 +16,10 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body" style="height: 372.656px;">
-          <div id="cropHeader">
-          </div>
+        <div class="modal-body" id="modalCrop" style="height: 372.656px;">
+          <img id="cropHeader" src="default-avatar.jpg">
+
+          </img>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -71,7 +72,7 @@
       <%= image_tag "insert.png", :class => "right-header-image" %>
     </div>
   </div>
-  <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader">
+  <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader" onchange="document.getElementById('cropHeader').src = window.URL.createObjectURL(this.files[0])">
   <input hidden class="photo_upload" type="file" name="user[secondHeader]" id="secondHeader">
   <button id="mod" style="display: none" data-toggle="modal" data-target="#exampleModal">
     Launch demo modal
@@ -79,19 +80,19 @@
 <script>
   $(function () {
       var headerboxWidth = document.getElementById("header");
-      $("#firstHeader").change(function(imgg) {
-          $('#mod').click();
-          modalBackdrop();
-          var input = $(imgg.currentTarget);
-          var file = input[0].files[0];
-          var reader = new FileReader();
-          reader.onload = function (e) {
-              image_base64 = e.target.result;
-              previewFirstHeader.attr("src", image_base64);
-          };
-          reader.readAsDataURL(file);
+      var previewHeader = document.getElementById("cropHeader");
+      $("#firstHeader").change(function (imgg) {
+          $('#mod').click(); //click hidden modal button
+          modalBackdrop(); //remove overshadow error
+          var cropbox = $("#cropHeader").croppie({
+              viewport: {
+                  width: 400,
+                  height: 250
+              }
+          });
       });
   });
+
 </script>
 
   <!---
@@ -211,33 +212,6 @@
         $(".right-header").on("click", function () {
             $("#secondHeader").trigger("click");
         });
-        var previewAvatar = $(".upload-preview img");
-        var previewFirstHeader = $(".left-header img");
-        var previewSecondHeader = $(".right-header img");
-        $("#avatar").change(function (event) {
-            var input = $(event.currentTarget);
-            var file = input[0].files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                image_base64 = e.target.result;
-                previewAvatar.attr("src", image_base64);
-            };
-            reader.readAsDataURL(file);
-        });
-
-            reader.readAsDataURL(file);
-        });
-        $("#secondHeader").change(function (event) {
-            var input = $(event.currentTarget);
-            var file = input[0].files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                image_base64 = e.target.result;
-                previewSecondHeader.attr("src", image_base64);
-            };
-            reader.readAsDataURL(file);
-        });
-
     });
 
 </script>
