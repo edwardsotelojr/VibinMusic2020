@@ -17,9 +17,9 @@
           </button>
         </div>
         <div class="modal-body" id="modalCrop" style="height: 372.656px;">
-          <img id="cropHeader" src="default-avatar.jpg">
-
-          </img>
+          <div id="cropHeader">
+            <img src="default-avatar.jpg" id="cropImage"/>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -65,14 +65,18 @@
 
   <div class="images" id="header">
     <div class="left-header">
-      <%= image_tag "insert.png", :class => "left-header-image" %>
+      <%= image_tag "insert.png", :class => "left-header-image", :id => "leftHeaderImage" %>
     </div>
     <!--<img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
     <div class="right-header">
       <%= image_tag "insert.png", :class => "right-header-image" %>
     </div>
   </div>
-  <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader" onchange="document.getElementById('cropHeader').src = window.URL.createObjectURL(this.files[0])">
+  <div class="row">
+
+  </div>
+  <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader" onchange=
+                    "document.getElementById('leftHeaderImage').src = window.URL.createObjectURL(this.files[0]);">
   <input hidden class="photo_upload" type="file" name="user[secondHeader]" id="secondHeader">
   <button id="mod" style="display: none" data-toggle="modal" data-target="#exampleModal">
     Launch demo modal
@@ -81,15 +85,26 @@
   $(function () {
       var headerboxWidth = document.getElementById("header");
       var previewHeader = document.getElementById("cropHeader");
+      $('.cr-image ').on("scroll", function() {
+          console.log("points: [");
+      });
       $("#firstHeader").change(function (imgg) {
-          $('#mod').click(); //click hidden modal button
+          //$('#mod').click(); //click hidden modal button
           modalBackdrop(); //remove overshadow error
-          var cropbox = $("#cropHeader").croppie({
+
+          var cropbox = $("#leftHeaderImage").croppie({
               viewport: {
+                  width: 200,
+                  height: 150
+              },
+              boundary: {
                   width: 400,
                   height: 250
-              }
+              },
+              showZoomer: false
+
           });
+        //  $("#cropImage").css("display", "block");
       });
   });
 
@@ -195,8 +210,8 @@
       setTimeout(
           function()
           {
-              console.log($(".modal-backdrop").css("z-index", 0));
-          }, 100);
+               document.getElementById("firstHeader").disabled = true;
+          }, 1000);
 
 
   }
