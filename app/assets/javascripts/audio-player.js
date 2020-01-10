@@ -58,10 +58,6 @@ window.addEventListener("DOMContentLoaded", function (e) {
 
     };
     window.onclick = function (event) {
-        console.log(event.target);
-        console.log(event.target != optionslistbutton);
-        console.log($(".options_list").is(":visible"));
-        console.log(event.target != document.querySelector("#ionIcon"));
         if (event.target == modal) {
             modal.style.display = "none";
             console.log("ffacs");

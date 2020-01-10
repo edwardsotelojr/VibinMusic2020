@@ -1,33 +1,5 @@
-
 <div id="SignUp">
-  <!-- Button trigger modal -->
-  <!---
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="modalBackdrop()">
-    Launch demo modal
-  </button>
--->
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="modalCrop" style="height: 372.656px;">
-          <div id="cropHeader">
-            <img src="default-avatar.jpg" id="cropImage"/>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <!--
   <div class="demo" id="demoo" style="height: 200px; width: 200px"> </div>
  <br>
@@ -67,48 +39,122 @@
     <div class="left-header">
       <%= image_tag "insert.png", :class => "left-header-image", :id => "leftHeaderImage" %>
     </div>
-    <!--<img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
+    <div class="avatar">
+      <img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;" id="avatarImage">
+    </div>
     <div class="right-header">
-      <%= image_tag "insert.png", :class => "right-header-image" %>
+      <%= image_tag "insert.png", :class => "right-header-image", :id => "rightHeaderImage" %>
     </div>
   </div>
   <div class="row">
-
   </div>
   <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader" onchange=
-                    "document.getElementById('leftHeaderImage').src = window.URL.createObjectURL(this.files[0]);">
-  <input hidden class="photo_upload" type="file" name="user[secondHeader]" id="secondHeader">
-  <button id="mod" style="display: none" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-  </button>
-<script>
-  $(function () {
-      var headerboxWidth = document.getElementById("header");
-      var previewHeader = document.getElementById("cropHeader");
-      $('.cr-image ').on("scroll", function() {
-          console.log("points: [");
-      });
-      $("#firstHeader").change(function (imgg) {
-          //$('#mod').click(); //click hidden modal button
-          modalBackdrop(); //remove overshadow error
+      "document.getElementById('leftHeaderImage').src = window.URL.createObjectURL(this.files[0]);
+          oneTimeImageSelection('firstHeader');
+          $('#leftHeaderImage').height = $('.images').height;">
+  <input hidden class="photo_upload" type="file" name="user[secondHeader]" id="secondHeader" onchange=
+      "document.getElementById('rightHeaderImage').src = window.URL.createObjectURL(this.files[0]);
+          oneTimeImageSelection('secondHeader');
+          $('#rightHeaderImage').height = $('.images').height;">
+  <script>
+      function oneTimeImageSelection(imageDiv) {
+          console.log(imageDiv);
+          document.getElementById(imageDiv).disabled = true;
+      }
 
-          var cropbox = $("#leftHeaderImage").croppie({
-              viewport: {
-                  width: 200,
-                  height: 150
-              },
-              boundary: {
-                  width: 400,
-                  height: 250
-              },
-              showZoomer: false
+      $(function () {
+          $(".upload-preview").on("click", function () {
+              $("#avatar").trigger("click");
+          });
+          $(".left-header").on("click", function () {
+              $("#firstHeader").trigger("click");
 
           });
-        //  $("#cropImage").css("display", "block");
-      });
-  });
+          $(".right-header").on("click", function () {
+              $("#secondHeader").trigger("click");
+          });
 
-</script>
+
+          var widthOfMain = document.getElementById('main').offsetWidth;
+          var heightOfImages = (widthOfMain / 4.47666667);
+          $('#header').css("height", (widthOfMain / 4.47666667));
+          $('.left-header').css("height", heightOfImages);
+          $('.right-header').css("height", heightOfImages);
+          $('.avatar').css("top",  heightOfImages-30);
+
+          $(window).resize(function () {
+              widthOfMain = document.getElementById('main').offsetWidth;
+              // console.log(widthOfMain);
+              heightOfImages = (widthOfMain / 4.47666667);
+              $('#header').css("height", heightOfImages);
+              $('.left-header').css("height", heightOfImages);
+              $('.right-header').css("height", heightOfImages);
+          });
+
+          var headerboxWidth = document.getElementById("header");
+          var previewHeader = document.getElementById("cropHeader");
+
+
+          $("#firstHeader").change(function (imgg) {
+              //$('#mod').click(); //click hidden modal button
+              //  modalBackdrop(); //remove overshadow error
+
+              var cropbox = $("#leftHeaderImage").croppie({
+                  viewport: {
+                      width: $('#main').width/2,
+                      height: $('.images').height
+                  },
+                  boundary: {
+                      width: $('#main').width/2,
+                      height: $('.images').height
+                  },
+                  showZoomer: false,
+                  update: function (data) {
+                      console.log(data);
+                  }
+              });
+          });
+          $("#secondHeader").change(function (imgg) {
+              //$('#mod').click(); //click hidden modal button
+              //  modalBackdrop(); //remove overshadow error
+
+              var cropbox = $("#rightHeaderImage").croppie({
+                  viewport: {
+                      width: $('#main').width/2,
+                      height: $('.images').height
+                  },
+                  boundary: {
+                      width: $('#main').width/2,
+                      height: $('.images').height
+                  },
+                  showZoomer: false,
+                  update: function (data) {
+                      console.log(data);
+                  }
+              });
+          });
+          $("#avatar").change(function (imgg) {
+              //$('#mod').click(); //click hidden modal button
+              //  modalBackdrop(); //remove overshadow error
+
+              var cropbox = $("#leftHeaderImage").croppie({
+                  viewport: {
+                      width: $('#main').width/2,
+                      height: $('.images').height
+                  },
+                  boundary: {
+                      width: $('#main').width/2,
+                      height: $('.images').height
+                  },
+                  showZoomer: false,
+                  update: function (data) {
+                      console.log(data);
+                  }
+              });
+          });
+      });
+
+  </script>
 
   <!---
    <div class="LeftMenu">
@@ -204,29 +250,3 @@
    -->
 </div>
 
-
-<script>
-  function modalBackdrop(){
-      setTimeout(
-          function()
-          {
-               document.getElementById("firstHeader").disabled = true;
-          }, 1000);
-
-
-  }
-
-    $(function () {
-
-        $(".upload-preview").on("click", function () {
-            $("#avatar").trigger("click");
-        });
-        $(".left-header").on("click", function () {
-            $("#firstHeader").trigger("click");
-        });
-        $(".right-header").on("click", function () {
-            $("#secondHeader").trigger("click");
-        });
-    });
-
-</script>

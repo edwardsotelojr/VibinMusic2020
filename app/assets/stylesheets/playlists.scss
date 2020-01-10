@@ -85,7 +85,7 @@ $imageSize: 140px;
   }
 
   &:hover img {
-    filter: blur(2px);
+    filter: brightness(50%);
   }
 
   &:hover .add_to_playlist {

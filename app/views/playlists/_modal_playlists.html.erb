@@ -16,6 +16,9 @@
     <div class="addPlaylist">
       <% url = getPlaylistImage(f.id) %>
       <img class=logo src="<%= url.nil? ? "default-avatar.jpg" : image_url(url) %>"/>
+      <button id="SongtoPlaylist_<%= f.id %>" class="add_to_playlist" onclick="addtoPL(parseInt(get_current_song()),<%=f.id.to_i %>,'<%=f.id %>')">
+        <i id="play-icon" class="ion-play"></i>
+      </button>
       <% if @inPlaylist != nil %>
         <% if !inPlaylist.include?(f.id) %>
           <button id="SongtoPlaylist_<%= f.id %>" class="add_to_playlist" onclick="addtoPL(parseInt(get_current_song()),<%=f.id.to_i %>,'<%=f.id %>')">
