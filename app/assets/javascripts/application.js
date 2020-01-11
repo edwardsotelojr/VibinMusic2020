@@ -46,7 +46,7 @@ function addtoPL(song_id, playlist_id, dom_id) {
         success: function () {
             console.log("success bitc");
             $('#SongtoPlaylist_' + (dom_id)).attr('onclick', "removeFromPL(" + song_id + "," + playlist_id + ',' + (dom_id) + ')');
-            $('#ion_' + (dom_id)).attr('name', 'remove-circle');
+            $('#SongtoPlaylist_' + (dom_id)).html("Remove From Playlist");
         },
         error: function () {
             console.log("Playlist post failed")
@@ -62,7 +62,7 @@ function removeFromPL(song_id, playlist_id, dom_id) {
         success: function () {
             console.log("success btich");
             $('#SongtoPlaylist_' + (dom_id)).attr('onclick', "addtoPL(" + song_id + "," + playlist_id + ',' + (dom_id) + ')');
-            $('#ion_' + (dom_id)).attr('name', 'add-circle');
+            $('#SongtoPlaylist_' + (dom_id)).html("Add to Playlist");
         },
         error: function () {
             console.log("Playlist post failed")

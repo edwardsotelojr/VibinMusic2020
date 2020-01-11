@@ -10,6 +10,8 @@
 .images {
   //height: 300px;
   position: relative;
+  border-style: dashed;
+  border-color: #2E2F30;
 }
 
 .header {
@@ -50,12 +52,17 @@
 
 .avatar{
   height: 100px;
-  position: absolute;
-
+  position: relative;
+  left: 48%;
   width: 100px;
   border-radius: 50%;
   border-color: white;
   border-style: solid;
+  z-index: 100;
+}
+
+.avatarImage{
+  border-radius: 50%;
 }
 
 .userData {

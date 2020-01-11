@@ -56,6 +56,10 @@
       "document.getElementById('rightHeaderImage').src = window.URL.createObjectURL(this.files[0]);
           oneTimeImageSelection('secondHeader');
           $('#rightHeaderImage').height = $('.images').height;">
+  <input hidden class="photo_upload" type="file" name="user[avatar]" id="avatarUpload" onchange=
+      "document.getElementById('avatarImage').src = window.URL.createObjectURL(this.files[0]);
+          oneTimeImageSelection('avatarUpload');
+          $('#avatarImage').height = $('.images').height * .33;">
   <script>
       function oneTimeImageSelection(imageDiv) {
           console.log(imageDiv);
@@ -63,8 +67,8 @@
       }
 
       $(function () {
-          $(".upload-preview").on("click", function () {
-              $("#avatar").trigger("click");
+          $(".avatar").on("click", function () {
+              $("#avatarUpload").trigger("click");
           });
           $(".left-header").on("click", function () {
               $("#firstHeader").trigger("click");
@@ -80,7 +84,11 @@
           $('#header').css("height", (widthOfMain / 4.47666667));
           $('.left-header').css("height", heightOfImages);
           $('.right-header').css("height", heightOfImages);
-          $('.avatar').css("top",  heightOfImages-30);
+          $('.avatar').css("top",  heightOfImages-130);
+          $('.avatar').css("height",  heightOfImages * .33);
+          $('.avatar').css("top",  heightOfImages-130);
+          $('.avatar').css("left",  (widthOfMain/2)-50);
+          $('.avatar').css("border-radius", "50%");
 
           $(window).resize(function () {
               widthOfMain = document.getElementById('main').offsetWidth;
@@ -89,6 +97,10 @@
               $('#header').css("height", heightOfImages);
               $('.left-header').css("height", heightOfImages);
               $('.right-header').css("height", heightOfImages);
+              $('.avatar').css("top",  heightOfImages*0.25);
+              $('.avatar').css("left",  (widthOfMain/2)-50);
+              $('.avatar').css("height",  heightOfImages * .33);
+
           });
 
           var headerboxWidth = document.getElementById("header");
@@ -133,18 +145,18 @@
                   }
               });
           });
-          $("#avatar").change(function (imgg) {
+          $("#avatarUpload").change(function (imgg) {
               //$('#mod').click(); //click hidden modal button
               //  modalBackdrop(); //remove overshadow error
 
-              var cropbox = $("#leftHeaderImage").croppie({
+              var cropbox = $("#avatarImage").croppie({
                   viewport: {
-                      width: $('#main').width/2,
-                      height: $('.images').height
+                      width: $('#avatar').width,
+                      height: $('.avatar').height
                   },
                   boundary: {
-                      width: $('#main').width/2,
-                      height: $('.images').height
+                      width: $('#avatar').width,
+                      height: $('#avatar').height
                   },
                   showZoomer: false,
                   update: function (data) {
