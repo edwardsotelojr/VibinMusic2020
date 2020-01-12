@@ -7,13 +7,19 @@
   background-color: red;
   display: flex;
 }
-.images {
+.Images {
   //height: 300px;
   position: relative;
   border-style: dashed;
   border-color: #2E2F30;
 }
 
+.Badge{
+  position: absolute;
+  background-color: #00aaff;
+  z-index: 3;
+  text-align: center;
+}
 .header {
   width: 75%;
   min-height: 400px;
@@ -21,7 +27,7 @@
   display: flex;
   position: relative;
 }
-.left-header {
+.LeftHeader {
   position: absolute;
   width: 50%;
   top: 0;
@@ -30,13 +36,13 @@
   overflow: hidden;
 }
 
-.left-header-image {
+.LeftHeaderImage {
   object-fit: fill;
   width: 100%;
   height: 100%;
 }
 
-.right-header {
+.RightHeader {
   position: absolute;
   width: 50%;
   right: 0;
@@ -44,25 +50,25 @@
 
 }
 
-.right-header-image {
+.RightHeaderImage {
   object-fit: fill;
   width: 100%;
   height: 100%;
 }
 
-.avatar{
-  height: 100px;
+.Avatar{
   position: relative;
   left: 48%;
-  width: 100px;
   border-radius: 50%;
   border-color: white;
   border-style: solid;
   z-index: 100;
 }
 
-.avatarImage{
+#avatarImage{
   border-radius: 50%;
+  border-color: white;
+  border-style: solid;
 }
 
 .userData {
@@ -86,7 +92,7 @@
   background-color: green;
 }
 
-.leftHeader {
+.LeftHeader {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -94,91 +100,8 @@
   background-size: 100% 100%;
 }
 
-.profileFavoriteSong {
-  width: 100px;
-  height: 30px;
-  margin-top: 50px;
-  z-index: 1;
-  display: block;
-}
 
-.profileFavoriteSongs {
-  z-index: 1;
-  margin-left: 80px;
-  height: 150px;
-  overflow: auto;
-  display: block;
-  min-width: 250px;
-  width: 63%;
-}
-.profileFavoriteSongs::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-.favoriteSongRow {
-  display: block;
-  height: 55px;
-  background-color: gray;
-  opacity: 50%;
-  border-radius: 10px;
-  border-color: white;
-  border-width: thin;
-  border-style: solid;
-  margin-top: 3px;
-  z-index: 1;
-}
-
-.profileFavoriteArtist {
-  width: 100px;
-  height: 30px;
-  margin-top: 50px;
-  z-index: 1;
-  display: block;
-}
-
-.profileFavoriteArtists {
-  z-index: 1;
-  margin-left: 80px;
-  height: 150px;
-  overflow: auto;
-  display: block;
-  min-width: 250px;
-  width: 63%;
-}
-
-.profileFavoriteArtists::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-.favoriteArtistRow {
-  display: block;
-  background-color: gray;
-  opacity: 50%;
-  border-radius: 10px;
-  border-color: white;
-  border-width: thin;
-  border-style: solid;
-  height: 55px;
-  margin-top: 3px;
-  z-index: 1;
-}
-
-
-.favoriteSongRowCoverImage {
-  position: relative;
-  float: left;
-  height: 50px;
-  width: 50px;
-  border-radius: 30px;
-  border-style: solid;
-  border-width: thin;
-  border-color: white;
-  background-color: white;
-}
-
-.rightHeader {
+.RightHeader {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -186,41 +109,6 @@
   background-size: 100% 100%;
 }
 
-.profileName {
-  z-index: 1;
-  //display: flex;
-  //align-items: center;
-  //  margin-left: auto;
-  position: absolute;
-}
-
-.profileUsername {
-  position: absolute;
-  top: 25px;
-  z-index: 1;
-}
-
-.profileLocation {
-  position: absolute;
-  top: 47px;
-  z-index: 1;
-}
-
-.profileAvatar {
-  position: absolute;
-  top: 75px;
-  z-index: 1;
-  height: 100px;
-  width: 100px;
-}
-
-.profileBio {
-  position: absolute;
-  top: 250px;
-  max-width: 100px;
-  z-index: 1;
-
-}
 
 
 //
@@ -369,7 +257,7 @@
 // Sign Up page
 // new.html.erb
 .SignUp {
-
+  position: relative;
   min-width: 400px;
 }
 
