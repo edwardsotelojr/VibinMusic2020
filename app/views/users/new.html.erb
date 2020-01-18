@@ -1,102 +1,430 @@
+
 <div id="SignUp" class="SignUp">
   <div class="Images" id="header">
-    <div class="LeftHeader">
+    <div class="LeftHeader" id="leftHeader">
       <%= image_tag "insert.png", :class => "LeftHeaderImage", :id => "leftHeaderImage" %>
-      <div class="Badge" id="favoriteArtistBadge">
-        Favorite Artist
-      </div>
-      <div class="Badge" id="favoriteArtistArtistBadge">
-        @Artist
-      </div>
-      <div class="Badge" id="followersBadge">
-        Followers
-      </div>
-      <div class="Badge" id="followersCountBadge">
-          100
-      </div>
-      <div class="Badge" id="followingBadge">
-        Following
-      </div>
-      <div class="Badge" id="followingCountBadge">
-      1000
-      </div>
     </div>
-
-
-    <div class="Badge" id="nameBadge">
-    <input id="datepicker" type="text">
+    <div class="Badge" id="badge1">
+      Banner Color
     </div>
-    <div class="Badge" id="usernameBadge">
+    <script src="https://unpkg.com/vanilla-picker@2"></script>
 
-    </div>
-    <div class="Badge" id="birthPlaceBadge">
+    <script>
+      $(function () {
+          var badge1 = document.querySelector('#badge1');
+          var badge2 = document.querySelector('#badge2');
+          var rgbColor1;
+          var rgbColor2;
+          var badgePicker1 = new Picker({
+              parent: badge1,
+              color: "#eaa766",
+              popup: 'bottom',
+              onOpen: function(){
+                  $('.popup.popup_right').css('left', "75%");
+              },
+              onChange: function(color) {
+                  badge1.style.background = color.rgbaString;
+                  badge2.style.background = color.rgbaString;
+                  rgbColor1 = color.rgbaString;
+                  rgbColor1 = rgbColor1.replace('a', '');
+                  rgbColor1 = rgbColor1.substring(0, rgbColor1.length - 3) + ')';
+                  $('#avatar').css('border-color', rgbColor1);
 
-    </div>
-    <div class="Badge" id="ageBadge">
+              }
+          });
+          var badge2 = document.querySelector('#badge2');
+          var badgePicker2 = new Picker({
+              popup: 'bottom',
+              parent: badge2,
+              color: "black"
+          });
 
-    </div>
-    <div class="Badge" id="verifiedBadge">
+          /*
+              You can do what you want with the chosen color using two callbacks: onChange and onDone.
+          */
 
-    </div>
+          badgePicker2.onChange = function(color) {
+              badge1.style.color = color.rgbaString;
+              badge2.style.color = color.rgbaString;
+              rgbColor2 = color.rgbaString;
+              rgbColor2 = rgbColor2.replace('a', '');
+              rgbColor2 = rgbColor2.substring(0, rgbColor2.length - 3) + ')';
+          };
 
-    <div class="Avatar">
+      });
+    </script>
+    <div class="Avatar" id="avatar">
       <img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;" id="avatarImage">
     </div>
-    <!--
-    <div class="Badge" id="BioBadge">
 
-    </div>-->
-    <div class="RightHeader">
+    <div class="RightHeader" id="rightHeader">
       <%= image_tag "insert.png", :class => "RightHeaderImage", :id => "rightHeaderImage" %>
     </div>
-    <!--
-    <div class="Badge" id="FavoriteSongBadge">
-          Favorite Song
+    <div class="Badge" id="badge2">
+      Banner Text Color
     </div>
-    <div class="Badge" id="FavoriteSongSongBadge">
-
-    </div>
-    <div class="Badge" id="BroadcastTotalViewCountBadge">
-          Broadcast Views
-    </div>
-    <div class="Badge" id="BroadcastTotalViewCountCountBadge">
-
-    </div>
-    <div class="Badge" id="TotalLikedSongsBadge">
-        Liked Songs
-    </div>
-    <div class="Badge" id="TotalLikedSongsCountBadge">
-
-    </div>-->
   </div>
-  <div class="row">
+  <div class="Form">
+    <label class="nameLabel">
+      Name
+    </label>
+    <input type="text" class="nameInput" name="user[name]" id="user_name" placeholder="name">
+    <br>
+    <label class="usernameLabel">
+      @
+    </label>
+    <input type="text" class="UsernameInput" name="user[username]" id="user_username" placeholder="username">
+    <br>
+    <label class="EmailLabel">
+      email
+    </label>
+    <input type="text" id="user_email" class="EmailInput">
+    <br>
+    <label class="PasswordLabel">
+      Password
+    </label>
+    <input type="text" id='user_password'class="PasswordInput">
+    <br>
+    <label class="PasswordLabel">
+      Password Confirm
+    </label>
+    <input type="text" id='user_password_confirmation' class="PasswordInput">
+    <br>
+    <label class="BirthdayLabel">
+      Birthday
+    </label>
+    <input type="text" class="BirthdayInput" name="user[birthday]" id="user_birthday">
+    <br>
+    <label class="GenderLabel">
+      Gender
+    </label>
+    <select class="GenderInput" name="user[gender]" id="user_gender">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="TransMale">Transgender Male</option>
+      <option value="TransFemale">Transgender Female</option>
+    </select>
+    <br>
+    <label class="HomeTownLabel">
+      Hometown
+    </label>
+      <input id="autocompleteHomeTown" placeholder="Enter a city" type="text" />
+    <br>
+    <label class="ResideLabel">
+      Reside In
+    </label>
+    <input id="user_resideIn" placeholder="Enter a city" type="text" onclick="getLocation()">
+
+  </div>
+
+  <script>
+
+  </script>
+
+
+  <div class="NonMemberBenefits">
+    <p>Benefits</p>
   </div>
   <input hidden class="photo_upload" type="file" name="user[firstHeader]" id="firstHeader" onchange=
       "document.getElementById('leftHeaderImage').src = window.URL.createObjectURL(this.files[0]);
           oneTimeImageSelection('firstHeader');
-          $('#leftHeaderImage').height = $('.images').height;">
+          $('#leftHeaderImage').height = $('.Images').height;">
   <input hidden class="photo_upload" type="file" name="user[secondHeader]" id="secondHeader" onchange=
       "document.getElementById('rightHeaderImage').src = window.URL.createObjectURL(this.files[0]);
           oneTimeImageSelection('secondHeader');
-          $('#rightHeaderImage').height = $('.images').height;">
+          $('#rightHeaderImage').height = $('.Images').height;">
   <input hidden class="photo_upload" type="file" name="user[avatar]" id="avatarUpload" onchange=
       "document.getElementById('avatarImage').src = window.URL.createObjectURL(this.files[0]);
           oneTimeImageSelection('avatarUpload');
           $('#avatarImage').height = $('.images').height * .33;">
 
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABBVE90zE3SB_kb52KWFSS2Fqumy303do&libraries=places"></script>
+
+
+  <style>
+      .iw_table_row {
+        height: 18px;
+      }
+      .iw_attribute_name {
+        font-weight: bold;
+        text-align: right;
+      }
+      .iw_table_icon {
+        text-align: right;
+      }
+  </style>
+  <script>
+      function getLocation() {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+             console.log("Geolocation is not supported by this browser.");
+          }
+      }
+      var geocoder = new google.maps.Geocoder;
+      var infowindow = new google.maps.InfoWindow;
+      function showPosition(position) {
+          console.log("Latitude: " + position.coords.latitude +
+              "Longitude: " + position.coords.longitude);
+          var sydney = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          geocodeLatLng(geocoder, infowindow, position.coords.latitude, position.coords.longitude);
+          console.log(sydney);
+      }
+      function geocodeLatLng(geocoder, infowindow, latitude, longitude) {
+
+          var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+          geocoder.geocode({'location': latlng}, function(results, status) {
+              if (status === 'OK') {
+                  if (results[0]) {
+                      console.log(results[6].formatted_address);
+                      $('#user_resideIn').val(results[6].formatted_address);
+                  } else {
+                      window.alert('No results found');
+                  }
+              } else {
+                  window.alert('Geocoder failed due to: ' + status);
+              }
+          });
+      }
+
+
+      var autocomplete;
+      var autocomplete2;
+      var country = 'all';
+      var countryRestrict = {'country': 'us'};
+      autocomplete = new google.maps.places.Autocomplete(
+          /** @type {!HTMLInputElement} */ (
+              document.getElementById('autocompleteHomeTown')), {
+              types: ['(cities)'],
+              componentRestrictions: countryRestrict
+          });
+      autocomplete2 = new google.maps.places.Autocomplete(
+          /** @type {!HTMLInputElement} */ (
+              document.getElementById('user_resideIn')), {
+              types: ['(cities)'],
+              componentRestrictions: countryRestrict
+          });
+      if (country == 'all') {
+          autocomplete.setComponentRestrictions({'country': []});
+          autocomplete2.setComponentRestrictions({'country': []});
+
+      }
+      infoWindow = new google.maps.InfoWindow({
+          content: document.getElementById('info-content')
+      });
+
+      function search() {
+          var search = {
+              types: ['lodging']
+          };
+
+          places.nearbySearch(search, function(results, status) {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  clearResults();
+                  clearMarkers();
+                  // Create a marker for each hotel found, and
+                  // assign a letter of the alphabetic to each marker icon.
+                  for (var i = 0; i < results.length; i++) {
+                      var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+                      var markerIcon = MARKER_PATH + markerLetter + '.png';
+                      // Use marker animation to drop the icons incrementally on the map.
+                      markers[i] = new google.maps.Marker({
+                          position: results[i].geometry.location,
+                          animation: google.maps.Animation.DROP,
+                          icon: markerIcon
+                      });
+                      // If the user clicks a hotel marker, show the details of that hotel
+                      // in an info window.
+                      markers[i].placeResult = results[i];
+                      google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+                      setTimeout(dropMarker(i), i * 100);
+                      addResult(results[i], i);
+                  }
+              }
+          });
+      }
+          function showInfoWindow() {
+              var marker = this;
+              places.getDetails({placeId: marker.placeResult.place_id},
+                  function(place, status) {
+                      if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                          return;
+                      }
+                      infoWindow.open(map, marker);
+                      buildIWContent(place);
+                  });
+          }
+
+          // Load the place information into the HTML elements used by the info window.
+          function buildIWContent(place) {
+              document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
+                  'src="' + place.icon + '"/>';
+              document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url +
+                  '">' + place.name + '</a></b>';
+              document.getElementById('iw-address').textContent = place.vicinity;
+
+              if (place.formatted_phone_number) {
+                  document.getElementById('iw-phone-row').style.display = '';
+                  document.getElementById('iw-phone').textContent =
+                      place.formatted_phone_number;
+              } else {
+                  document.getElementById('iw-phone-row').style.display = 'none';
+              }
+
+              // Assign a five-star rating to the hotel, using a black star ('&#10029;')
+              // to indicate the rating the hotel has earned, and a white star ('&#10025;')
+              // for the rating points not achieved.
+              if (place.rating) {
+                  var ratingHtml = '';
+                  for (var i = 0; i < 5; i++) {
+                      if (place.rating < (i + 0.5)) {
+                          ratingHtml += '&#10025;';
+                      } else {
+                          ratingHtml += '&#10029;';
+                      }
+                      document.getElementById('iw-rating-row').style.display = '';
+                      document.getElementById('iw-rating').innerHTML = ratingHtml;
+                  }
+              } else {
+                  document.getElementById('iw-rating-row').style.display = 'none';
+              }
+
+              // The regexp isolates the first part of the URL (domain plus subdomain)
+              // to give a short URL for displaying in the info window.
+              if (place.website) {
+                  var fullUrl = place.website;
+                  var website = hostnameRegexp.exec(place.website);
+                  if (website === null) {
+                      website = 'http://' + place.website + '/';
+                      fullUrl = website;
+                  }
+                  document.getElementById('iw-website-row').style.display = '';
+                  document.getElementById('iw-website').textContent = website;
+              } else {
+                  document.getElementById('iw-website-row').style.display = 'none';
+              }
+          }
+  </script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <script>
+
       function oneTimeImageSelection(imageDiv) {
           console.log(imageDiv);
           document.getElementById(imageDiv).disabled = true;
       }
+      function validateEmail(email) {
+          var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return re.test(email);
+      }
+
+      function validate(email) {
+          if (validateEmail(email)) {
+              console.log("valid");
+          } else {
+              console.log("non");
+          }
+      }
 
       $(function () {
-          $( "#datepicker" ).datepicker();
+          var $jqDate = $('#user_birthday');
+          var $username = $('#user_name');
+          var $userusername = $('#user_username');
+          var $useremail = $('#user_email');
+          var $userPassword = $('#user_password');
+          var $userPasswordConfirm = $('#user_password_confirmation');
+          $username.bind('keyup','keydown', function(e) {
+              if($username.val().length > 30 || $username.val().length < 4) {
+                /*  var numChars = ;
+                  if(numChars === 2 || numChars === 5){
+                      var thisVal = $jqDate.val();
+                      thisVal += '/';
+                      $jqDate.val(thisVal);
+                  }*/
+                console.log('Invalid Name');
+                $username.css('background-color', '#FF5353');
+              }else{
+                  $username.css('background-color', 'white');
+              }
+          });
+          $userusername.bind('keyup','keydown', function(e) {
+              if($userusername.val().length > 30 || $userusername.val().length < 4) {
+                  /*  var numChars = ;
+                    if(numChars === 2 || numChars === 5){
+                        var thisVal = $jqDate.val();
+                        thisVal += '/';
+                        $jqDate.val(thisVal);
+                    }*/
+                  console.log('Invalid UserName');
+                  $userusername.css('background-color', '#FF5353');
+              }else{
+                  $userusername.css('background-color', 'white');
+              }
+          });
+          $useremail.bind('keyup','keydown', function(e) {
+              if(validateEmail($useremail.val())) {
+                  /*  var numChars = ;
+                    if(numChars === 2 || numChars === 5){
+                        var thisVal = $jqDate.val();
+                        thisVal += '/';
+                        $jqDate.val(thisVal);
+                    }*/
+                  $useremail.css('background-color', 'white');
+              }else{
+
+                  console.log('Invalid email');
+                  $useremail.css('background-color', '#FF5353');
+              }
+          });
+
+          $userPassword.bind('keyup','keydown', function(e) {
+              if($userPassword.val().length > 30 || $userPassword.val().length < 4) {
+                  console.log('Invalid Password');
+                  $userPassword.css('background-color', '#FF5353');
+              }else{
+                  $userPassword.css('background-color', 'white');
+              }
+          });
+
+          $userPasswordConfirm.bind('keyup','keydown', function(e) {
+              if($userPassword.val() != $userPasswordConfirm.val()) {
+                  console.log('passwords are not the same');
+                  $userPasswordConfirm.css('background-color', '#FF5353');
+              }else{
+                  $userPasswordConfirm.css('background-color', 'white');
+              }
+          });
+
+//Bind keyup/keydown to the input
+          $jqDate.bind('keyup','keydown', function(e){
+
+              //To accomdate for backspacing, we detect which key was pressed - if backspace, do nothing:
+              if(e.which !== 8) {
+                  var numChars = $jqDate.val().length;
+                  if(numChars === 2 || numChars === 5){
+                      var thisVal = $jqDate.val();
+                      thisVal += '/';
+                      $jqDate.val(thisVal);
+                  }
+              }
+          });
+
+          $("#user_birthday").datepicker({
+              defaultDate: +7
+          });
+          let today = new Date();
+          today.setDate(today.getDate() - 5475);
+          var yearsAgo15 = today.toLocaleString('en-US', {
+                          month: "2-digit",
+                          day: "2-digit",
+                          year: "numeric"});
+          $('#user_birthday').val(yearsAgo15);
+          $('#user_birthday').on('click', function () {
+              $('#ui-datepicker-div').css('z-index', '100');
+          });
 
           $(".Avatar").on("click", function () {
               $("#avatarUpload").trigger("click");
@@ -109,146 +437,113 @@
               $("#secondHeader").trigger("click");
           });
 
-          var widthOfMain = document.getElementById('main').offsetWidth;
-          var heightOfImages = (widthOfMain / 4.47666667);
-          var widthOfFavoriteArtist = document.getElementById('favoriteArtistBadge').offsetWidth;
-
-          $('#header').css("height", (widthOfMain / 4.47666667));
-          $('.LeftHeader').css("height", heightOfImages);
-          $('.RightHeader').css("height", heightOfImages);
-          if(widthOfMain > 700){
-              $('#nameBadge').css('top', 2);
-              $('#nameBadge').css('width', 100);
-              $('#nameBadge').css('left', widthOfMain/2-50);
-              $('#usernameBadge').css('top', 22);
-              $('#usernameBadge').css('width', 100);
-              $('#usernameBadge').css('left', widthOfMain/2-50);
-              $('.Avatar').css("height",  heightOfImages*0.4);
-              $('.Avatar').css("width",  heightOfImages*0.4);
-              $('.Avatar').css("left",  (widthOfMain/2)-41);
-              $('.Avatar').css('top', heightOfImages*0.2);
-              $('#birthPlaceBadge').css('top', (heightOfImages*0.4)+50);
-              $('#birthPlaceBadge').css('width', 100);
-              $('#birthPlaceBadge').css('left', (widthOfMain/2)-50);
-              $('.Badge').css('height', 18.73);
-              $('#favoriteArtistBadge').css('width', 140);
-              $('#favoriteArtistBadge').css('top', heightOfImages*0.1);
-              $('#favoriteArtistBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-30);
-              $('#favoriteArtistArtistBadge').css('width', 140);
-              $('#favoriteArtistArtistBadge').css('top', (heightOfImages*0.1)+20);
-              $('#favoriteArtistArtistBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-30);
-              $('#followersBadge').css('width', 90);
-              $('#followersBadge').css('top', (heightOfImages*0.1)+43);
-              $('#followersBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-35);
-              $('#followersCountBadge').css('width', 50);
-              $('#followersCountBadge').css('top', (heightOfImages*0.1)+65);
-              $('#followersCountBadge').css('left',(widthOfMain/4)-(widthOfFavoriteArtist/2)-25 );
-              $('#followingBadge').css('width', 90);
-              $('#followingBadge').css('top', (heightOfImages*0.1)+43);
-              $('#followingBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)+62);
-              $('#followingCountBadge').css('width', 50);
-              $('#followingCountBadge').css('top', (heightOfImages*0.1)+65);
-              $('#followingCountBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)+75);
-
+          var widthOfOneHeader = document.getElementById('leftHeader').offsetWidth;
+          var widthOfAvatar = document.getElementById('avatar');
+          var heightOfImages = (widthOfOneHeader / 4.47666667)*2;
+          $('#header').css("height", heightOfImages);
+          $('.LeftHeader').css("height", heightOfImages-6);
+          $('.RightHeader').css("height", heightOfImages-6);
+          if(widthOfOneHeader*2 > 700){
+              $('#header').css("height", heightOfImages);
+              $('.LeftHeader').css("height", heightOfImages-6);
+              $('.RightHeader').css("height", heightOfImages-6);
+              $('.Avatar').css("height",  heightOfImages*0.55);
+              $('.Avatar').css("width",  heightOfImages*0.55);
+              $('.Avatar').css("left",  widthOfOneHeader-widthOfAvatar.offsetWidth/2);
+              $('.Avatar').css('top', (heightOfImages*0.15));
+              $("#badge1").css('top', (heightOfImages*0.2));
+              $('#badge1').css('width', widthOfOneHeader*0.5);
+              $("#badge1").css('left', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+              $("#badge2").css('top', (heightOfImages*0.2));
+              $('#badge2').css('width', widthOfOneHeader*0.5);
+              $("#badge2").css('right', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+          }else if (widthOfOneHeader > 267){
+              $('#header').css("height", heightOfImages);
+              $('.LeftHeader').css("height", heightOfImages-6);
+              $('.RightHeader').css("height", heightOfImages-6);
+              $('.Avatar').css("height",  heightOfImages*0.5);
+              $('.Avatar').css("width",  heightOfImages*0.5);
+              $('.Avatar').css("left",  widthOfOneHeader-widthOfAvatar.offsetWidth/2);
+              $('.Avatar').css('top', (heightOfImages*0.15));
+              $("#badge1").css('top', (heightOfImages*0.2));
+              $('#badge1').css('width', widthOfOneHeader*0.5);
+              $("#badge1").css('left', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+              $("#badge2").css('top', (heightOfImages*0.2));
+              $('#badge2').css('width', widthOfOneHeader*0.5);
+              $("#badge2").css('right', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
           }else{
-              console.log('sd');
-              $('.Avatar').css("height",  51.5);
-              $('.Avatar').css("width",  83.8);
-              $('.Avatar').css("left",  (widthOfMain/2)-41);
-              $('.Avatar').css('top', 25);
-              $('.Badge').css('height', 18.73);
-              $('#favoriteArtistBadge').css('width', 140);
-              $('#favoriteArtistBadge').css('top', heightOfImages*0.1);
-              $('#favoriteArtistBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-30);
-              $('#favoriteArtistArtistBadge').css('width', 140);
-              $('#favoriteArtistArtistBadge').css('top', (heightOfImages*0.1)+20);
-              $('#favoriteArtistArtistBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-30);
-              $('#followersBadge').css('width', 90);
-              $('#followersBadge').css('top', (heightOfImages*0.1)+43);
-              $('#followersBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-35);
-              $('#followersCountBadge').css('width', 50);
-              $('#followersCountBadge').css('top', (heightOfImages*0.1)+65);
-              $('#followersCountBadge').css('left',(widthOfMain/4)-(widthOfFavoriteArtist/2)-25 );
-              $('#followingBadge').css('width', 90);
-              $('#followingBadge').css('top', (heightOfImages*0.1)+43);
-              $('#followingBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)+62);
-              $('#followingCountBadge').css('width', 50);
-              $('#followingCountBadge').css('top', (heightOfImages*0.1)+65);
-              $('#followingCountBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)+75);
-
+              $('.Avatar').css("height",  heightOfImages*0.6);
+              $('.Avatar').css("width",  heightOfImages*0.6);
+              $('.Avatar').css("left",  widthOfOneHeader-widthOfAvatar.offsetWidth/2);
+              $('.Avatar').css('top', (heightOfImages*0.15));
+              $("#badge1").css('top', (heightOfImages*0.2));
+              $('#badge1').css('width', widthOfOneHeader*0.5);
+              $("#badge1").css('left', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+              $("#badge2").css('top', (heightOfImages*0.2));
+              $('#badge2').css('width', widthOfOneHeader*0.5);
+              $("#badge2").css('right', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
           }
           $(window).resize(function () {
-              widthOfMain = document.getElementById('main').offsetWidth;
-              widthOfFavoriteArtist = document.getElementById('favoriteArtistBadge').offsetWidth;
-              // console.log(widthOfMain);
-              heightOfImages = (widthOfMain / 4.47666667);
-              if($('#main').css('width') > 700) {
-                  $('#header').css("height", heightOfImages);
-                  $('.LeftHeader').css("height", heightOfImages);
-                  $('.RightHeader').css("height", heightOfImages);
-                  $('.Avatar').css("height", heightOfImages * .33);
-                  $('.Avatar').css("width", widthOfMain * .12);
-                  $('.Avatar').css("left", (widthOfMain / 2) - (widthOfMain * .12 / 2) - 10);
-                  $('.Avatar').css('top', -50);
-                  $('.Badge').css('height', heightOfImages * 0.12);
-                  $('#favoriteArtistBadge').css('width', (widthOfMain / 2) * .48);
-                  $('#favoriteArtistBadge').css('top', heightOfImages * .27);
-                  $('#favoriteArtistBadge').css('left', 1 + (widthOfMain * .1));
-                  $('#favoriteArtistArtistBadge').css('width', (widthOfMain / 2) * .5);
-                  $('#favoriteArtistArtistBadge').css('top', heightOfImages * .30);
-                  $('#favoriteArtistArtistBadge').css('left', 1 + (widthOfMain * .1));
-                  $('#followersBadge').css('width', (widthOfMain / 2) * .3);
-                  $('#followersBadge').css('top', heightOfImages * .33);
-                  $('#followersBadge').css('left', 1 + (widthOfMain * .1));
-                  $('#followersCountBadge').css('width', (widthOfMain / 2) * .3);
-                  $('#followersCountBadge').css('top', heightOfImages * .36);
-                  $('#followersCountBadge').css('left', 1 + (widthOfMain * .1));
-              }else{
-                  $('#header').css("height", heightOfImages);
-                  $('.LeftHeader').css("height", heightOfImages);
-                  $('.RightHeader').css("height", heightOfImages);
-                  $('.Avatar').css("height",  51.5);
-                  $('.Avatar').css("width",  83.8);
-                  $('.Avatar').css("left",  (widthOfMain/2)-41);
-                  $('.Avatar').css('top', 25);
-                  $('.Badge').css('height', 18.73);
-                  $('#favoriteArtistBadge').css('width', 140);
-                  $('#favoriteArtistBadge').css('top', heightOfImages*0.1);
-                  $('#favoriteArtistBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-30);
-                  $('#favoriteArtistArtistBadge').css('width', 140);
-                  $('#favoriteArtistArtistBadge').css('top', (heightOfImages*0.1)+20);
-                  $('#favoriteArtistArtistBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-30);
-                  $('#followersBadge').css('width', 90);
-                  $('#followersBadge').css('top', (heightOfImages*0.1)+43);
-                  $('#followersBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)-35);
-                  $('#followersCountBadge').css('width', 50);
-                  $('#followersCountBadge').css('top', (heightOfImages*0.1)+65);
-                  $('#followersCountBadge').css('left',(widthOfMain/4)-(widthOfFavoriteArtist/2)-25 );
-                  $('#followingBadge').css('width', 90);
-                  $('#followingBadge').css('top', (heightOfImages*0.1)+43);
-                  $('#followingBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)+62);
-                  $('#followingCountBadge').css('width', 50);
-                  $('#followingCountBadge').css('top', (heightOfImages*0.1)+65);
-                  $('#followingCountBadge').css('left', (widthOfMain/4)-(widthOfFavoriteArtist/2)+75);
+              widthOfOneHeader = document.getElementById('leftHeader').offsetWidth;
+              widthOfAvatar = document.getElementById('avatar');
+              heightOfImages = (widthOfOneHeader / 4.47666667)*2;
+              $('#header').css("height", heightOfImages);
+              $('.LeftHeader').css("height", heightOfImages);
+              $('.RightHeader').css("height", heightOfImages);
 
+              if(widthOfOneHeader*2 > 700) {
+                  $('#header').css("height", heightOfImages);
+                  $('.LeftHeader').css("height", heightOfImages-6);
+                  $('.RightHeader').css("height", heightOfImages-6);
+                  $('.Avatar').css("height",  heightOfImages*0.55);
+                  $('.Avatar').css("width",  heightOfImages*0.55);
+                  $('.Avatar').css("left", widthOfOneHeader-widthOfAvatar.offsetWidth/2);
+                  $('.Avatar').css('top', heightOfImages*0.2);
+                  $("#badge1").css('top', (heightOfImages*0.2));
+                  $('#badge1').css('width', widthOfOneHeader*0.5);
+                  $("#badge1").css('left', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+                  $("#badge2").css('top', (heightOfImages*0.2));
+                  $('#badge2').css('width', widthOfOneHeader*0.5);
+                  $("#badge2").css('right', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+               }else if (widthOfOneHeader > 267){
+                  $('#header').css("height", heightOfImages);
+                  $('.LeftHeader').css("height", heightOfImages-6);
+                  $('.RightHeader').css("height", heightOfImages-6);
+                  $('.Avatar').css("height",  heightOfImages*0.5);
+                  $('.Avatar').css("width",  heightOfImages*0.5);
+                  $('.Avatar').css("left",  widthOfOneHeader-widthOfAvatar.offsetWidth/2);
+                  $('.Avatar').css('top', (heightOfImages*0.15));
+                  $("#badge1").css('top', (heightOfImages*0.2));
+                  $('#badge1').css('width', widthOfOneHeader*0.5);
+                  $("#badge1").css('left', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+                  $("#badge2").css('top', (heightOfImages*0.2));
+                  $('#badge2').css('width', widthOfOneHeader*0.5);
+                  $("#badge2").css('right', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+               }else{
+                  $('.Avatar').css("height",  heightOfImages*0.6);
+                  $('.Avatar').css("width",  heightOfImages*0.6);
+                  $('.Avatar').css("left",  widthOfOneHeader-widthOfAvatar.offsetWidth/2);
+                  $('.Avatar').css('top', (heightOfImages*0.15));
+                  $("#badge1").css('top', (heightOfImages*0.2));
+                  $('#badge1').css('width', widthOfOneHeader*0.5);
+                  $("#badge1").css('left', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
+                  $("#badge2").css('top', (heightOfImages*0.2));
+                  $('#badge2').css('width', widthOfOneHeader*0.5);
+                  $("#badge2").css('right', (widthOfOneHeader/2)-(widthOfOneHeader*0.5)/2);
               }
           });
 
-          var headerboxWidth = document.getElementById("header");
-          var previewHeader = document.getElementById("cropHeader");
-
-
-          $("#firstHeader").change(function (imgg) {
+          $("#firstHeader").change(function () {
               //$('#mod').click(); //click hidden modal button
               //  modalBackdrop(); //remove overshadow error
-
-              var cropbox = $("#leftHeaderImage").croppie({
+              var firstHeaderPic = document.getElementById("leftHeaderImage");
+              var firstHeaderCrop = new Croppie(firstHeaderPic, {
                   viewport: {
-                      width: $('#main').width/2,
+                      width: $('#main').width / 2,
                       height: $('.Images').height
                   },
                   boundary: {
-                      width: $('#main').width/2,
+                      width: $('#main').width / 2,
                       height: $('.Images').height
                   },
                   showZoomer: false,
@@ -257,17 +552,15 @@
                   }
               });
           });
-          $("#secondHeader").change(function (imgg) {
-              //$('#mod').click(); //click hidden modal button
-              //  modalBackdrop(); //remove overshadow error
-
-              var cropbox = $("#rightHeaderImage").croppie({
+          $("#secondHeader").change(function () {
+              var secondHeaderPic = document.getElementById("rightHeaderImage");
+              var secondHeaderCrop = new Croppie(secondHeaderPic, {
                   viewport: {
-                      width: $('#main').width/2,
+                      width: $('#main').width / 2,
                       height: $('.Images').height
                   },
                   boundary: {
-                      width: $('#main').width/2,
+                      width: $('#main').width / 2,
                       height: $('.Images').height
                   },
                   showZoomer: false,
@@ -276,28 +569,30 @@
                   }
               });
           });
-          $("#avatarUpload").change(function (imgg) {
-              //$('#mod').click(); //click hidden modal button
-              //  modalBackdrop(); //remove overshadow error
-
-              var cropbox = $("#avatarImage").croppie({
+          $("#avatarUpload").change(function () {
+              var avatarPic = document.getElementById("avatarImage");
+              var avatarCrop = new Croppie(avatarPic, {
                   viewport: {
-                      width: $('.Avatar').width,
-                      height: $('.Avatar').height
+                      width: $('#avatar').width,
+                      height: $('#avatar').height,
+                      type: 'circle'
                   },
                   boundary: {
-                      width: $('.Avatar').width,
-                      height: $('.Avatar').height
+                      width: $('#avatar').width,
+                      height: $('#avatar').height,
+
                   },
+
                   showZoomer: false,
                   update: function (data) {
                       console.log(data);
                   }
               });
+              $('.cr-boundary').css('border-radius', '50%');
           });
       });
-
   </script>
+
 
   <!---
    <div class="LeftMenu">

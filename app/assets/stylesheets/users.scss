@@ -10,15 +10,17 @@
 .Images {
   //height: 300px;
   position: relative;
-  border-style: dashed;
-  border-color: #2E2F30;
+  border-style: solid;
+  border-color: #b2b0ae;
 }
 
 .Badge{
   position: absolute;
-  background-color: #00aaff;
+  background-color: #eaa766;
   z-index: 3;
   text-align: center;
+  color: black;
+  height: 18px;
 }
 .header {
   width: 75%;
@@ -32,6 +34,7 @@
   width: 50%;
   top: 0;
   left: 0;
+  z-index: 2;
 //  height: 100%;
   overflow: hidden;
 }
@@ -47,6 +50,7 @@
   width: 50%;
   right: 0;
   top: 0;
+  z-index: 2;
 
 }
 
@@ -58,11 +62,11 @@
 
 .Avatar{
   position: relative;
-  left: 48%;
   border-radius: 50%;
-  border-color: white;
+  border-color: #eaa766;
+  border-width: thick;
   border-style: solid;
-  z-index: 100;
+  z-index: 3;
 }
 
 #avatarImage{
@@ -109,8 +113,29 @@
   background-size: 100% 100%;
 }
 
+.Form{
+  position: relative;
+  width: 49%;
+  border-color: #b2b0ae;
+  border-style: solid;
+  margin-top: 20px;
+  float: left;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  background-color: #ffb061;
+}
 
-
+.NonMemberBenefits{
+  position: relative;
+  width: 49%;
+  float: right;
+  border-color: #b2b0ae;
+  margin-top: 20px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  background-color: #ffb061;
+}
 //
 ////
 //////
@@ -351,12 +376,7 @@
 
 
 
-#user_gender {
-  position: absolute;
-  top: 0;
-  left: 55%;
-  width: 30%;
-}
+
 
 .country-box {
   width: 25%;
