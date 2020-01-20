@@ -38,24 +38,23 @@ window.addEventListener("DOMContentLoaded", function (e) {
     };
 
     renderAddPlaylist.onclick = function () {
+
         let song = get_current_song();
-        if (audio.src != "") {
-            $('.modal-content-add-playlist').load("/exists_in_playlist?song_id=" + song);
-            loadPlaylistSongs();
-            addPlaylistModal.style.display = "block";
-        } else {
-            console.log("no song to show")
-        }
-    };
-    renderPlaylist.onclick = function () {
+        //loadPlaylistSongs();
         if (isPlayList) {
             if (isShuffled) {
-                $('.modal-content-audio').load("/shuffle?shuffle=true&data=" + songQueue + "&playlist=" + get_current_playlist());
+                $('.modal-content-add-playlist').load("/exists_in_playlist?song_id=" + song + "&shuffle=true&data=" + songQueue + "&playlist=" + get_current_playlist());
+                console.log("shuffled showing");
             } else {
-                $('.modal-content-audio').load("/shuffle?shuffle=false&playlist=" + get_current_playlist());
+                $('.modal-content-add-playlist').load("/exists_in_playlist?song_id=" + song + "&shuffle=false&data=" + songQueue + "&playlist=" + get_current_playlist());
+                console.log("not shuffled showing");
             }
-            modal.style.display = "block";
+        } else {
+            $('.modal-content-add-playlist').load("/exists_in_playlist?song_id=" + song + "&shuffle=0&playlist=0&currentPlaylist=0");
+            console.log("no playlist");
         }
+
+        addPlaylistModal.style.display = "block";
 
     };
     window.onclick = function (event) {
@@ -209,18 +208,6 @@ function incrementPlays(id, artist_id) {
     });
 }
 
-function loadPlaylistSongs() {
-    if (isPlayList) {
-        if (isShuffled) {
-            $('.PlaylistSongs').load("/shuffle?shuffle=true&data=" + songQueue + "&playlist=" + get_current_playlist());
-            console.log("finished up1")
-        } else {
-            console.log("/shuffle?shuffle=false&playlist=" + get_current_playlist());
-            $('.PlaylistSongs').load("/shuffle?shuffle=false&playlist=" + get_current_playlist());
-            console.log("finished up2")
-        }
-    }
-}
 
 function playPause() {
     console.log("play button clicked");

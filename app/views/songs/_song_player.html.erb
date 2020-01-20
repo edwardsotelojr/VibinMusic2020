@@ -6,9 +6,9 @@
           <img id="playerCoverImage" src="" class="playerCoverImage">
         </div>
         <div class="songArtist">
-          <p id="songInfo" style="font-size: 10px; display: block;"></p>
-          <p id="songGenre" style="font-size: 10px; display: block;"></p>
-          <div id="songArtistAvatar" style="display: block; margin-top: -8px;">
+          <h3 id="songInfo" class="songInfo"></h3>
+          <h3 id="songGenre" class="songInfo"></h3>
+          <div id="songArtistAvatar" style="display: block; margin-top: 0px;">
           </div>
         </div>
       </div>
@@ -45,11 +45,8 @@
           <button id="broadcast_text" class="broadcast border border-dark" data-session="<%= current_user.id.to_json if logged_in? %>">
             <i id="play-icon" class="ion-wifi"></i>
           </button>
-          <button id="renderPlaylist" class="playlist border border-dark">
-            <ion-icon name="list"></ion-icon>
-          </button>
           <button id="renderAddPlaylist" class="playlist border border-dark">
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="list"></ion-icon>
           </button>
         </div>
         <div class="right_elements">
@@ -62,14 +59,10 @@
       </div>
     </div>
   </div>
-  <div id="audio-modal" class="modal-audio">
-    <div class="modal-content-audio">
-      <%= render partial: "playlists/songs", locals: {song_pos: nil, ts: "default"} %>
-    </div>
-  </div>
+
   <div id="add-playlist-modal" class="modal-add-playlist">
     <div class="modal-content-add-playlist">
-      <%= render partial: "playlists/modal_playlists", locals: {song_pos: nil, ts: "default"} %>
+      <%= render partial: "playlists/modal_playlists", locals: {song_pos: nil, ts: "default", currentplaylist: 0} %>
     </div>
   </div>
 </div>

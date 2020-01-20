@@ -1,11 +1,13 @@
 $blue: #0af;
 $hover-color: #25a805;
+$theme: #eaa766;
+$sideColor: #730E15;
 $fontSize: 28px;
 $buttonColor: transparent;
 .musicPlayer {
-  height: 80px;
+  height: 81px;
   width: 100%;
-  background-color: #5d7ca6;
+  background-color: $theme;
   align-items: center;
 }
 
@@ -20,13 +22,19 @@ $buttonColor: transparent;
   position: relative;
   float: left;
   height: 100%;
-  width: 100px;
-  margin-right: 5px;
+  width: 74px;
 }
 
 .songArtist {
   position: relative;
   float: left;
+  margin-left: 10px;
+}
+
+.songInfo {
+  font-size: 15px;
+  display: block;
+  margin-bottom: 2px
 }
 
 .songArtistAvatarImage {
@@ -46,10 +54,9 @@ $buttonColor: transparent;
 }
 
 .playerCoverImage {
-  margin-left: 5px;
-  margin-top: 5px;
-  width: 90px;
-  height: 90px;
+  margin-left: 0px;
+  width: 79px;
+  height: 79px;
   border: none;
 }
 
@@ -105,7 +112,7 @@ $buttonColor: transparent;
 
   display: flex;
   align-items: center;
-  background-color: #5d7ca6;
+  background-color: $theme;
   margin: auto;
   top: 4px;
   position: relative;
@@ -138,7 +145,7 @@ $buttonColor: transparent;
     cursor: pointer;
 
     &:hover {
-      background-color: $hover-color;
+      background-color: $sideColor;
     }
   }
 
@@ -153,7 +160,7 @@ $buttonColor: transparent;
   .seek-bar {
     min-width: 100%;
     top: 10px;
-    background-color: #730E15;
+    background-color: white;
     display: flex;
     border-radius: 100000px;
     cursor: pointer;
@@ -294,6 +301,7 @@ button.volume {
   .right_elements {
     display: flex;
     align-items: center;
+    height: 39px;
 
     button {
       i {
@@ -309,7 +317,7 @@ button.volume {
       display: block;
       width: 43px;
       height: 43px;
-      margin-left: 30px;
+      margin-left: 73px;
       background-color: $buttonColor;
       color: white;
       border-radius: 100000px;

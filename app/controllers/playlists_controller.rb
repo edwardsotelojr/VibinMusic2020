@@ -78,16 +78,36 @@ class PlaylistsController < ApplicationController
   end
 
   def existsinPlaylist
+    @shuffled = params[:shuffle] if (!params[:shuffle].nil? && @shuffled.nil?) || (@shuffled != params[:shuffle] && !params[:shuffle].nil?)
     playlist = current_user.playlists
     song_id = params[:song_id]
     inPlaylist = Array.new
+    currentplaylist = params[:playlist]
     playlist.each do |f|
       if f.song_positions.exists?(song_id: song_id)
         inPlaylist.push f.id
       end
       @inPlaylist = inPlaylist
     end
-    render :partial => "/playlists/modal_playlists", locals: {inPlaylist: inPlaylist}
+    playlist = params[:playlist]
+    if playlist == "0"
+      @inPlaylist = nil
+      render :partial => "/playlists/modal_playlists", locals: {inPlaylist: inPlaylist, song_pos: nil, currentplaylist: currentplaylist}
+    elsif @shuffled.eql?("true")
+      @pos = params[:data].split(",")
+      positions = @pos.map(&:to_i)
+      pos = Playlist.find(playlist)
+      puts positions.inspect
+      song_pos = pos.song_positions
+      song_pos = song_pos.sort_by {|s| positions.index(s.song_id)}
+      puts song_pos.inspect
+      render :partial => "/playlists/modal_playlists", locals: {inPlaylist: inPlaylist, song_pos: song_pos, currentplaylist: currentplaylist}
+    else
+      pos = Playlist.find(playlist)
+      song_pos = pos.song_positions
+      puts song_pos.inspect
+      render :partial => "/playlists/modal_playlists", locals: {inPlaylist: inPlaylist, song_pos: song_pos, currentplaylist: currentplaylist}
+    end
   end
 
   def addToPlaylist

@@ -6,8 +6,8 @@
       </div>
       <div class="Badge" id="badge1">
         Banner Color
-      <input hidden name="user[badgeColor]" id="user_badgeColor" value="rgb(234,167,102)">
-      <input hidden name="user[badgeTextColor]" id="user_badgeTextColor" value="rgb(0,0,0)">
+      <input hidden type="text" name="user[badgeColor]" id="user_badgeColor" value="rgb(234,167,102)">
+      <input hidden type="text" name="user[badgeTextColor]" id="user_badgeTextColor" value="rgb(0,0,0)">
     </div>
     <script src="https://unpkg.com/vanilla-picker@2"></script>
     <script>
@@ -89,7 +89,7 @@
     <label class="BirthdayLabel">
       Birthday
     </label>
-    <input type="text" class="BirthdayInput" name="user[birthday]" id="user_birthday" maxlength="10">
+    <input type="date" class="BirthdayInput" name="user[birthday]" id="user_birthday" >
     <br>
     <label class="GenderLabel">
       Gender
@@ -134,8 +134,11 @@
              "document.getElementById('avatarImage').src = window.URL.createObjectURL(this.files[0]);
               oneTimeImageSelection('avatarUpload');
               $('#avatarImage').height = $('.images').height * .33;">
-    <input hidden id="user_imageProperties" name="user[imageProperties]">
-    <input  type="submit" style="display: none; width: 30px; height: 20px;" name="commit" id="submit" value="Create Account" data-disable-with="Create" />
+    <input hidden type="text" id="user_imagesProperties" name="user[imagesProperties]">
+    <input hidden type="text" id="user_longitude" name="user[longitude]">
+    <input hidden type="text" id="user_latitude" name="user[latitude]">
+
+    <input  type="submit" name="commit" id="submit" class="submit" value="Create Account" data-disable-with="Create" />
 
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABBVE90zE3SB_kb52KWFSS2Fqumy303do&libraries=places"></script>
   <style>
@@ -348,10 +351,9 @@
               console.log("non");
           }
       }
-      var imageProperties =  [-1,-1,-1,-1,-1, -1,-1,-1,-1,-1, -1,-1,-1,-1,-1];
+      var imagesProperties =  [-1,-1,-1,-1,-1, -1,-1,-1,-1,-1, -1,-1,-1,-1,-1];
 
       $(function () {
-          var $jqDate = $('#user_birthday');
           var $username = $('#user_name');
           var $userusername = $('#user_username');
           var $useremail = $('#user_email');
@@ -412,25 +414,6 @@
               }
               readyToSubmit();
           });
-          //Bind keyup/keydown to the input
-          $jqDate.bind('keyup','keydown', function(e){
-              if(isValidDate($jqDate.val())){
-                  $("#user_birthday").css('background-color', "white");
-
-              }else{
-                  $("#user_birthday").css('background-color', "red");
-              }
-              if(e.which !== 8) {
-                  var numChars = $jqDate.val().length;
-                  if(numChars === 2 || numChars === 5){
-                      var thisVal = $jqDate.val();
-                      thisVal += '/';
-                      $jqDate.val(thisVal);
-                  }
-              }
-              readyToSubmit();
-          });
-
           $('#user_hometown').change(function(){
               console.log('select home');
               readyToSubmit();
@@ -443,19 +426,13 @@
               readyToSubmit();
           });
 
-          $("#user_birthday").datepicker({
-              defaultDate: +7
-          });
-          let today = new Date();
-          today.setDate(today.getDate() - 5475);
-          var yearsAgo15 = today.toLocaleString('en-US', {
-                          month: "2-digit",
-                          day: "2-digit",
-                          year: "numeric"});
-          $('#user_birthday').val(yearsAgo15);
-          $('#user_birthday').on('click', function () {
-              $('#ui-datepicker-div').css('z-index', '100');
-          });
+       //   $("#user_birthday").datepicker({
+         //     defaultDate: +7
+          //});
+          document.getElementById("user_birthday").defaultValue = "2010-01-01";
+          //  $('#user_birthday').on('click', function () {
+          //    $('#ui-datepicker-div').css('z-index', '100');
+          //});
           $(".Avatar").on("click", function () {
               $("#avatarUpload").trigger("click");
           });
@@ -565,19 +542,21 @@
               var firstHeaderCrop = new Croppie(firstHeaderPic, {
                   viewport: {
                       width: $('#main').width / 2,
-                      height: $('.Images').height
+                      height: $('.Images').height,
+                      type: 'square'
                   },
                   boundary: {
                       width: $('#main').width / 2,
-                      height: $('.Images').height
+                      height: $('.Images').height,
+                      type: 'square'
                   },
                   showZoomer: false,
                   update: function (data) {
                      for(var i= 0; i < 4; i++){
-                          imageProperties[i] = data.points[i];
+                          imagesProperties[i] = data.points[i];
                       }
-                      imageProperties[4] = String(data.zoom);
-                      console.log(imageProperties);
+                      imagesProperties[4] = String(data.zoom);
+                      console.log(imagesProperties);
                   }
               });
           });
@@ -586,7 +565,8 @@
               var secondHeaderCrop = new Croppie(secondHeaderPic, {
                   viewport: {
                       width: $('#main').width / 2,
-                      height: $('.Images').height
+                      height: $('.Images').height,
+                      type: 'square'
                   },
                   boundary: {
                       width: $('#main').width / 2,
@@ -595,10 +575,10 @@
                   showZoomer: false,
                   update: function (data) {
                       for(var i= 5; i < 9; i++){
-                          imageProperties[i] = data.points[i-5];
+                          imagesProperties[i] = data.points[i-5];
                       }
-                      imageProperties[9] = String(data.zoom);
-                      console.log(imageProperties);
+                      imagesProperties[9] = String(data.zoom);
+                      console.log(imagesProperties);
                   }
               });
           });
@@ -619,12 +599,12 @@
                   showZoomer: false,
                   update: function (data) {
                       for(var i= 10; i < 14; i++){
-                          imageProperties[i] = data.points[i-10];
+                          imagesProperties[i] = data.points[i-10];
                       }
-                      imageProperties[14] = String(data.zoom);
+                      imagesProperties[14] = String(data.zoom);
                   }
               });
-              $('.cr-boundary').css('border-radius', '50%');
+              $('#avatar .cr-boundary').css('border-radius', '50%');
           });
       });
 
@@ -647,12 +627,12 @@
                                           console.log("lcoa");
                                           if (document.getElementById("user_Terms_of_Agreement").checked) {
                                               $('#submit').css('display', 'block');
-                                              $('#user_imageProperties').val(imageProperties.toString());
+                                              $('#user_imagesProperties').val(imagesProperties.toString());
                                               $("#user_longitude").val(longitude);
                                               $("#user_latitude").val(latitude);
                                               $("#user_badgeColor").val(rgbColor1);
                                               $("#user_badgeTextColor").val(rgbColor2);
-                                              console.log("user_imageProperties " + $('#user_imageProperties').val());
+                                              console.log("user_imagesProperties " + $('#user_imagesProperties').val());
                                               console.log("user_longitude " + $("#user_longitude").val());
                                               console.log("user_latitude" + $("#user_latitude").val());
                                               console.log("user_badgeColor" + $("#user_badgeColor").val());
