@@ -420,17 +420,14 @@
   height: auto;
 }
 
-.TermsOfAgreement-box {
-  height: 220px;
-  width: 70%;
-  background-color: gray;
-}
-
-.TermsOfAgreement-textbox {
+.TermsOfAgreement{
   position: relative;
-  top: 5px;
-  height: 190px;
-  width: 95%;
-  overflow-y: scroll;
-  background-color: white;
+  width: 49%;
+  float: right;
+  border-color: #b2b0ae;
+  margin-top: 20px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  background-color: #ffb061;
 }

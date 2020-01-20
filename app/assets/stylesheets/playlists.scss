@@ -6,10 +6,34 @@ $hover-color: #25a805;
 $background: black;
 $ImageMargin: 160px;
 $imageSize: 140px;
+$theme: #eaa766;
+.list-group-item {
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.PlaylistSongs {
+  display: none;
+}
+
+.playlist-modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 6px;
+
+}
+
 .list-item {
+  padding: 7px;
+  display: flex;
+
   &:hover {
-    background-color: white;
-    display: block;
+    background-color: $theme;
+  }
+
+  h6 {
+    margin-top: 10px;
+    margin-left: 5px;
   }
 }
 
@@ -22,6 +46,21 @@ $imageSize: 140px;
   height: 200px;
   border-radius: 100000px;
 }
+
+.arrowDropdown {
+  display: block;
+  width: 0px;
+  height: 0px;
+  margin-top: 6px;
+  border: 0;
+  color: white;
+  font-size: 30px;
+  border-radius: 100000px;
+  cursor: pointer;
+  margin-left: 280px;
+
+}
+
 
 .PlaylistOptions {
   display: block;
@@ -43,8 +82,8 @@ $imageSize: 140px;
 .displayOptions {
   background-color: #00aaff;
   width: 0px;
-  margin-left: 240px;
-
+  position: absolute;
+  right: 123px;
 }
 
 #Create_Playlist {
@@ -72,13 +111,15 @@ $imageSize: 140px;
   background-color: #730E15;
 
   h5 {
-    width: 290px;
+    width: 240px;
     color: white;
     margin-left: 56px;
     position: absolute;
     height: 33px;
     max-lines: 1;
     margin-top: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &:hover {
@@ -91,6 +132,7 @@ $imageSize: 140px;
   &:hover .add_to_playlist {
     visibility: visible
   }
+
   &:hover .PlayOnPlaylist {
     visibility: visible
   }
@@ -109,6 +151,7 @@ $imageSize: 140px;
   cursor: pointer;
   visibility: hidden;
   z-index: 1;
+
   &:hover {
 
   }
@@ -126,6 +169,7 @@ $imageSize: 140px;
   cursor: pointer;
   visibility: hidden;
   z-index: 1;
+
   &:hover {
 
   }

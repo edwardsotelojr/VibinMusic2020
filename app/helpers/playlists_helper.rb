@@ -16,6 +16,23 @@ module PlaylistsHelper
     end
   end
 
+  def Get_Specific_Positions(playlist_id)
+    #returns song pos
+    song_position = Playlist.find_by_id(playlist_id)
+    puts "========="
+    puts song_position
+    puts "=========="
+    if song_position != nil
+      song_position = song_position.song_positions.order(:position)
+      puts "-----------my mang help me----------- #{song_position.length}"
+      puts song_position.inspect
+      return song_position
+    else
+      puts "dont help me"
+    end
+  end
+
+
   def link_to_song (songpositions)
     song = Song.find_by(id: songpositions.song_id)
     link_to song.title, "", class: "list-group-item", id: dom_id(songpositions), :onclick => ("setNewPlaylistSong(#{songpositions.position.to_json})")
@@ -50,6 +67,15 @@ module PlaylistsHelper
       song = Song.find songs[0].song_id
       url_for(song.cover_image)
     end
+  end
+
+  def showPlaylistSongs?(currentPlaylist, id)
+    puts "--------------------------------------playlistcomp"
+    puts "#{currentPlaylist},#{id}"
+    if currentPlaylist.to_i == id.to_i
+      return "block"
+    end
+    return "none"
   end
 
   def getPlaylistImageURLforPlaylist(playlist, position)
