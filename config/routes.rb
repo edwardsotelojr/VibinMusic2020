@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   post '/repost/:id' => 'posts#repost'
   get 'songs/:id' => 'songs#show'
   get '/signup' => 'users#new'
+  get '/YourTaste' => 'users#new2'
   get '/login', to: 'sessions#new'
   get '/settings', to: 'users#edit'
   get '/password_reset', to: 'password_resets#new'

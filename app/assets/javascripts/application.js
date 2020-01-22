@@ -15,8 +15,6 @@
 //= require activestorage
 // require cable
 //= require jquery
-//= require jquery_ujs
-//= require jquery-ui
 //= require jquery-ui/widget
 //= require jquery-ui/widgets/sortable
 //= require turbolinks
