@@ -243,26 +243,17 @@
 
     $(function () {
 
-        var container = document.getElementById("main").offsetWidth;
-        var newRightSide;
-        if($("#main").outerWidth < 510){
-           $('#rightSide').css("display", "none");
-        }else{
-            container = document.getElementById("main").offsetWidth;
-            $('#rightSide').css("display", "block");
-            newRightSide = (container - 500) + "px";
-            $("#rightSide").css("width", newRightSide);
-        }
         $(window).on('resize', function() {
-            if($("#main").outerWidth < 510){
-                $('#rightSide').css("display", "none");
-                console.log('dsfsd');
+            var container = document.getElementsByClassName("Non-UserHomePage").offsetWidth;
+            if(window.innerWidth < 777){
+                rightSide.display = "none";
+               // console.log("loog");
             }else{
-                container = document.getElementById("main").offsetWidth;
-                console.log(container);
-                $('#rightSide').css("display", "block");
-                newRightSide = (container - 500) + "px";
+                rightSide.display = "block";
+             //   console.log(container);
+                var newRightSide = (container - 500) + "px";
                 $("#rightSide").css("width", newRightSide);
+
             }
         });
         //$('.iphone').on('click', function(){
