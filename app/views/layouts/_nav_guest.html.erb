@@ -28,9 +28,14 @@
         $('.dropdown-content-login').css('display', 'block');
     };
     $(function(){
-        window.onclick(function () {
-            if($('.dropdown-content-login').css('display') == 'block'){
+        $(window).click(function (e) {
+            if($('.dropdown-content-login').css('display') == 'block' &&
+                (e.target.className == "emailBox" || e.target.className == "loginButton")){
+                console.log();
+            }
+            else if ($('.dropdown-content-login').css('display') == 'block' ){
                 $('.dropdown-content-login').css('display', 'none');
+                console.log(e.target.className);
             }
         });
     });

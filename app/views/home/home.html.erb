@@ -14,7 +14,7 @@
           <h7>
             <span class="userbadge"><%= @user.name %></span>
             <span class="userbadge"><%= link_to "@" + @user.username, user_path(@user.id), class: "links", style: "color: #425173;" %></span>
-            <span class="userbadge"> <%= @user.city %>, <%= @user.state %></span>
+            <span class="userbadge"> </span>
           </h7>
         </div>
         <div class="home-header-column-posts">
@@ -91,7 +91,7 @@
                   <div class="recommendedUserMiddle">
 
                     <div class="recommendedUserInfo">
-                      <p style="text-align: center;">@<%= user.username %> <br><%= user.city %></p>
+                      <p style="text-align: center;">@<%= user.username %> <br></p>
                     </div>
                   </div>
                 </div>
@@ -242,9 +242,13 @@
         //  setInterval(refreshPartial, 10000)
 
     });
-
+    var topp = 110;
     $(function () {
-
+        $(window).on('scroll', function () {
+           topp = 110 + window.scrollY;
+           $('.recommended').css("top", topp);
+           console.log(topp);
+        });
         $(window).on('resize', function() {
             var container = document.getElementsByClassName("Non-UserHomePage").offsetWidth;
             if(window.innerWidth < 777){

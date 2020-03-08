@@ -100,6 +100,7 @@
 .userBanner{
   position: fixed;
   top: 50px;
+  left:-1px;
   height: 100px;
   min-width: 1000px;
   width: 100%;
@@ -220,7 +221,7 @@
 }
 .recommended{
   position: relative;
-  margin-top: 110px;
+  top: 110px;
   float: left;
   width: 50%;
 }
