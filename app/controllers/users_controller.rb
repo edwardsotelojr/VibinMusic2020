@@ -111,6 +111,8 @@ class UsersController < ApplicationController
   end
   def new2
     @topArtists = UserArtistPlayCounter.order(plays: :desc)
+    @topSongs = SongLike.group(:song_id).order('count(*) DESC')
+
   end
 
   private

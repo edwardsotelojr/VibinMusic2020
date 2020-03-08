@@ -10,9 +10,42 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
   }
+  .HorizontalSongRow{
+    height: 200px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    border: pink;
+    border-style: solid;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  }
+  .YourTaste_SongBox{
+    height: 200px;
+    width: 300px;
+    margin-right: 10px;
+    background-color: #b2b0ae;
+    display: inline-block;
+    border-radius: 10px;
+  }
+  .YourTaste_SongInfoColumn{
+    height: 120px;
+    width: 220px;
+    background-color: #57ff59;
+    float: left;
+  }
+  .YourTaste_SongCoverColumn{
+    height: 150px;
+    width: 150px;
+    background-color: #9AD3EB;
+    border-radius: 10px;
+    float: left;
+  }
+
   .YourTaste_ArtistBox{
     height: 175px;
-    width: 300px;
+    width: 350px;
     margin-right: 10px;
     background-color: #b2b0ae;
     display: inline-block;
@@ -26,9 +59,15 @@
     float: left;
   }
   .YourTaste_ArtistInfoColumn{
-    height: 150px;
-    width: 170px;
-    background-color: #89ebff;
+    height: 120px;
+    width: 220px;
+    background-color: #57ff59;
+    float: left;
+  }
+  .YourTaste_ArtistInfoColumn2{
+    height: 30px;
+    width: 220px;
+    background-color: #ff4b23;
     float: left;
   }
   .YourTaste_ArtistAvaImage {
@@ -41,14 +80,25 @@
     margin-left: 5px;
     margin-top: 10px;
   }
-    .YourTaste_ArtistGenre{
-      height: 20px;
-      width: 40px;
-      background-color: #eb5c30;
-      border-radius: 6px;
-      float: left;
-      margin-right: 5px;
-    }
+  .YourTaste_ArtistGenre {
+    height: 20px;
+    width: min-content;
+    background-color: #eb5c30;
+    border-radius: 6px;
+    float: left;
+    margin-right: 5px;
+    padding: -5px;
+  }
+  .YourTaste_ArtistTags{
+    height: 20px;
+    width: min-content;
+    background-color: #c3c0c1;
+    border-radius: 6px;
+    float: left;
+    margin-right: 5px;
+    padding: -5px;
+  }
+    .YourTaste_Ar
 </style>
 <div id="yourTaste" class="YourTaste">
   <!-- Favorite Genres -->
@@ -67,7 +117,7 @@
         </div>
         <div class="YourTaste_ArtistInfoColumn">
           <p style="font-size: x-large; word-break: normal; white-space: normal"><%= User.find(artist.artist_id).name %></p>
-          <div class="YourTaste_ArtistGenre" >
+          <div class="YourTaste_ArtistGenre">
             Pop
           </div>
           <div class="YourTaste_ArtistGenre">
@@ -76,11 +126,63 @@
           <div class="YourTaste_ArtistGenre">
             Alternative
           </div>
+          <br>
+          <div class="YourTaste_ArtistTags">
+            tags
+          </div>
+          <div class="YourTaste_ArtistTags">
+            tagtag
+          </div>
+          <div class="YourTaste_ArtistTags">
+            tagtagtag
+          </div>
+        </div>
+        <div class="YourTaste_ArtistInfoColumn2">
+        @TameImpala
         </div>
       </div>
     <% end %>
   </div>
-</div>
+  <div class="HorizontalSongRow" id="horizontalSongRow">
+    <% @topSongs.each do |song| %>
+      <div class="YourTaste_SongBox">
+        <div class="YourTaste_SongCoverColumn">
+          <% if Song.find(song.song_id).cover_image.attached? %>
+            <%= image_tag (Song.find(song.song_id).cover_image), class: "YourTaste_SongCover" %>
+          <% else %>
+            <img src="http://localhost:3000/default-avatar.jpg" class="YourTaste_SongCover">
+          <% end %>
+        </div>
+        <div class="YourTaste_SongInfoColumn">
+          <%= Song.find(song.song_id).title %>
+          <p style="font-size: x-large; word-break: normal; white-space: normal"><%= User.find(song.artist_id).name %></p>
+          <div class="YourTaste_ArtistGenre">
+            Pop
+          </div>
+          <div class="YourTaste_ArtistGenre">
+            Rap
+          </div>
+          <div class="YourTaste_ArtistGenre">
+            Alternative
+          </div>
+          <br>
+          <div class="YourTaste_ArtistTags">
+            tags
+          </div>
+          <div class="YourTaste_ArtistTags">
+            tagtag
+          </div>
+          <div class="YourTaste_ArtistTags">
+            tagtagtag
+          </div>
+        </div>
+        <div class="YourTaste_ArtistInfoColumn2">
+          @TameImpala
+        </div>
+      </div>
+    <% end %>
+  </div>
+  </div>
   <script>
       $start = $("#yourTaste").width();
       $("#img1text").addClass("ui-coverflow-item");
