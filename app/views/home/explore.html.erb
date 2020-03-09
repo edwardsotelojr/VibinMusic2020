@@ -1,68 +1,88 @@
 <div id="explore">
-  <div class="explore-page-row">
-    <div class="explore-TopDj-column">
+  <div class="exploreRow">
+    <div class="exploreTopStreamerColumn">
+      <h5> Top Streamers</h5>
+      <% @topDJ.each_with_index do |a, index| %>
+        <div class="exploreTopStreamerBox">
+          <div class="exploreTopStreamerColumnColumn">
+            <p style="margin-bottom: 0;">Edward Sotelo Jr</p>
+            <p style="margin-bottom: 0;">@edwardsotelojr</p>
+              <img src="default-avatar.jpg" class="exploreTopStreamerAva">
+            <p style="margin-bottom: 0;">Houston, Tx</p>
+          </div>
+          <div class="exploreTopStreamerColumnColumn">
+            <h1><%= index +1 %></h1>
+          </div>
+          <!%= image_tag url_for(a.broadcast_cover), style: "width:130px; height:130px" %>
+
+        </div>
+      <% end %>
+    </div>
+    <div class="exploreTopSongColumn">
       <h5> Top DJ's</h5>
       <% @topDJ.each_with_index do |a, index| %>
-        <h1><%= index +1 %></h1>
-        <%= image_tag url_for(a.broadcast_cover), style: "width:130px; height:130px" %>
+        <div class="exploreTopSongBox">
+          <p style="margin-bottom: 0;">Title</p>
+          <img src="default-avatar.jpg" class="exploreTopSongCover">
+          <img src="default-avatar.jpg" class="exploreTopSongAva">
+          <p>@FeaturedArtist</p>
+          <img src="default-avatar.jpg" class="exploreTopSongAva">
+          <p>@FeaturedArtist1</p>
+          <img src="default-avatar.jpg" class="exploreTopSongAlbumCover">
+          <p>Album/Playlist Name</p>
+          <img src="default-avatar.jpg" class="exploreTopSongAva">
+          <p>@Artist</p>
 
+
+          <!%= image_tag url_for(a.broadcast_cover), style: "width:130px; height:130px" %>
+
+        </div>
       <% end %>
     </div>
-    <div class="explore-TopChart-column">
-      <h5> Top Chart</h5>
-      <% @TopChart.each do |song| %>
-        <div class="explore-TopChart-row">
-          <div class="explore-TopChart-row-column">
-            <% user = getArtist(song) %>
-            <button class="playButton" onclick="SelectedSong(this, '<%=user.name%>' ,'<%= user.username%>' ,'<%= song.title %>', true ,<%=song.id %>,'<%=url_for(song.song_file) %>','<%=url_for(song.cover_image) %>'); incrementPlays(<%= song.id %>, <%= user.id%>)">
-              <%= image_tag (song.cover_image), class: "playButtonImage" %>
-            </button>
+    <div class="exploreTopSongColumn">
+      <h5> Top DJ's</h5>
+      <% @topDJ.each_with_index do |a, index| %>
+        <div class="exploreTopSongBox">
+          <div class="exploreTopSongColumnColumn">
+
           </div>
-          <div class="explore-TopChart-info-column">
-            <p><%= user.name %></p>
-            <p><%= song.title %></p>
+          <div class="exploreTopSongColumnColumn">
+            <h1><%= index +1 %></h1>
           </div>
+          <!%= image_tag url_for(a.broadcast_cover), style: "width:130px; height:130px" %>
+
         </div>
       <% end %>
     </div>
-    <div class="explore-TopArtist-column">
-      <h5> Top Artist</h5>
-      <% @TopArtist.each do |artist| %>
-        <%= artist.name %>
-        @<%= artist.username %>
+    <div class="exploreTopSongColumn">
+      <h5> Top DJ's</h5>
+      <% @topDJ.each_with_index do |a, index| %>
+        <div class="exploreTopSongBox">
+          <div class="exploreTopSongColumnColumn">
+
+          </div>
+          <div class="exploreTopSongColumnColumn">
+            <h1><%= index +1 %></h1>
+          </div>
+          <!%= image_tag url_for(a.broadcast_cover), style: "width:130px; height:130px" %>
+
+        </div>
       <% end %>
     </div>
-    <div class="explore-TopChartforGenre-column">
-      <h5> Top Chart for ___</h5>
-      <select id="genre_value">
-        <option value="EDM">EDM</option>
-        <option value="African">African</option>
-        <option value="Rock">Rock</option>
-        <option value="Jazz">Jazz</option>
-        <option value="Dubstep">Dubstep</option>
-        <option value="Blues">Blues</option>
-        <option value="Techno">Techno</option>
-        <option value="Country">Country</option>
-        <option value="Electro">Electro</option>
-        <option value="Rap">Rap</option>
-        <option value="IndieRock">Indie Rock</option>
-        <option value="Pop">Pop</option>
-        <option value="Classic">Classic</option>
-      </select>
-      <div id="topsongs" class=album>
-        <div id="top_song_pic" class=album_view>
+    <div class="exploreTopSongColumn">
+      <h5> Top DJ's</h5>
+      <% @topDJ.each_with_index do |a, index| %>
+        <div class="exploreTopSongBox">
+          <div class="exploreTopSongColumnColumn">
 
+          </div>
+          <div class="exploreTopSongColumnColumn">
+            <h1><%= index +1 %></h1>
+          </div>
+          <!%= image_tag url_for(a.broadcast_cover), style: "width:130px; height:130px" %>
 
         </div>
-
-        <div id="top_song_details" class=album_view>
-
-
-        </div>
-      </div>
-    </div>
-    <div class="explore-Clout-column">
-      <h5> Clout List</h5>
+      <% end %>
     </div>
   </div>
 </div>
