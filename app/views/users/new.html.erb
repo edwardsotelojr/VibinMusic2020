@@ -8,116 +8,117 @@
         Banner Color
       <input hidden type="text" name="user[badgeColor]" id="user_badgeColor" value="rgb(234,167,102)">
       <input hidden type="text" name="user[badgeTextColor]" id="user_badgeTextColor" value="rgb(0,0,0)">
-      </div>
-      <script src="https://unpkg.com/vanilla-picker@2"></script>
-      <script>
-          var rgbColor1;
-          var rgbColor2;
-          $(function () {
-              var badge1 = document.querySelector('#badge1');
-              var badge2 = document.querySelector('#badge2');
-              var badgePicker1 = new Picker({
-                  parent: badge1,
-                  color: "#eaa766",
-                  popup: 'bottom',
-                  onOpen: function(){
-                      $('.popup.popup_right').css('left', "75%");
-                  },
-                  onChange: function(color) {
-                      badge1.style.background = color.rgbaString;
-                      badge2.style.background = color.rgbaString;
-                      rgbColor1 = color.rgbaString;
-                      rgbColor1 = rgbColor1.replace('a', '');
-                      rgbColor1 = rgbColor1.substring(0, rgbColor1.length - 3) + ')';
-                      $('#avatarImage').css('border-color', rgbColor1);
-                      $("#user_badgeColor").val(rgbColor1);
-                  }
-              });
-              var badge2 = document.querySelector('#badge2');
-              var badgePicker2 = new Picker({
-                  popup: 'bottom',
-                  parent: badge2,
-                  color: "black"
-              });
-              badgePicker2.onChange = function(color) {
-                  badge1.style.color = color.rgbaString;
-                  badge2.style.color = color.rgbaString;
-                  rgbColor2 = color.rgbaString;
-                  rgbColor2 = rgbColor2.replace('a', '');
-                  rgbColor2 = rgbColor2.substring(0, rgbColor2.length - 3) + ')';
-                  $('#user_badgeTextColor').val(rgbColor2);
-              };
+    </div>
+    <script src="https://unpkg.com/vanilla-picker@2"></script>
+    <script>
+        var rgbColor1;
+        var rgbColor2;
+      $(function () {
+          var badge1 = document.querySelector('#badge1');
+          var badge2 = document.querySelector('#badge2');
+          var badgePicker1 = new Picker({
+              parent: badge1,
+              color: "#eaa766",
+              popup: 'bottom',
+              onOpen: function(){
+                  $('.popup.popup_right').css('left', "75%");
+              },
+              onChange: function(color) {
+                  badge1.style.background = color.rgbaString;
+                  badge2.style.background = color.rgbaString;
+
+                  rgbColor1 = color.rgbaString;
+                  rgbColor1 = rgbColor1.replace('a', '');
+                  rgbColor1 = rgbColor1.substring(0, rgbColor1.length - 3) + ')';
+                  $('#avatar').css('border-color', rgbColor1);
+                  $("#user_badgeColor").val(rgbColor1);
+              }
           });
-      </script>
-      <div class="Avatar">
-        <img src="/default-avatar.jpg" class="UserSignUpAva" id="avatarImage"/>
-      </div>
-      <div class="RightHeader" id="rightHeader">
-        <%= image_tag "insert.png", :class => "RightHeaderImage", :id => "rightHeaderImage" %>
-      </div>
-      <div class="Badge" id="badge2">
-        Banner Text Color
-      </div>
+          var badge2 = document.querySelector('#badge2');
+          var badgePicker2 = new Picker({
+              popup: 'bottom',
+              parent: badge2,
+              color: "black"
+          });
+          badgePicker2.onChange = function(color) {
+              badge1.style.color = color.rgbaString;
+              badge2.style.color = color.rgbaString;
+              rgbColor2 = color.rgbaString;
+              rgbColor2 = rgbColor2.replace('a', '');
+              rgbColor2 = rgbColor2.substring(0, rgbColor2.length - 3) + ')';
+              $('#user_badgeTextColor').val(rgbColor2);
+          };
+      });
+    </script>
+    <div class="Avatar" id="avatar">
+      <img src="/default-avatar.jpg" style="width:100%; height:100%; object-fit:cover;" id="avatarImage">
     </div>
-    <div class="Form">
-      <label class="nameLabel">
-        Name
-      </label>
-      <input type="text" class="nameInput" name="user[name]" id="user_name" placeholder="name">
-      <br>
-      <label class="usernameLabel">
-        @
-      </label>
-      <input type="text" class="UsernameInput" name="user[username]" id="user_username" placeholder="username">
-      <br>
-      <label class="EmailLabel">
-        email
-      </label>
-      <input type="text" id="user_email" name="user[email]" class="EmailInput" placeholder="email">
-      <br>
-      <label class="PasswordLabel">
-        Password
-      </label>
-      <input type="password" id='user_password' name="user[password]" class="PasswordInput" placeholder="password">
-      <br>
-      <label class="PasswordLabel">
-        Password Confirm
-      </label>
-      <input type="password" name="user[password_confirmation]" id='user_password_confirmation' class="PasswordInput">
-      <br>
-      <label class="BirthdayLabel">
-        Birthday
-      </label>
-      <input type="date" class="BirthdayInput" name="user[birthday]" id="user_birthday" >
-      <br>
-      <label class="GenderLabel">
-        Gender
-      </label>
-      <select class="GenderInput" name="user[gender]" id="user_gender">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="TransMale">Transgender Male</option>
-        <option value="TransFemale">Transgender Female</option>
-      </select>
-      <br>
-      <label class="HomeTownLabel">
-        Hometown
-      </label>
+    <div class="RightHeader" id="rightHeader">
+      <%= image_tag "insert.png", :class => "RightHeaderImage", :id => "rightHeaderImage" %>
+    </div>
+    <div class="Badge" id="badge2">
+      Banner Text Color
+    </div>
+  </div>
+  <div class="Form">
+    <label class="nameLabel">
+      Name
+    </label>
+    <input type="text" class="nameInput" name="user[name]" id="user_name" placeholder="name">
+    <br>
+    <label class="usernameLabel">
+      @
+    </label>
+    <input type="text" class="UsernameInput" name="user[username]" id="user_username" placeholder="username">
+    <br>
+    <label class="EmailLabel">
+      email
+    </label>
+    <input type="text" id="user_email" name="user[email]" class="EmailInput" placeholder="email">
+    <br>
+    <label class="PasswordLabel">
+      Password
+    </label>
+    <input type="password" id='user_password' name="user[password]" class="PasswordInput" placeholder="password">
+    <br>
+    <label class="PasswordLabel">
+      Password Confirm
+    </label>
+    <input type="password" name="user[password_confirmation]" id='user_password_confirmation' class="PasswordInput">
+    <br>
+    <label class="BirthdayLabel">
+      Birthday
+    </label>
+    <input type="date" class="BirthdayInput" name="user[birthday]" id="user_birthday" >
+    <br>
+    <label class="GenderLabel">
+      Gender
+    </label>
+    <select class="GenderInput" name="user[gender]" id="user_gender">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="TransMale">Transgender Male</option>
+      <option value="TransFemale">Transgender Female</option>
+    </select>
+    <br>
+    <label class="HomeTownLabel">
+      Hometown
+    </label>
       <input id="user_hometown" name="user[hometown]" placeholder="Enter a city" type="text" />
-      <br>
-      <label class="ResideLabel">
-        Reside In
-      </label>
-      <input id="user_location" name="user[location]"  placeholder="Enter a city" type="text" onclick="getLocation()">
-    </div>
-    <div class="NonMemberBenefits">
-      <p>Free Account Benefits</p>
-      <p>    Earn ad-free days.</p>
-      <p>    Upload Music.</p>
-      <p>    listen to Broadcasts.</p>
-    </div>
-    <div class="TermsOfAgreement">
-      <em>Please Read the Terms of Agreements.</em>
+    <br>
+    <label class="ResideLabel">
+      Reside In
+    </label>
+    <input id="user_location" name="user[location]"  placeholder="Enter a city" type="text" onclick="getLocation()">
+  </div>
+  <div class="NonMemberBenefits">
+    <p>Free Account Benefits</p>
+     <p>    Earn ad-free days.</p>
+    <p>    Upload Music.</p>
+    <p>    listen to Broadcasts.</p>
+  </div>
+  <div class="TermsOfAgreement">
+    <em>Please Read the Terms of Agreements.</em>
     <br>
     <input type="checkbox" id="user_Terms_of_Agreement" value="1">  I have read and do agree to the Terms of Agreements.
   </div>
@@ -131,8 +132,8 @@
               $('#rightHeaderImage').height = $('.Images').height;">
   <input hidden class="photo_upload" type="file" name="user[avatar]" id="avatarUpload" onchange=
              "document.getElementById('avatarImage').src = window.URL.createObjectURL(this.files[0]);
-              oneTimeImageSelection('Avatar');
-              $('#avatarImage').height = $('.Avatar').height;">
+              oneTimeImageSelection('avatarUpload');
+              $('#avatarImage').height = $('.images').height * .33;">
     <input hidden type="text" id="user_imagesProperties" name="user[imagesProperties]">
     <input hidden type="text" id="user_longitude" name="user[longitude]">
     <input hidden type="text" id="user_latitude" name="user[latitude]">
@@ -432,7 +433,7 @@
           //  $('#user_birthday').on('click', function () {
           //    $('#ui-datepicker-div').css('z-index', '100');
           //});
-          $("#avatarImage").on("click", function () {
+          $(".Avatar").on("click", function () {
               $("#avatarUpload").trigger("click");
           });
           $(".LeftHeader").on("click", function () {
@@ -442,7 +443,7 @@
               $("#secondHeader").trigger("click");
           });
           var widthOfOneHeader = document.getElementById('leftHeader').offsetWidth;
-          var widthOfAvatar = document.getElementById('avatarImage');
+          var widthOfAvatar = document.getElementById('avatar');
           var heightOfImages = (widthOfOneHeader / 4.47666667)*2;
           $('#header').css("height", heightOfImages);
           $('.LeftHeader').css("height", heightOfImages-6);
@@ -585,13 +586,13 @@
               var avatarPic = document.getElementById("avatarImage");
               var avatarCrop = new Croppie(avatarPic, {
                   viewport: {
-                      width: $('.Avatar').width,
-                      height: $('.Avatar').height,
+                      width: $('#avatar').width,
+                      height: $('#avatar').height,
                       type: 'circle'
                   },
                   boundary: {
-                      width: $('.Avatar').width,
-                      height: $('.Avatar').height,
+                      width: $('#avatar').width,
+                      height: $('#avatar').height,
 
                   },
 
@@ -603,7 +604,7 @@
                       imagesProperties[14] = String(data.zoom);
                   }
               });
-              $('#avatarImage .cr-boundary').css('border-radius', '50%');
+              $('#avatar .cr-boundary').css('border-radius', '50%');
           });
       });
 
