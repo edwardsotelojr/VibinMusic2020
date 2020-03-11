@@ -62,6 +62,8 @@
 
 .Avatar{
   position: relative;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
   border-color: #eaa766;
   border-width: thick;
@@ -69,11 +71,18 @@
   z-index: 3;
 }
 
-#avatarImage{
+.UserSignUpAva{
+  position: relative;
+  z-index: 3;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
-  border-color: white;
+  border-color: #eaa766;
+  border-width: thick;
   border-style: solid;
 }
+
+
 
 .userData {
   width: 100%;

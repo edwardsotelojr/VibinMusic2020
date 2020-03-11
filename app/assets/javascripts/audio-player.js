@@ -34,7 +34,11 @@ window.addEventListener("DOMContentLoaded", function (e) {
     let optionslistbutton = document.querySelector(".options_list");
     let repeatButton = document.querySelector(".repeat");
     let likeButton = document.querySelector("#like_button");
-
+    $('.exploreTopStreamerBox').hover(function () {
+        $("#Top_Streamer").css("filter", "blur(2px)");
+    }, function () {
+        $("#Top_Streamer").css("filter", "blur(0px)");
+    });
     repeatButton.onclick = function () {
         if (repeat) {
             repeat = false;
