@@ -111,7 +111,7 @@
           <label class="Label">
             Reside In
           </label><br>
-          <input class="Input" id="user_location" name="user[location]"  placeholder="Enter a city" type="text" onclick="getLocation()">
+          <input class="Input" id="user_location" name="user[location]"  placeholder="Enter a city" type="text"  oninput="getCoords(this.value)">
         </div>
       </div>
       <div class="col-4" style="margin-left: 15px;">
@@ -210,6 +210,15 @@
           } else {
              console.log("Geolocation is not supported by this browser.");
           }
+      }
+      function success(position) {
+          const latitude  = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          console.log("latitude: " + latitude + " longitude: " + longitude);
+      }
+      function getCoords(val){
+          navigator.geolocation.getCurrentPosition(success);
+          console.log("val " + val);
       }
       var geocoder = new google.maps.Geocoder;
       var infowindow = new google.maps.InfoWindow;
@@ -432,9 +441,6 @@
           });
           $('#user_hometown').change(function(){
               console.log('select home');
-              readyToSubmit();
-          });
-          $('#user_location').change(function() {
               readyToSubmit();
           });
           $('#user_Terms_of_Agreement').click(function() {
