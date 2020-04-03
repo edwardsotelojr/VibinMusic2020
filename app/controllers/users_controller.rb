@@ -143,6 +143,6 @@ class UsersController < ApplicationController
                                  :gender, :password, :password_confirmation,
                                  :birthday, :Terms_of_Agreement, :avatar, :firstHeader,
                                  :secondHeader, :badgeColor, :badgeTextColor, :location, :hometown,
-                                 :imagesProperties)
+                                 :imagesProperties )
   end
 end

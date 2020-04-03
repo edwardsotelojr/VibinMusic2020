@@ -11,8 +11,8 @@
     </div>
     <script src="https://unpkg.com/vanilla-picker@2"></script>
     <script>
-        var rgbColor1;
-        var rgbColor2;
+        var rgbColor1 = "rgb(234,167,102)";
+        var rgbColor2 = "rgb(0,0,0)";
       $(function () {
           var badge1 = document.querySelector('#badge1');
           var badge2 = document.querySelector('#badge2');
@@ -106,12 +106,15 @@
           <label class="Label">
             Hometown
           </label><br>
-          <input class="Input" id="user_hometown" name="user[hometown]" placeholder="Enter a city" type="text" />
+          <input class="Input" id="user_hometown" name="user[hometown]" placeholder="Enter your Howntown" type="text" />
           <br>
           <label class="Label">
             Reside In
           </label><br>
-          <input class="Input" id="user_location" name="user[location]"  placeholder="Enter a city" type="text"  oninput="getCoords(this.value)">
+          <input class="Input" id="user_location" name="user[location]"  placeholder="Enter your city" type="text">
+          <input hidden id="user_longitude" name="user[longitude]">
+          <input hidden id="user_latitude" name="user[latitude]">
+
         </div>
       </div>
       <div class="col-4" style="margin-left: 15px;">
@@ -170,6 +173,30 @@
       }
   </style>
   <script>
+    var imagesPropertie;
+    function geocode() {
+        var location = $('#user_location').val();
+        $.ajax({
+            url: 'https://maps.googleapis.com/maps/api/geocode/json',
+            type: 'GET',
+            data: {
+                address: location,
+                key: "AIzaSyABBVE90zE3SB_kb52KWFSS2Fqumy303do"
+            },
+            dataType: 'json',
+            success: function (r) {
+                console.log('success', r.results[0].geometry.location.lat);
+                console.log('success', r.results[0].geometry.location.lng);
+                $("#user_latitude").val(r.results[0].geometry.location.lat);
+                $("#user_longitude").val(r.results[0].geometry.location.lng);
+
+            },
+            error: function (e) {
+                console.log('error', e);
+            }
+        });
+    }
+
       $(document).ready(function() {
           $(window).keydown(function(event){
               if(event.keyCode == 13) {
@@ -201,49 +228,6 @@
 
           // Check the range of the day
           return day > 0 && day <= monthLength[month - 1];
-      }
-    var latitude;
-    var longitude;
-      function getLocation() {
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition);
-          } else {
-             console.log("Geolocation is not supported by this browser.");
-          }
-      }
-      function success(position) {
-          const latitude  = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          console.log("latitude: " + latitude + " longitude: " + longitude);
-      }
-      function getCoords(val){
-          navigator.geolocation.getCurrentPosition(success);
-          console.log("val " + val);
-      }
-      var geocoder = new google.maps.Geocoder;
-      var infowindow = new google.maps.InfoWindow;
-      function showPosition(position) {
-          longitude = String(position.coords.longitude);
-          latitude = String(position.coords.latitude);
-          console.log("Latitude: " + position.coords.latitude +
-              "Longitude: " + position.coords.longitude);
-          geocodeLatLng(geocoder, infowindow, position.coords.latitude, position.coords.longitude);
-      }
-      function geocodeLatLng(geocoder, infowindow, latitude, longitude) {
-
-          var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
-          geocoder.geocode({'location': latlng}, function(results, status) {
-              if (status === 'OK') {
-                  if (results[0]) {
-                      console.log(results[6].formatted_address);
-                      $('#user_location').val(results[6].formatted_address);
-                  } else {
-                      window.alert('No results found');
-                  }
-              } else {
-                  window.alert('Geocoder failed due to: ' + status);
-              }
-          });
       }
       var autocomplete;
       var autocomplete2;
@@ -362,7 +346,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
       function oneTimeImageSelection(imageDiv) {
-          console.log(imageDiv);
+          console.log("imageDiv ", imageDiv);
           document.getElementById(imageDiv).disabled = true;
       }
       function validateEmail(email) {
@@ -650,13 +634,10 @@
                                           if (document.getElementById("user_Terms_of_Agreement").checked) {
                                               $('#submit').css('display', 'block');
                                               $('#user_imagesProperties').val(imagesProperties.toString());
-                                              $("#user_longitude").val(longitude);
-                                              $("#user_latitude").val(latitude);
+                                              geocode();
                                               $("#user_badgeColor").val(rgbColor1);
                                               $("#user_badgeTextColor").val(rgbColor2);
                                               console.log("user_imagesProperties " + $('#user_imagesProperties').val());
-                                              console.log("user_longitude " + $("#user_longitude").val());
-                                              console.log("user_latitude" + $("#user_latitude").val());
                                               console.log("user_badgeColor" + $("#user_badgeColor").val());
                                               console.log("user_badgeTextColor" + $("#user_badgeTextColor").val());
                                               console.log("user_location " + $("#user_location").val());
