@@ -5,37 +5,22 @@ $sideColor: #730E15;
 $fontSize: 28px;
 $buttonColor: #eaa766;
 //hello
-
-.SmallMusicPlayer {
-  width: inherit;
-  visibility: hidden;
-  background-color: red;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  @media only screen and (max-width: 600px) {
-    visibility: visible;
-    top: 0px;
-    left: 0px;
-  }
-}
-
 .musicPlayer {
   height: 81px;
   width: 100%;
   background-color: $theme;
   align-items: center;
-  @media only screen and (max-width: 600px) {
-    visibility: hidden;
-  }
+  display: flex;
 }
 
 .songDetails {
   position: relative;
   float: left;
   height: 100%;
-  max-width: 400px;
-
+  min-width: 212px;
+  @media only screen and (max-width: 500px) {
+    min-width: 96px;
+  }
 }
 
 .songCover {
@@ -56,7 +41,6 @@ $buttonColor: #eaa766;
   border-style: none;
   margin-left: 52px;
   padding-right: 0px;
-  display: block;
   margin-top: 20px;
   -webkit-animation: bgcolor 3s infinite;
   animation: bgcolor 1s infinite;
@@ -111,7 +95,9 @@ $buttonColor: #eaa766;
   position: relative;
   float: left;
   margin-left: 10px;
-
+  @media only screen and (max-width: 500px) {
+    display: none
+  }
   p {
     margin-left: 5px;
   }
@@ -193,19 +179,30 @@ $buttonColor: #eaa766;
   background-color: inherit;
 }
 
-.audio-player {
+.Center-Audio {
+  margin: auto;
+  text-align: center;
+  width: 75%;
+}
 
+.audio-player {
   display: flex;
   align-items: center;
   background-color: $theme;
   margin: auto;
-  top: 4px;
+  top: -6px;
   position: relative;
-
   .audio-buttons {
     display: flex;
     margin: auto;
     position: relative;
+
+    #like_button {
+      display: none;
+    }
+    @media only screen and (max-width: 600px) {
+      top: 8px;
+    }
   }
 
   button.playlist-modal {
@@ -238,7 +235,7 @@ $buttonColor: #eaa766;
   }
 
   .seek-bar {
-    min-width: 100%;
+    min-width: 75%;
     top: 10px;
     background-color: $buttonColor;
     display: flex;
@@ -246,9 +243,11 @@ $buttonColor: #eaa766;
     cursor: pointer;
     margin: auto;
     height: 7px;
-    paddinng-right: 5px;
+    padding-right: 5px;
     position: relative;
-
+    @media only screen and (max-width: 600px) {
+      display: none
+     }
     .fill {
       height: 7px;
       background-color: $blue;
@@ -347,7 +346,7 @@ button.volume {
 
 .musicPlayer {
   height: 81px;
-  width: 100%;
+  max-width: 100%;
   background-color: $theme;
   align-items: center;
 }
@@ -355,10 +354,13 @@ button.volume {
 .right_footer {
   width: 200px;
   float: right;
-  margin-right: 10px;
+  right: 6px;
   position: relative;
   top: 3px;
-
+  @media only screen and (max-width: 760px) {
+    visibility: hidden;
+    width: 0px;
+  }
   .right_elements {
     display: flex;
     align-items: center;

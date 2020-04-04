@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_19_045729) do
+ActiveRecord::Schema.define(version: 2020_04_04_031214) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -33,12 +33,17 @@ ActiveRecord::Schema.define(version: 2020_01_19_045729) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "albumlikes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "list"
+    t.integer "users_id"
+    t.index ["users_id"], name: "index_albumlikes_on_users_id"
+  end
+
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "musiclist"
     t.string "title"
-    t.string "context"
+    t.string "message"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
@@ -159,8 +164,8 @@ ActiveRecord::Schema.define(version: 2020_01_19_045729) do
   create_table "songlikes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "song_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["song_id"], name: "index_songlikes_on_song_id"
     t.index ["user_id"], name: "index_songlikes_on_user_id"
   end
@@ -169,6 +174,7 @@ ActiveRecord::Schema.define(version: 2020_01_19_045729) do
     t.string "title"
     t.string "text"
     t.string "genre"
+    t.integer "albums_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "plays", default: 0
@@ -213,13 +219,13 @@ ActiveRecord::Schema.define(version: 2020_01_19_045729) do
     t.datetime "updated_at", null: false
     t.boolean "Terms_of_Agreement", default: true
     t.string "remember_digest"
-    t.string "activation_digest"
-    t.boolean "activated", default: false
-    t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.boolean "email_confirmed", default: false
     t.string "confirm_token"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
     t.boolean "Verified", default: false
     t.string "longitude", null: false
     t.string "latitude", null: false
@@ -227,10 +233,11 @@ ActiveRecord::Schema.define(version: 2020_01_19_045729) do
     t.string "badgeTextColor", default: "#ffffff"
     t.string "hometown"
     t.string "location"
-    t.string "imagesProperties"
+    t.string "imagespp"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "albumlikes", "users", column: "users_id"
   add_foreign_key "albums", "users"
   add_foreign_key "broadcasters", "users"
   add_foreign_key "clout_songs", "songs"

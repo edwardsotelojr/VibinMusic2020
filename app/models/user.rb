@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
   validates :bio, length: {maximum: 250}
   validates :badgeColor, presence: true
   validates :badgeTextColor, presence: true
-  validates :imagesProperties, presence: true
+
+
   has_secure_password
   validates :password_digest, presence: true, length: {minimum: 6}, allow_nil: true
   has_many :albumlikes

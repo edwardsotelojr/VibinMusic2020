@@ -247,4 +247,3 @@ function playPause() {
         audio.pause();
     }
 }
-
