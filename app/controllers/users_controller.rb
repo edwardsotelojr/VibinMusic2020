@@ -142,6 +142,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :username, :name, :longitude, :latitude, :bio,
                                  :gender, :password, :password_confirmation,
                                  :birthday, :Terms_of_Agreement, :avatar, :firstHeader,
-                                 :secondHeader, :badgeColor, :badgeTextColor, :location, :imagespp, :hometown)
+                                 :secondHeader, :badgeColor, :badgeTextColor, :location, :hometown)
   end
 end

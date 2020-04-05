@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%= yield(:head) %>
 <head>
   <title>VibinMusicBeta</title>
   <meta charset="utf-8">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <!%= action_cable_meta_tag %>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
@@ -36,14 +37,4 @@
 </html>
 
 <script>
-    $(window).on('resize', function() {
-        var main = document.getElementById("main");
-        if(window.innerWidth < 777){
-            main.style.marginLeft = "0px";
-        }else{
-
-            main.style.margin = "60px 10px 10px 10px";
-
-        }
-    });
 </script>
