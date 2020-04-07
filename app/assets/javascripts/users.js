@@ -1,4 +1,8 @@
-console.log("In users.js ");
+console.log("In users.js fdsfsdfsdfsdfsfs ");
+function heree(){
+    console.log("dd");
+}
+/*
     widthOfOneHeader = document.getElementById('leftHeader').offsetWidth;
     widthOfAvatar = document.getElementById('avatar');
     heightOfImages = (widthOfOneHeader / 4.47666667) * 2;
@@ -92,4 +96,4 @@ $(window).resize(function () {
         $('#badge2').css('width', widthOfOneHeader * 0.5);
         $("#badge2").css('right', (widthOfOneHeader / 2) - (widthOfOneHeader * 0.5) / 2);
     }
-});
+});*/

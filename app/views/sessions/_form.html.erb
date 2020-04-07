@@ -13,15 +13,20 @@
   <p onclick="dooo()"> New User? </p>
 </div>
 <script>
-  function dooo(){
-    $( "#main" ).load( "signup");
-    window.history.pushState("object or string", "Sign up", "/signup");
-    var script = document.createElement('script');
-    script.onload = function () {
-          console.log("Lmao");
-      };
-      //script.src = '/users.js';
-      console.log("dooo function");
-      document.head.appendChild(script); //or something of the likes
-  }
+
+    function dooo(){
+        $.getScript("users.js", function(){
+            alert("Script loaded and executed.");
+        });
+        $('.dropdown-content-login').css('display', 'none');
+        $("#main").load("signup");
+      //  window.history.pushState("object or string", "Sign up", "/signup");
+       // var script = document.createElement('script');
+        //script.onload = function () {
+       //     console.log("Lmao");
+      //  };
+       // script.src = '/users.js';
+        console.log("dooo function");
+       // document.head.appendChild(script); //or something of the likes
+    }
 </script>

@@ -25,8 +25,10 @@
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="@" />
-          <node kind="schema" qname="vibinmusic_beta_development" />
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="vibinmusic_beta_development" />
+          </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>

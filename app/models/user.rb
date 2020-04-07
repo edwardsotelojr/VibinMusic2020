@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User < ActiveRecord::Base
   #searchkick text_start: [:username, :name]
   genderList = ["male", "female"]
 
@@ -25,11 +25,10 @@ class User < ApplicationRecord
   validates :location, presence: true
   validates :gender, presence: true
   validates :birthday, presence: true
-  validates :bio, length: {maximum: 250}, presence: true
+  validates :bio, length: {maximum: 250}
   validates :badgeColor, presence: true
   validates :badgeTextColor, presence: true
-
-
+  validates :imagesproperties, presence: true
   has_secure_password
   validates :password_digest, presence: true, length: {minimum: 6}, allow_nil: true
   has_many :albumlikes

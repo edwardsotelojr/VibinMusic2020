@@ -1,5 +1,5 @@
 
-  <% if logged_in? %>
+<% if logged_in? %>
     <% @user = current_user %>
     <div class="userHomePage">
       <div class="homeUserFeed">
@@ -227,9 +227,10 @@
         $(window).on('scroll', function () {
            topp = 110 + window.scrollY;
            $('.recommended').css("top", topp);
-           console.log(topp);
+           //console.log(topp);
         });
         $(window).on('resize', function() {
+            if(document.getElementById("rightSide") !== null){
             var container = document.getElementsByClassName("Non-UserHomePage").offsetWidth;
             if(window.innerWidth < 777){
                 rightSide.display = "none";
@@ -240,6 +241,7 @@
                 var newRightSide = (container - 500) + "px";
                 $("#rightSide").css("width", newRightSide);
 
+              }
             }
         });
         //$('.iphone').on('click', function(){

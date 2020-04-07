@@ -153,7 +153,7 @@ function buildPlayer(song, username, title, ...args) {
 
 function connect(user_id) {
     console.log(user_id);
-    x.keepalive = true;
+    x.keepalive = false;
     x.onreadystatechange = function () {
         if (x.readyState === 1) {
             console.log("CONNECTION OPENED");
@@ -191,10 +191,11 @@ function connect(user_id) {
             } else {
                 console.log("no response");
             }
+            x.close();
         }
     };
-
-    x.open("POST", "http://localhost:4447/establish?Action=1001", true);
+    let key = $("#broadcast_text").data("key");
+    x.open("POST", "http://localhost:4447/establish?action=1001&key=" + key, true);
     x.send();
 }
 
@@ -632,7 +633,8 @@ function sendData(duration, ...args) {
             let a = new FormData();
             a.append("Action", args[0]);
             x.send(a);
-            consolde.log("sent it out");
+            console.log("sent it out");
+            x.close();
         }
     } catch (e) {
         console.log(e);
