@@ -24,9 +24,10 @@
   <%= yield %>
 
 </div>
-<div class="modal" id="myModal">
+<div class="modal" id="modal">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="height: auto; width: 700px;">
+    <span class="CancelPostModal" id="cancelPostModal"> X</span>
+    <div class="modal-content" style="height: 200px; width: 700px;">
     </div>
   </div>
 </div>
@@ -37,4 +38,8 @@
 </html>
 
 <script>
+    $('#cancelPostModal').on('click', function(){
+        console.log("d");
+        $('#modal').css('display', 'none');
+    });
 </script>

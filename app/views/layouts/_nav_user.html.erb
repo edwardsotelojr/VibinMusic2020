@@ -7,9 +7,10 @@
 <% end %>
 
 <div style="float: right; margin-top: 2px;">
-    <%= image_tag "messages", class: "MessagesTab", onclick: "sendTheAJAX('conversations', '')"%>
+    <%= image_tag "PostButton", class: "Tab", onclick: "openPostModal()" %>
+    <%= image_tag "messages", class: "Tab", onclick: "sendTheAJAX('conversations', '')"%>
   <div class="NotificationTabDiv">
-    <%= image_tag "notification", class: "notification" %>
+    <%= image_tag "notification", class: "Tab" %>
     <div class="dropdown-content-notification">
       <h6><%= current_user.name %></h6>
     </div>
@@ -35,3 +36,17 @@
     <div id="current-user"></div>
   <% end %>
 </div>
+
+
+<script>
+  function openPostModal(){
+      $('#modal').css('display', 'block');
+  }
+
+  /*$(window).on('click', function(e){
+     if($('#modal').css('display') == 'block' && e.target != $('#modal')){
+         $('#modal').css('display', 'none');
+     }
+  });*/
+
+</script>
