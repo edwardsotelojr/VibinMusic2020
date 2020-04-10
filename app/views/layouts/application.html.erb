@@ -25,21 +25,32 @@
 
 </div>
 <div class="modal" id="modal">
-  <div class="modal-dialog" role="document">
-    <span class="CancelPostModal" id="cancelPostModal"> X</span>
-    <div class="modal-content" style="height: 200px; width: 700px;">
+  <div class="modal-dialog" role="document" id="modalDialog">
+    <button class="CancelPostModal" id ="cancelPostModal"> X</button>
+     <div class="modal-content" style="height: 200px; width: 700px;">
     </div>
   </div>
 </div>
-  <div class="musicbar">
-    <%= render "songs/song_player" %>
-  </div>
+<div class="musicbar">
+  <%= render "songs/song_player" %>
+</div>
 </body>
 </html>
 
 <script>
-    $('#cancelPostModal').on('click', function(){
+
+     $('#cancelPostModal').click(function () {
         console.log("d");
-        $('#modal').css('display', 'none');
+        modal = document.querySelector("#modal");
+        modal.style.display = "none";
     });
+
+     var modal = document.getElementById('modal');
+     $(window).click(function (event)
+     {
+         if(event.target.id == 'modal') {
+             $("#modal").css('display', 'none');
+         }
+     });
+
 </script>
