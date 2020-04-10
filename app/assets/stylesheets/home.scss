@@ -100,7 +100,7 @@
   font-weight: bold;
 }
 
-.userHomePage {
+.UserHomePage {
   min-width: 1200px;
   height: 1000px;
 }
@@ -237,11 +237,12 @@
   font-weight: bold;
 }
 
-.homeUserFeed{
+.HomeUserFeed{
   position: relative;
   float: left;
   width: 50%;
   margin-top: 20px;
+  margin-bottom: 100px;
 }
 
 .homeLibrary{
@@ -250,6 +251,7 @@
   width: 90%;
   display: inline-block;
   border-radius: 15px;
+  margin-bottom: 6px;
 }
 
 .homeLibraryPlaylistCover{
@@ -308,6 +310,7 @@
   float: left;
   width: 50%;
   text-align: -moz-center;
+  margin-bottom: 100px;
 }
 
 .RecommendedContainer {
@@ -324,6 +327,8 @@
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .RecommendedUser {

@@ -1,8 +1,8 @@
 
   <% if logged_in? %>
     <% @user = current_user %>
-    <div class="userHomePage">
-      <div class="homeUserFeed">
+    <div class="UserHomePage">
+      <div class="HomeUserFeed">
         <%= render "/posts/userfeed" %>
         <p>dfsdfdsfsdfsdf</p>
         <p>dfsdfdsfsdfsdf</p>
@@ -112,6 +112,8 @@
                 </div>
               <% end %>
             </div>
+          </div>
+        <div class="RecommendedContainer">
             <div class="RecommendedRow">
               <!% @recommendedSongs.each do |song| %>
                 <div class="exploreTopSongBox">
@@ -147,6 +149,8 @@
                 </div>
               <!% end %>
             </div>
+        </div>
+        <div class="RecommendedContainer">
             <div class="RecommendedRow">
               <div class="exploreEventBox">
                 <div class="row justify-content-between">
