@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost-Desktop">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.15">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.17">
     <root id="1">
       <ServerVersion>5.7.18</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -15,7 +15,6 @@
     </schema>
     <schema id="4" parent="1" name="information_schema">
       <Collation>utf8_general_ci</Collation>
-      <Substituted>1</Substituted>
     </schema>
     <schema id="5" parent="1" name="mysql">
       <Collation>utf8_general_ci</Collation>
@@ -59,7 +58,6 @@
     <schema id="18" parent="1" name="vibinmusic_beta_development">
       <Current>1</Current>
       <Collation>utf8_general_ci</Collation>
-      <Visible>1</Visible>
     </schema>
     <schema id="19" parent="1" name="vibinmusic_beta_test">
       <Collation>utf8_general_ci</Collation>

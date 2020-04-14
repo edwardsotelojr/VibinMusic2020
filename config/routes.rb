@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  Rails.application.routes.draw do
+
     #mount ActionCable.server, at: '/cable'
     resources :users do
       member do
@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :relationships, only: [:create, :destroy]
 
     root 'home#home'
+
     get '/search' => 'home#search'
     get '/explore' => 'home#explore'
     get '/new_broadcaster' => 'broadcasters#new'
@@ -95,4 +96,3 @@ Rails.application.routes.draw do
     #  get '/livestream' => 'audio#stream'
     delete '/playlists', to: 'playlists#destroy'
   end
-end

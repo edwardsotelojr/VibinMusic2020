@@ -594,12 +594,16 @@
   overflow-y: hidden;
   white-space: nowrap;
   margin-bottom: 10px;
+  -ms-overflow-style: none;
+
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
 .exploreRow::-webkit-scrollbar {
-  height: 0;
-  width: 0;
+  display: none;
 }
+
+
 
 .exploreTopSongColumn {
   float: left;
@@ -615,6 +619,7 @@
   border-style: solid;
   border-color: #00aaff;
   background-color: #696969;
+  display: inline-block;
 }
 
 .exploreStreamerCover {

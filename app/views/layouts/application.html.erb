@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<%= yield(:head) %>
 <head>
   <title>VibinMusicBeta</title>
   <meta charset="utf-8">
   <%= csrf_meta_tags %>
+
+  <!-- Returns a meta tag “csp-nonce” with the per-session
+   nonce value for allowing inline <script> tags. -->
   <%= csp_meta_tag %>
+
   <!%= action_cable_meta_tag %>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -24,8 +27,8 @@
   <%= yield %>
 
 </div>
-<div class="modal" id="modal">
-  <div class="modal-dialog" role="document" id="modalDialog">
+<div class="Modal" id="modal">
+  <div class="ModalContainer" role="document" id="modalDialog">
     <button class="CancelPostModal" id ="cancelPostModal"> X</button>
      <div class="modal-content" style="height: 200px; width: 700px;">
     </div>
