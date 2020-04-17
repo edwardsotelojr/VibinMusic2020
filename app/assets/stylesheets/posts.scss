@@ -4,16 +4,43 @@
 
 .postLeft {
   margin-top: 5px;
-  max-width: 150px;
+  max-width: inherit;
   position: relative;
-  float: left;
+  float: top;
+  display: flex;
+
+  p {
+    color: white;
+    margin-top: 4px;
+    margin-left: 10px;
+    font-size: 15px;
+    margin-bottom: 0px;
+  }
+
+  a {
+    height: 23px;
+  }
+}
+
+.UserPostInfo {
+  display: flex;
+  height: 10px;
 }
 
 .postCenter {
   min-width: 150px;
-  max-width: calc(100% - 240px);
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 7px;
+}
+
+.postForm {
+  width: calc(100% - 150px);
   position: relative;
   float: left;
+  margin-top: 10px;
+  margin-left: 19px;
 }
 
 .imagePost {
@@ -24,15 +51,15 @@
 .postRight {
   max-width: 90px;
   position: relative;
-  float: left;
+  float: right;
+  margin-top: -41px;
 }
-
 
 
 .post-ava {
   display: block;
-  height: 90px;
-  width: 90px;
+  height: 45px;
+  width: 45px;
   border-radius: 50px;
   border-color: white;
   border-style: solid;
@@ -68,12 +95,39 @@
   //position: relative;
 }
 
-.form-content {
-
+.PostFormText{
+  background-color: #ffc17a;
   border-radius: 5px;
   width: 100%;
   overflow: hidden;
   display: block;
-  font-size: 25px;
+  font-size: 17px;
   padding-bottom: 10px;
 }
+
+
+
+.PostFormContainer{
+  height: inherit;
+  width: inherit;
+
+}
+
+.PostFormUserAva{
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  border-style: solid;
+  border-color: #ffa06c;
+}
+
+.PostFormButton{
+  height: 35px;
+  width: 60px;
+}
+
+.PostFormSubmitButton{
+  height: 35px;
+  width: 70px;
+}
+

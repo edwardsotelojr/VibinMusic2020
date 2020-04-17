@@ -10,6 +10,7 @@ class HomeController < ApplicationController
     puts "\n\n\n\n\n\n\n\n\n\n\n\n"
     @TopChart = Song.where("user_id > 0")
     @user = current_user
+    @newPost = Post.new
     if logged_in?
       # array with current_user id
       @recommendedSongs = Song.all.limit 5

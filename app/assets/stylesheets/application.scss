@@ -408,13 +408,16 @@ a:hover {
   justify-content: center;
 }
 
-.ModalContainer{
-  width: 300px;
-  height: min-content;
+.ModalContainer {
   justify-content: center;
   display: flex;
-  background-color: #b2b0ae;
-
+  height: min-content;
+  width: 475px;
+  background-color: #57aeff;
+  border-color: #ffc17a;
+  border-radius: 20px;
+  border-style: solid;
+  border-style: solid;
 }
 
 /* Modal Content */

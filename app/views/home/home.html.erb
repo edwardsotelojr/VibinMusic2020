@@ -3,17 +3,20 @@
 
   <div class="UserHomePage">
     <div class="HomeUserFeed">
+      <div class="post">
+        <div class="postLeft">
+          <% if @user.avatar.attached? %>
+            <%= image_tag (@user.avatar), class: "post-ava", style:"margin-left:13px" %>
+          <% else %>
+            <img src="http://localhost:3000/default-avatar.jpg" class='post-ava'>
+          <% end %>
+         </div>
+        <div class="postForm">
+          <p> We'll be back</p>
+        </div>
+      </div>
       <%= render "/posts/userfeed" %>
-      <p>dfsdfdsfsdfsdf</p>
-      <p>dfsdfdsfsdfsdf</p>
-      <p>dfsdfdsfsdfsdf</p>
-      <p>dfsdfdsfsdfsdf</p>
-      <p>dfsdfdsfsdfsdf</p>
-      <p>dfsdfdsfsdfsdf</p>
-      <p>dfsdfdsfsdfsdf</p>
     </div>
-
-
     <div class="homeRecommended">
       <h4>Music Library</h4>
       <div class="homeLibrary">
@@ -76,15 +79,16 @@
                   @<%= user.username %>
                 </div>
                 <div class="row justify-content-center" style="font-size: 12px; margin-top: -5px;">
-                 <%= user.hometown %>
+                  <%= user.hometown %>
                 </div>
                 <div class="row" style="margin-top: 18px;">
                   <div class="col" style="max-width: 33%; font-size: 11px; white-space: initial;">
                     Rap Alternative Chopped & Screwed
                   </div>
                   <div class="col" style="max-width: 33%;">
-                    <!%= image_tag !user.avatar.nil? ? url_for(user.avatar) : "default-avatar.jpg", class: "exploreTopArtistAva"%>
-                    <%= image_tag  "default-avatar.jpg", class: "exploreTopArtistAva"%>
+                    <!%= image_tag !user.avatar.nil? ? url_for(user.avatar) : "default-avatar.jpg", class:
+                    "exploreTopArtistAva"%>
+                    <%= image_tag "default-avatar.jpg", class: "exploreTopArtistAva" %>
 
                   </div>
                   <div class="col" style="max-width: 33%;">
