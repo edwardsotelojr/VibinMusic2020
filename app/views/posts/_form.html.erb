@@ -69,9 +69,10 @@
             event.preventDefault();
         });
         var _URL = window.URL || window.webkitURL;
-
-        var reader = new FileReader();
-        var img = new Image();
+        var height;
+        var width;
+        var reader;
+        var img;
         var resolution;
         var objectUrl;
         var x;
@@ -80,17 +81,44 @@
             var files = document.getElementById("images").files;
             for (var i = 0; i < files.length; i++)
             {
+                img = new Image();
+                reader = new FileReader();
                 imagesCount =+ 1;
                 tmp_files.push(files[i]);
                 console.log("tmp_files length: " + tmp_files.length);
                 console.log(files[i].name);
                 objectUrl = _URL.createObjectURL(files[i]);
+                reader.readAsDataURL(files[i]); // convert to base64 string
                 reader.onload = function(e) {
+                    console.log(e);
+                    img.src = e.target.result;
                     var col = document.createElement('div');
                     col.setAttribute('class', "col");
                     document.getElementById("previewImages").appendChild(col);
                     x = document.createElement("IMG");
-                    style = "height:" + 100 + "px; width: " + 100 + "px; display: inline-block;" ;
+                    img.onload = function(){
+                      width = this.width;
+                      height = this.height;
+                      console.log("width: " + width);
+                      console.log("height: " + height);
+                    };
+                    img.com
+                    resolution = width / height;
+                    console.log("resolution: ", resolution);
+                    if(resolution > 1){
+                        if(width > 500)
+                        {
+                            width = 400;
+                            height = width / resolution;
+                        }
+                    }else{
+                        if(height > 500){
+                            height = 400;
+                            width = height * resolution;
+                        }
+                    }
+
+                    style = "height:" + height + "px; width: " + width + "px; display: inline-block;" ;
                     x.setAttribute('src', e.target.result);
                     x.setAttribute("style", style);
                     var cancel = document.createElement("span");
@@ -99,7 +127,7 @@
                     document.getElementById("previewImages").lastChild.appendChild(cancel);
                     document.getElementById("previewImages").lastChild.appendChild(x);
                 }
-                reader.readAsDataURL(files[i]); // convert to base64 string
+
             }
         });
 
