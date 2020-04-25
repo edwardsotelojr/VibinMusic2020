@@ -20,10 +20,22 @@
   a {
     height: 23px;
   }
+  #delete{
+    float: right;
+    position: absolute;
+    right:10px;
+    color: gray;
+    a{
+      color: gray;
+      &:hover{
+        color:lightgrey;
+      }
+    }
+  }
 }
 
 .UserPostInfo {
-  display: flex;
+  display: block;
   height: 10px;
 }
 
@@ -53,6 +65,8 @@
   position: relative;
   float: right;
   margin-top: -41px;
+
+
 }
 
 
@@ -69,8 +83,10 @@
   display: block;
   overflow: hidden;
   background-color: #4d7ce3;
-  width: 100%;
+  width: 70%;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
   min-height: 150px;
   border-radius: 10px;
   border-style: solid;
@@ -80,9 +96,11 @@
 .post-image {
   height: 105%;
   object-fit: cover;
-  width: 105%;
+  width: 70%;
   display: inline-block;
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .img-wrapper {
@@ -95,7 +113,7 @@
   //position: relative;
 }
 
-.PostFormText{
+.PostFormText {
   background-color: #ffc17a;
   border-radius: 5px;
   width: 100%;
@@ -107,14 +125,13 @@
 }
 
 
-
-.PostFormContainer{
+.PostFormContainer {
   height: inherit;
   width: inherit;
 
 }
 
-.PostFormUserAva{
+.PostFormUserAva {
   height: 60px;
   width: 60px;
   border-radius: 30px;
@@ -124,18 +141,19 @@
   margin-top: -8px;
 }
 
-.PostFormButton{
+.PostFormButton {
   height: 35px;
   width: 60px;
 }
 
-.PostFormSubmitButton{
+.PostFormSubmitButton {
   height: 35px;
   width: 70px;
 }
 
-.CancelPostModal{
+.CancelPostModal {
   border: none;
   border-radius: 15px;
-  background-color: rgba(87,174,255,0.66);
+  background-color: rgba(87, 174, 255, 0.66);
+  cursor: grab;
 }

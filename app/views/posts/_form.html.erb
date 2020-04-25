@@ -15,7 +15,7 @@
   </div>
   <div class="row" style="justify-content: end;">
     <div class="col-1"  style="margin-right: 20px; margin-top: 2px;">
-      <button class="CancelPostModal" id="cancelPostModal"> X</button>
+      <span class="CancelPostModal" id="cancelPostModal"> X</span>
     </div>
   </div>
     <div class="row justify-content-center">
@@ -23,15 +23,16 @@
         <img src="default-avatar.jpg" class="PostFormUserAva">
       </div>
       <div class="col-9" style="margin-top: 8px;">
-        <%= f.text_area :content, class: "PostFormText", rows: 1, placeholder: "Text" %>
+        <%= f.text_area :content, class: "PostFormText", rows: 1, placeholder: "Text", id: "post_content" %>
       </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center"  id="previewImages">
     </div>
-    <div class="row justify-content-end" style="margin-top: 9px;">
+  <input hidden class="photo_upload" name="post[images][]" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
+  <div class="row justify-content-end" style="margin-top: 9px;">
       <div class="col-2">
         <button class="PostFormButton">
-          <img src="PictureUploadButton.png">
+          <%= image_tag "PictureUploadButton.png", style: "height:30px; width:30px;", id: "imagesUploader" %>
         </button>
     </div>
       <div class="col-2">
@@ -48,33 +49,60 @@
 <% end %>
 
 <script>
-    $(document).ready(function() {
-        $('#cancelPostModal').click(function (event) {
+    var imagesCount = 0;
+    var tmp_files = new Array();
+    window.addEventListener('DOMContentLoaded',function () {
+
+        document.getElementById("cancelPostModal").addEventListener("click", function(){
+            document.getElementById("post_content").value = "";
+            if(document.getElementById("previewImages").contains(document.getElementById('images1'))){
+               document.getElementById("previewImages").removeChild(document.getElementById("images1"));
+            }
+           console.log("closed");
+        });
+        document.getElementById("post_content").addEventListener("onkeypress", function (event) {
+            console.log("ds");
+        });
+        document.getElementById("imagesUploader").addEventListener("click", function (event) {
+            event.preventDefault();
+            $("#images").trigger("click");
             event.preventDefault();
         });
-    });
-    $(function () {
+        var _URL = window.URL || window.webkitURL;
 
-        /*
-        $("#imagesUploader").on("click", function () {
-            $("#images").trigger("click");
-            console.log("lmaooo");
-        });
-        var preview = $("#previewPostImage");
-        console.log(preview);
+        var reader = new FileReader();
+        var img = new Image();
+        var resolution;
+        var objectUrl;
+        var x;
+        var style;
         $("#images").change(function (event) {
-            var input = $(event.currentTarget);
-            var file = input[0].files[0];
-            var reader = new FileReader();
-            console.log("lmaooo");
-            reader.onload = function (e) {
-                console.log("lmaooo");
-                image_base64 = e.target.result;
-                preview.attr("src", image_base64);
-            };
-            reader.readAsDataURL(file);
+            var files = document.getElementById("images").files;
+            for (var i = 0; i < files.length; i++)
+            {
+                imagesCount =+ 1;
+                tmp_files.push(files[i]);
+                console.log("tmp_files length: " + tmp_files.length);
+                console.log(files[i].name);
+                objectUrl = _URL.createObjectURL(files[i]);
+                reader.onload = function(e) {
+                    var col = document.createElement('div');
+                    col.setAttribute('class', "col");
+                    document.getElementById("previewImages").appendChild(col);
+                    x = document.createElement("IMG");
+                    style = "height:" + 100 + "px; width: " + 100 + "px; display: inline-block;" ;
+                    x.setAttribute('src', e.target.result);
+                    x.setAttribute("style", style);
+                    var cancel = document.createElement("span");
+                    cancel.setAttribute('style', "background-color: red; height: 30px; width: 30px; position: absolute;");
+                    cancel.setAttribute("onclick", "removeImage(this)");
+                    document.getElementById("previewImages").lastChild.appendChild(cancel);
+                    document.getElementById("previewImages").lastChild.appendChild(x);
+                }
+                reader.readAsDataURL(files[i]); // convert to base64 string
+            }
         });
-      */
+
         var textarea = document.querySelector('textarea');
 
         textarea.addEventListener('keydown', autosize);
@@ -88,9 +116,16 @@
                 el.style.cssText = 'height:' + (el.scrollHeight + 10) + 'px';
             }, 0);
         }
-
-
     });
-
+    function removeImage(i){
+        var col = i.parentNode;
+        var colParent = col.parentNode;
+        console.log(colParent);
+        var colIndex = Array.prototype.indexOf.call(colParent.children, col);
+        console.log(colIndex);
+        imagesCount -= 1;
+        tmp_files.splice(colIndex, 1);
+        document.getElementById("previewImages").removeChild(col);
+    }
 
 </script>
