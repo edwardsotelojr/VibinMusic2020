@@ -18,8 +18,8 @@
       <span class="CancelPostModal" id="cancelPostModal"> X</span>
     </div>
   </div>
-    <div class="row justify-content-center">
-      <div class="col-2" style="text-align: center;">
+    <div class="row justify-content-center" style="margin: 10px 10px 10px 10px;">
+      <div class="" style=" width:min-content; display: flex;">
         <img src="default-avatar.jpg" class="PostFormUserAva">
       </div>
       <div class="col-9" style="margin-top: 8px;">
@@ -28,19 +28,23 @@
     </div>
     <div class="row justify-content-center"  id="previewImages">
     </div>
+  <div class="row justify-content-center" id="previewSongs">
+  </div>
   <input hidden class="photo_upload" name="post[images][]" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
   <div class="row justify-content-end" style="margin-top: 9px;">
       <div class="col-2">
         <button class="PostFormButton">
-          <%= image_tag "PictureUploadButton.png", style: "height:30px; width:30px;", id: "imagesUploader" %>
+          <%= image_tag "PictureUploadButton.png", style: "height:30px; width:30px;", id: "imageUploader" %>
         </button>
     </div>
       <div class="col-2">
         <button class="PostFormButton">
-          <img src="MusicButton.png">
+          <img src="MusicButton.png" id="songUploader">
         </button>
       </div>
-      <div class="col-3">
+    <input hidden class="" name="post[songs][]" id="songs" type="file" multiple="true" accept="mp3 wav">
+
+    <div class="col-3">
         <button class="PostFormSubmitButton">
           Submit
         </button>
@@ -63,9 +67,14 @@
         document.getElementById("post_content").addEventListener("onkeypress", function (event) {
             console.log("ds");
         });
-        document.getElementById("imagesUploader").addEventListener("click", function (event) {
+        document.getElementById("imageUploader").addEventListener("click", function (event) {
             event.preventDefault();
             $("#images").trigger("click");
+            event.preventDefault();
+        });
+        document.getElementById("songUploader").addEventListener("click", function (event) {
+            event.preventDefault();
+            $("#songs").trigger("click");
             event.preventDefault();
         });
         var _URL = window.URL || window.webkitURL;
@@ -93,7 +102,7 @@
                     console.log(e);
                     img.src = e.target.result;
                     var col = document.createElement('div');
-                    col.setAttribute('class', "col");
+                    col.setAttribute('style', "flex-basis: 0; margin: 5px 8px 8px 5px;");
                     document.getElementById("previewImages").appendChild(col);
                     x = document.createElement("IMG");
                     img.onload = function(){
@@ -101,34 +110,63 @@
                       height = this.height;
                       console.log("width: " + width);
                       console.log("height: " + height);
+                      resolution = width / height;
+                      console.log("resolution: ", resolution);
+                      if(resolution > 1){
+                          if(width > 500)
+                          {
+                              width = 250;
+                              height = width / resolution;
+                          }
+                      }else{
+                          if(height > 500){
+                              height = 250;
+                              width = height * resolution;
+                          }
+                      }
+                      style = "height:" + height + "px; width: " + width + "px; display: inline-block;" ;
+                      x.setAttribute('src', e.target.result);
+                      x.setAttribute("style", style);
+                      var cancel = document.createElement("span");
+                      cancel.setAttribute('style', "background-color: red; height: 30px; width: 30px; position: absolute;");
+                      cancel.setAttribute("onclick", "removeImage(this)");
+                      document.getElementById("previewImages").lastChild.appendChild(cancel);
+                      document.getElementById("previewImages").lastChild.appendChild(x);
                     };
-                    img.com
-                    resolution = width / height;
-                    console.log("resolution: ", resolution);
-                    if(resolution > 1){
-                        if(width > 500)
-                        {
-                            width = 400;
-                            height = width / resolution;
-                        }
-                    }else{
-                        if(height > 500){
-                            height = 400;
-                            width = height * resolution;
-                        }
-                    }
-
-                    style = "height:" + height + "px; width: " + width + "px; display: inline-block;" ;
-                    x.setAttribute('src', e.target.result);
-                    x.setAttribute("style", style);
-                    var cancel = document.createElement("span");
-                    cancel.setAttribute('style', "background-color: red; height: 30px; width: 30px; position: absolute;");
-                    cancel.setAttribute("onclick", "removeImage(this)");
-                    document.getElementById("previewImages").lastChild.appendChild(cancel);
-                    document.getElementById("previewImages").lastChild.appendChild(x);
                 }
+            }
+        });
+        $("#songs").change(function (event) {
+            var files = document.getElementById("songs").files;
+            var audioTag;
+            var progressBar;
+            var coverDiv;
+            var titleTextBox;
+            var addFeaturedArtistButton;
+            var rowDiv;
+            for (var i = 0; i < files.length; i++) {
+                rowDiv = document.createElement("div");
+                rowDiv.setAttribute('class', 'row justify-content-center');
+                document.getElementById("previewSongs").appendChild(rowDiv);
+                reader = new FileReader();
+                audioTag = document.createElement("audio");
+                audioTag.src = URL.createObjectURL(this.files[0]);
+                audioTag.id = "player";
+                progressBar = document.createElement("progress");
+                progressBar.setAttribute('id', 'progressBar');
+                progressBar.setAttribute("value", "0");
+                progressBar.setAttribute("max", "1");
+                document.getElementById("previewSongs").firstChild.appendChild(progressBar);
+                audioTag.setAttribute("ontimeupdate", "initProgressBar()");
+                document.getElementById("previewSongs").appendChild(audioTag);
+                audioTag.setAttribute("ontimeupdate", "initProgressBar()");
+                do
+                document.getElementById("previewSongs").appendChild(audioTag);
+
+
 
             }
+
         });
 
         var textarea = document.querySelector('textarea');
@@ -155,5 +193,45 @@
         tmp_files.splice(colIndex, 1);
         document.getElementById("previewImages").removeChild(col);
     }
+    function initProgressBar(song) {
+        var player = document.getElementById('player');
+        var length = player.duration;
+        var current_time = player.currentTime;
 
+        // calculate total length of value
+        var totalLength = calculateTotalValue(length);
+
+        // calculate current value time
+        var currentTime = calculateCurrentValue(current_time);
+
+        var progressbar = document.getElementById('progressBar');
+        progressbar.value = (player.currentTime / player.duration);
+        progressbar.addEventListener("click", seek);
+
+
+        function seek(event) {
+            var percent = event.offsetX / this.offsetWidth;
+            player.currentTime = percent * player.duration;
+            progressbar.value = percent / 100;
+        }
+    };
+    function calculateTotalValue(length) {
+        var minutes = Math.floor(length / 60);
+        var seconds_int = length - minutes * 60;
+        var seconds_str = seconds_int.toString();
+        var seconds = seconds_str.substr(0, 2);
+        var time = minutes + ':' + seconds;
+
+        return time;
+    }
+
+    function calculateCurrentValue(currentTime) {
+        var current_hour = parseInt(currentTime / 3600) % 24;
+        var current_minute = parseInt(currentTime / 60) % 60;
+        var current_seconds_long = currentTime % 60;
+        var current_seconds = current_seconds_long.toFixed();
+        var current_time = (current_minute < 10 ? "0" + current_minute : current_minute) + ":" + (current_seconds < 10 ? "0" + current_seconds : current_seconds);
+
+        return current_time;
+    }
 </script>
