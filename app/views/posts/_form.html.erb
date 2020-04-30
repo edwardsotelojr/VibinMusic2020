@@ -1,68 +1,79 @@
-<%= form_with(model: @newPost, multipart: true, :html => { :style => 'width: 100%;' }) do |f| %>
+<%= form_with(model: @newPost, multipart: true, :html => {:style => 'width: 100%;'}) do |f| %>
   <div hidden class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Post</h5>
-    <% if @newPost.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@newPost.errors.count, "error") %> prohibited this post from being saved:</h2>
-        <ul>
-          <% post.errors.full_messages.each do |message| %>
-            <% puts message %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
   </div>
   <div class="row" style="justify-content: end;">
-    <div class="col-1"  style="margin-right: 20px; margin-top: 2px;">
+    <div class="col-1" style="margin-right: 20px; margin-top: 2px;">
       <span class="CancelPostModal" id="cancelPostModal"> X</span>
     </div>
   </div>
-    <div class="row justify-content-center" style="margin: 10px 10px 10px 10px;">
-      <div class="" style=" width:min-content; display: flex;">
-        <img src="default-avatar.jpg" class="PostFormUserAva">
-      </div>
-      <div class="col-9" style="margin-top: 8px;">
-        <%= f.text_area :content, class: "PostFormText", rows: 1, placeholder: "Text", id: "post_content" %>
-      </div>
+  <div class="row justify-content-center" style="margin: 10px 10px 10px 10px;">
+    <div class="" style=" width:min-content; display: flex;">
+      <img src="default-avatar.jpg" class="PostFormUserAva">
     </div>
-    <div class="row justify-content-center"  id="previewImages">
+    <div class="col-9" style="margin-top: 8px;">
+      <%= f.text_area :content, class: "PostFormText", rows: 1, placeholder: "Text", id: "post_content" %>
     </div>
+  </div>
+  <div class="row justify-content-center" id="previewImages">
+  </div>
   <div class="row justify-content-center" id="previewSongs">
   </div>
-  <input hidden class="photo_upload" name="post[images][]" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
+  <input hidden class="photo_upload" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
   <div class="row justify-content-end" style="margin-top: 9px;">
-      <div class="col-2">
-        <button class="PostFormButton">
-          <%= image_tag "PictureUploadButton.png", style: "height:30px; width:30px;", id: "imageUploader" %>
-        </button>
+    <div class="col-2">
+      <button class="PostFormButton" id="imageUploader">
+        <%= image_tag "PictureUploadButton.png", style: "height:30px; width:30px;" %>
+      </button>
     </div>
-      <div class="col-2">
-        <button class="PostFormButton">
-          <img src="MusicButton.png" id="songUploader">
-        </button>
-      </div>
+    <div class="col-2">
+      <button class="PostFormButton" id='songUploader'>
+        <%= image_tag "MusicButton.png", style: "height:30px; width:30px;" %>
+      </button>
+    </div>
     <input hidden class="" name="post[songs][]" id="songs" type="file" multiple="true" accept="mp3 wav">
-
     <div class="col-3">
-        <button class="PostFormSubmitButton">
-          Submit
-        </button>
-      </div>
+      <button class="PostFormSubmitButton" id="submitt" onclick=submitPost($(".PostFormText").val())>
+        Submish
+      </button>
     </div>
+  </div>
 <% end %>
 
 <script>
+    function submitPost(content) {
+        var form = new FormData();
+        form.append("content",content);
+        console.log("content:" + content.toString());
+        console.log("helios" + typeof tmp_files);
+        for(var i = 0; i < imagesCount; i++){
+            form.append("images[]", tmp_files[i]);
+        }
+
+        Rails.ajax({
+            type: "POST",
+            url: "/newPost?",
+            data: form,
+            processData: false,
+            contentType: false,
+            success: function (data, textStatus, xhr) {
+                console.log("supposedly worked");
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+
     var imagesCount = 0;
     var tmp_files = new Array();
-    window.addEventListener('DOMContentLoaded',function () {
-
-        document.getElementById("cancelPostModal").addEventListener("click", function(){
+    window.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("cancelPostModal").addEventListener("click", function () {
             document.getElementById("post_content").value = "";
-            if(document.getElementById("previewImages").contains(document.getElementById('images1'))){
-               document.getElementById("previewImages").removeChild(document.getElementById("images1"));
+            if (document.getElementById("previewImages").contains(document.getElementById('images1'))) {
+                document.getElementById("previewImages").removeChild(document.getElementById("images1"));
             }
-           console.log("closed");
+            console.log("closed");
         });
         document.getElementById("post_content").addEventListener("onkeypress", function (event) {
             console.log("ds");
@@ -77,6 +88,9 @@
             $("#songs").trigger("click");
             event.preventDefault();
         });
+        document.getElementById("submitt").addEventListener("click", function (event) {
+            event.preventDefault();
+        });
         var _URL = window.URL || window.webkitURL;
         var height;
         var width;
@@ -88,50 +102,51 @@
         var style;
         $("#images").change(function (event) {
             var files = document.getElementById("images").files;
-            for (var i = 0; i < files.length; i++)
-            {
+            for (var i = 0; i < files.length; i++) {
+                tmp_files.push(files[i]);
                 img = new Image();
                 reader = new FileReader();
-                imagesCount =+ 1;
-                tmp_files.push(files[i]);
+                imagesCount +=1;
                 console.log("tmp_files length: " + tmp_files.length);
+                console.log("files length: " + files.length);
                 console.log(files[i].name);
+                console.log(files[i]);
                 objectUrl = _URL.createObjectURL(files[i]);
                 reader.readAsDataURL(files[i]); // convert to base64 string
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     console.log(e);
                     img.src = e.target.result;
                     var col = document.createElement('div');
                     col.setAttribute('style', "flex-basis: 0; margin: 5px 8px 8px 5px;");
                     document.getElementById("previewImages").appendChild(col);
                     x = document.createElement("IMG");
-                    img.onload = function(){
-                      width = this.width;
-                      height = this.height;
-                      console.log("width: " + width);
-                      console.log("height: " + height);
-                      resolution = width / height;
-                      console.log("resolution: ", resolution);
-                      if(resolution > 1){
-                          if(width > 500)
-                          {
-                              width = 250;
-                              height = width / resolution;
-                          }
-                      }else{
-                          if(height > 500){
-                              height = 250;
-                              width = height * resolution;
-                          }
-                      }
-                      style = "height:" + height + "px; width: " + width + "px; display: inline-block;" ;
-                      x.setAttribute('src', e.target.result);
-                      x.setAttribute("style", style);
-                      var cancel = document.createElement("span");
-                      cancel.setAttribute('style', "background-color: red; height: 30px; width: 30px; position: absolute;");
-                      cancel.setAttribute("onclick", "removeImage(this)");
-                      document.getElementById("previewImages").lastChild.appendChild(cancel);
-                      document.getElementById("previewImages").lastChild.appendChild(x);
+                    img.onload = function () {
+                        width = this.width;
+                        height = this.height;
+                        console.log("width: " + width);
+                        console.log("height: " + height);
+                        resolution = width / height;
+                        console.log("resolution: ", resolution);
+                        if (resolution > 1) {
+                            if (width > 500) {
+                                width = 250;
+                                height = width / resolution;
+                            }
+                        } else {
+                            if (height > 500) {
+                                height = 250;
+                                width = height * resolution;
+                            }
+                        }
+                        style = "height:" + height + "px; width: " + width + "px; display: inline-block;";
+                        x.setAttribute('src', e.target.result);
+                        x.setAttribute("style", style);
+                        console.log("pushedssss" + e.target.result)
+                        var cancel = document.createElement("span");
+                        cancel.setAttribute('style', "background-color: red; height: 30px; width: 30px; position: absolute;");
+                        cancel.setAttribute("onclick", "removeImage(this)");
+                        document.getElementById("previewImages").lastChild.appendChild(cancel);
+                        document.getElementById("previewImages").lastChild.appendChild(x);
                     };
                 }
             }
@@ -160,13 +175,9 @@
                 audioTag.setAttribute("ontimeupdate", "initProgressBar()");
                 document.getElementById("previewSongs").appendChild(audioTag);
                 audioTag.setAttribute("ontimeupdate", "initProgressBar()");
-                do
+                //do
                 document.getElementById("previewSongs").appendChild(audioTag);
-
-
-
             }
-
         });
 
         var textarea = document.querySelector('textarea');
@@ -182,8 +193,10 @@
                 el.style.cssText = 'height:' + (el.scrollHeight + 10) + 'px';
             }, 0);
         }
-    });
-    function removeImage(i){
+    })
+    ;
+
+    function removeImage(i) {
         var col = i.parentNode;
         var colParent = col.parentNode;
         console.log(colParent);
@@ -193,6 +206,7 @@
         tmp_files.splice(colIndex, 1);
         document.getElementById("previewImages").removeChild(col);
     }
+
     function initProgressBar(song) {
         var player = document.getElementById('player');
         var length = player.duration;
@@ -215,6 +229,7 @@
             progressbar.value = percent / 100;
         }
     };
+
     function calculateTotalValue(length) {
         var minutes = Math.floor(length / 60);
         var seconds_int = length - minutes * 60;
