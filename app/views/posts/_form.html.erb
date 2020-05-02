@@ -18,6 +18,7 @@
   <div class="row justify-content-center" id="previewImages">
   </div>
   <div class="row justify-content-center" id="previewSongs">
+
   </div>
   <input hidden class="photo_upload" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
   <div class="row justify-content-end" style="margin-top: 9px;">
@@ -91,14 +92,11 @@
         document.getElementById("submitt").addEventListener("click", function (event) {
             event.preventDefault();
         });
-        var _URL = window.URL || window.webkitURL;
         var height;
         var width;
         var reader;
         var img;
         var resolution;
-        var objectUrl;
-        var x;
         var style;
         $("#images").change(function (event) {
             var files = document.getElementById("images").files;
@@ -111,7 +109,6 @@
                 console.log("files length: " + files.length);
                 console.log(files[i].name);
                 console.log(files[i]);
-                objectUrl = _URL.createObjectURL(files[i]);
                 reader.readAsDataURL(files[i]); // convert to base64 string
                 reader.onload = function (e) {
                     console.log(e);
@@ -119,7 +116,6 @@
                     var col = document.createElement('div');
                     col.setAttribute('style', "flex-basis: 0; margin: 5px 8px 8px 5px;");
                     document.getElementById("previewImages").appendChild(col);
-                    x = document.createElement("IMG");
                     img.onload = function () {
                         width = this.width;
                         height = this.height;
@@ -139,45 +135,78 @@
                             }
                         }
                         style = "height:" + height + "px; width: " + width + "px; display: inline-block;";
-                        x.setAttribute('src', e.target.result);
-                        x.setAttribute("style", style);
+                        img.setAttribute("style", style);
                         console.log("pushedssss" + e.target.result)
                         var cancel = document.createElement("span");
                         cancel.setAttribute('style', "background-color: red; height: 30px; width: 30px; position: absolute;");
                         cancel.setAttribute("onclick", "removeImage(this)");
                         document.getElementById("previewImages").lastChild.appendChild(cancel);
-                        document.getElementById("previewImages").lastChild.appendChild(x);
+                        document.getElementById("previewImages").lastChild.appendChild(img);
                     };
                 }
             }
         });
+        var audio;
+        var songfiles = new Array();
+        var songfile;
+        var songCount = 0;
+        var audioTag;
+        var progressBar;
+        var coverDiv;
+        var titleTextBox;
+        var addFeaturedArtistButton;
+        var rowDiv;
+        var audioplayer;
         $("#songs").change(function (event) {
-            var files = document.getElementById("songs").files;
-            var audioTag;
-            var progressBar;
-            var coverDiv;
-            var titleTextBox;
-            var addFeaturedArtistButton;
-            var rowDiv;
-            for (var i = 0; i < files.length; i++) {
-                rowDiv = document.createElement("div");
-                rowDiv.setAttribute('class', 'row justify-content-center');
-                document.getElementById("previewSongs").appendChild(rowDiv);
-                reader = new FileReader();
-                audioTag = document.createElement("audio");
-                audioTag.src = URL.createObjectURL(this.files[0]);
-                audioTag.id = "player";
-                progressBar = document.createElement("progress");
-                progressBar.setAttribute('id', 'progressBar');
-                progressBar.setAttribute("value", "0");
-                progressBar.setAttribute("max", "1");
-                document.getElementById("previewSongs").firstChild.appendChild(progressBar);
-                audioTag.setAttribute("ontimeupdate", "initProgressBar()");
-                document.getElementById("previewSongs").appendChild(audioTag);
-                audioTag.setAttribute("ontimeupdate", "initProgressBar()");
-                //do
-                document.getElementById("previewSongs").appendChild(audioTag);
+            var files = event.target.files;
+            for(var i = 0; i < files.length; i++){
+                songCount += 1;
+                audioplayer = document.createElement("audio");
+                audioplayer.setAttribute("id", "player");
+                audioplayer.setAttribute("style", "height: 20px; width: 100px;");
+                audio = document.createElement("source");
+                document.getElementById("previewSongs").appendChild(audioplayer);
+                audio.setAttribute("src", URL.createObjectURL(files[i]));
+                document.getElementById("player").append(audio);
+                audioplayer.load();
+                audioplayer.play();
             }
+           // var files = document.getElementById("songs").files;
+           // for (var i = 0; i < files.length; i++) {
+             //   songCount += 1;
+               // songfile = event.target.files[0];
+                //songfiles.push(files[i]);
+                //audio = new Audio();
+                //reader = new FileReader();
+                //reader.readAsDataURL(files[i]);
+                //reader.onload = function (e){
+                    //audio.setAttribute('src', URL.createObjectURL(songfile));
+                    //var col = document.createElement('div');
+                    //col.setAttribute('style', "flex-basis: 0; margin: 5px 8px 8px 5px;");
+                    //document.getElementById("previewSongs").appendChild(col);
+                    //audio.onload = function () {
+                       // document.getElementById("previewSongs").appendChild(audio);
+                        ///audio.play();
+                        //rowDiv = document.createElement("div");
+                        //rowDiv.setAttribute('class', 'row justify-content-center');
+
+                        //progressBar = document.createElement("progress");
+                        //progressBar.setAttribute('id', 'progressBar');
+                        //progressBar.setAttribute("value", "0");
+                        //progressBar.setAttribute("max", "1");
+                        //titleTextBox = document.createElement("input");
+                        //titleTextBox.setAttribute('style', 'height: 30px; width: 100px;');
+                        //document.getElementById('')
+                        //document.getElementById("previewSongs").firstChild.appendChild(progressBar);
+                        //audioTag.setAttribute("ontimeupdate", "initProgressBar()");
+                        //document.getElementById("previewSongs").appendChild(audioTag);
+                        //audioTag.setAttribute("ontimeupdate", "initProgressBar()");
+                        //do
+                        //document.getElementById("previewSongs").appendChild(audioTag);
+                    //}
+               // }
+
+            });
         });
 
         var textarea = document.querySelector('textarea');
@@ -193,8 +222,6 @@
                 el.style.cssText = 'height:' + (el.scrollHeight + 10) + 'px';
             }, 0);
         }
-    })
-    ;
 
     function removeImage(i) {
         var col = i.parentNode;
@@ -228,7 +255,7 @@
             player.currentTime = percent * player.duration;
             progressbar.value = percent / 100;
         }
-    };
+    }
 
     function calculateTotalValue(length) {
         var minutes = Math.floor(length / 60);
