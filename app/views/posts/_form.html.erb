@@ -42,15 +42,20 @@
 <% end %>
 
 <script>
+    var featuredArtist = new Array;
+    var imagesCount = 0;
+    var imagefiles = new Array();
+    var songsCount = 0;
+    var songfiles;
+    var totalGenreTags = 0;
+    var genre = new Array;
+    var tags = new Array;
     function submitPost(content) {
         var form = new FormData();
         form.append("content",content);
-        console.log("content:" + content.toString());
-        console.log("helios" + typeof tmp_files);
         for(var i = 0; i < imagesCount; i++){
-            form.append("images[]", tmp_files[i]);
+            form.append("images[]", imagefiles[i]);
         }
-
         Rails.ajax({
             type: "POST",
             url: "/newPost?",
@@ -65,9 +70,6 @@
             }
         });
     }
-
-    var imagesCount = 0;
-    var tmp_files = new Array();
     window.addEventListener('DOMContentLoaded', function () {
         document.getElementById("cancelPostModal").addEventListener("click", function () {
             document.getElementById("post_content").value = "";
@@ -101,11 +103,11 @@
         $("#images").change(function (event) {
             var files = document.getElementById("images").files;
             for (var i = 0; i < files.length; i++) {
-                tmp_files.push(files[i]);
+                imagefiles.push(files[i]);
                 img = new Image();
                 reader = new FileReader();
                 imagesCount +=1;
-                console.log("tmp_files length: " + tmp_files.length);
+                console.log("imagefiles length: " + imagefiles.length);
                 console.log("files length: " + files.length);
                 console.log(files[i].name);
                 console.log(files[i]);
@@ -147,8 +149,7 @@
             }
         });
         var audio;
-        var songfiles = new Array();
-        var songfile;
+
         var songCount = 0;
         var audioTag;
         var progressBar;
@@ -169,6 +170,7 @@
         var earnMoneyHyperLink;
         var linkText = document.createTextNode("Learn More");
         var audioplayer;
+
         $("#songs").change(function (event) {
             var files = event.target.files;
             for(var i = 0; i < files.length; i++){
@@ -188,14 +190,17 @@
                 titleTextBox = document.createElement('input');
                 titleTextBox.setAttribute('style', 'height: 30px; width: 65%;');
                 titleTextBox.setAttribute('placeholder', 'Title of Song');
+                genreTagsTextBox = document.createElement('input');
+                genreTagsTextBox.setAttribute('style', 'width: 200px; height: 30px;');
+                genreTagsTextBox.setAttribute('type', 'text');
+                genreTagsTextBox.setAttribute('placeholder', 'Genres/#Tags');
+                genreTagsTextBox.setAttribute('id', 'genreTags');
+                genreTagsTextBox.setAttribute('onkeypress', 'addGenreTag(event, this)');
                 col9 = document.createElement('div');
-                //col9.setAttribute('class', 'col-9');
-                col9.setAttribute('style', 'margin-left: 5px; flex: 1; ');
+                col9.setAttribute('id', 'test');
+                col9.setAttribute('style', 'height: 200px; margin-left: 5px; flex: 1; ');
                 col9.appendChild(titleTextBox);
                 rowDiv.appendChild(col9);
-                //col4 = document.createElement('div');
-                //col4.setAttribute('class', 'col-4');
-                //rowDiv.appendChild(col4);
                 premiumCheckBox = document.createElement('input');
                 premiumCheckBox.setAttribute('type', 'checkbox');
                 premiumCheckBox.setAttribute('style', 'margin-left: 5px; margin-right: 1px;');
@@ -204,9 +209,9 @@
                 earnMoneyHyperLink = document.createElement('a');
                 earnMoneyHyperLink.appendChild(linkText);
                 earnMoneyHyperLink.setAttribute('href', '');
-                earnMoneyHyperLink.setAttribute("style", 'font-size: 13px;');
+                earnMoneyHyperLink.setAttribute("style", 'font-size: 13px; word-break: break-all');
                 col9.appendChild(earnMoneyHyperLink);
-
+                col9.appendChild(genreTagsTextBox);
 
                /*
                 audioplayer = document.createElement("audio");
@@ -263,19 +268,60 @@
             });
         });
 
-        var textarea = document.querySelector('textarea');
+    var textarea = document.querySelector('textarea');
 
-        textarea.addEventListener('keydown', autosize);
+    textarea.addEventListener('keydown', autosize);
 
-        function autosize() {
-            var el = this;
-            setTimeout(function () {
-                el.style.cssText = 'height:auto;';
-                // for box-sizing other than "content-box" use:
-                // el.style.cssText = '-moz-box-sizing:content-box';
-                el.style.cssText = 'height:' + (el.scrollHeight + 10) + 'px';
-            }, 0);
+    function autosize() {
+        var el = this;
+        setTimeout(function () {
+            el.style.cssText = 'height:auto;';
+            // for box-sizing other than "content-box" use:
+            // el.style.cssText = '-moz-box-sizing:content-box';
+            el.style.cssText = 'height:' + (el.scrollHeight + 10) + 'px';
+        }, 0);
+    }
+
+    function addGenreTag(key, str){
+        var keynum;
+        var s = str.value;
+        var typpe;
+        if(window.event){
+            keynum = key.keyCode;
+        }else if(key.which){
+            keynum = key.which;
         }
+        if(keynum == 13){
+            window.event.preventDefault();
+            if(str.value[0] == '#'){ // tag
+                var strr = s.substring(1, s.length);
+                tags.push(strr);
+                typpe = 0;
+            }else{
+                genre.push(s);
+                typpe = 1;
+            }
+            console.log(s);
+            addGenreTagElement(s, typpe);
+            str.value = "";
+        }
+    }
+
+    function addGenreTagElement(str, genreOrTag){
+        var span;
+        span = document.createElement('span');
+        if(genreOrTag == 0){
+            span.setAttribute('style', ' margin-left: 3px; margin-right:3px; width: min-content; height: 25px; background-color: pink; display: inline;');
+        }else{
+            span.setAttribute('style', ' margin-left: 3px; margin-right:3px; width: min-content; height: 25px; background-color: purple; display: inline;');
+        }
+        var textNode = document.createTextNode(str);
+        span.appendChild(textNode);
+        var colDiv = document.getElementById('test');
+        var genreTagBox = document.getElementById('genreTags');
+        colDiv.insertBefore(span, genreTagBox);
+        totalGenreTags += 1;
+    }
 
     function removeImage(i) {
         var col = i.parentNode;
@@ -284,7 +330,7 @@
         var colIndex = Array.prototype.indexOf.call(colParent.children, col);
         console.log(colIndex);
         imagesCount -= 1;
-        tmp_files.splice(colIndex, 1);
+        imagefiles.splice(colIndex, 1);
         document.getElementById("previewImages").removeChild(col);
     }
 
