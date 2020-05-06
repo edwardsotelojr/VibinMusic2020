@@ -17,7 +17,7 @@
   </div>
   <div class="row justify-content-center" id="previewImages">
   </div>
-  <div class="row justify-content-center" id="previewSongs">
+  <div class="container justify-content-center" style="display: flex;" id="previewSongs">
 
   </div>
   <input hidden class="photo_upload" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
@@ -32,7 +32,7 @@
         <%= image_tag "MusicButton.png", style: "height:30px; width:30px;" %>
       </button>
     </div>
-    <input hidden class="" name="post[songs][]" id="songs" type="file" multiple="true" accept="mp3 wav">
+    <input hidden class="" name="post[songs][]" id="songs" type="file" multiple="true" accept="audio/*">
     <div class="col-3">
       <button class="PostFormSubmitButton" id="submitt" onclick=submitPost($(".PostFormText").val())>
         Submish
@@ -152,24 +152,78 @@
         var songCount = 0;
         var audioTag;
         var progressBar;
-        var coverDiv;
+        var coverImage;
+        var premiumCheckBox;
+        var featuredArtistTextBox;
+        var genreTagsTextBox;
         var titleTextBox;
         var addFeaturedArtistButton;
         var rowDiv;
+        var col2;
+        var col9;
+        var col4;
+        var earnMoney = document.createElement('p');
+        earnMoney.setAttribute('style', 'font-size: 14px; display: inline;');
+        var earnMoneyText = document.createTextNode("Earn Money ");
+        earnMoney.appendChild(earnMoneyText);
+        var earnMoneyHyperLink;
+        var linkText = document.createTextNode("Learn More");
         var audioplayer;
         $("#songs").change(function (event) {
             var files = event.target.files;
             for(var i = 0; i < files.length; i++){
                 songCount += 1;
+                rowDiv = document.createElement('div');
+                rowDiv.setAttribute('class', 'row');
+                rowDiv.setAttribute('style', 'margin-left: -10px; width: 95%;');
+                document.getElementById('previewSongs').appendChild(rowDiv);
+                coverImage = document.createElement("img");
+                coverImage.setAttribute('style', 'height: 100px; width: 100px;');
+                coverImage.setAttribute("src", 'default-avatar.jpg');
+                col2 = document.createElement('div');
+               // col2.setAttribute('class', 'col-2');
+                col2.setAttribute('style', 'width: 100px; flex: initial;');
+                col2.appendChild(coverImage);
+                rowDiv.appendChild(col2);
+                titleTextBox = document.createElement('input');
+                titleTextBox.setAttribute('style', 'height: 30px; width: 65%;');
+                titleTextBox.setAttribute('placeholder', 'Title of Song');
+                col9 = document.createElement('div');
+                //col9.setAttribute('class', 'col-9');
+                col9.setAttribute('style', 'margin-left: 5px; flex: 1; ');
+                col9.appendChild(titleTextBox);
+                rowDiv.appendChild(col9);
+                //col4 = document.createElement('div');
+                //col4.setAttribute('class', 'col-4');
+                //rowDiv.appendChild(col4);
+                premiumCheckBox = document.createElement('input');
+                premiumCheckBox.setAttribute('type', 'checkbox');
+                premiumCheckBox.setAttribute('style', 'margin-left: 5px; margin-right: 1px;');
+                col9.appendChild(premiumCheckBox);
+                col9.appendChild(earnMoney);
+                earnMoneyHyperLink = document.createElement('a');
+                earnMoneyHyperLink.appendChild(linkText);
+                earnMoneyHyperLink.setAttribute('href', '');
+                earnMoneyHyperLink.setAttribute("style", 'font-size: 13px;');
+                col9.appendChild(earnMoneyHyperLink);
+
+
+               /*
                 audioplayer = document.createElement("audio");
                 audioplayer.setAttribute("id", "player");
                 audioplayer.setAttribute("style", "height: 20px; width: 100px;");
+                titleTextBox = document.createElement("div");
+                titleTextBox.setAttribute('class', 'row');
+                titleTextBox.appendChild(coverDiv);
+                document.getElementById('previewSongs').appendChild(titleTextBox);
                 audio = document.createElement("source");
                 document.getElementById("previewSongs").appendChild(audioplayer);
                 audio.setAttribute("src", URL.createObjectURL(files[i]));
-                document.getElementById("player").append(audio);
+                document.getElementById("player").appendChild(audio);
                 audioplayer.load();
                 audioplayer.play();
+
+                */
             }
            // var files = document.getElementById("songs").files;
            // for (var i = 0; i < files.length; i++) {
