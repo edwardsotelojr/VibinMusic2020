@@ -302,41 +302,6 @@ a:hover {
   }
 }
 
-
-
-.expandedImage {
-  max-width: 75%;
-  height: auto;
-  width: auto;
-  display: block;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 50px;
-}
-.imageExpander {
-  width: auto;
-  height: auto;
-  margin: auto;
-  display: block;
-  border: none;
-  outline: none;
-  background: transparent;
-}
-.imagePost1 {
-  max-width: 85%;
-  height: auto;
-  width: auto;
-  display: block;
-  margin: auto;
-}
-
-.imagePost2 {
-  width: 200px;
-  height: 200px;
-  margin: auto;
-  display: block;
-}
-
 .modal-audio {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -522,6 +487,7 @@ a:hover {
     cursor: pointer
   }
 }
+
 
 .playerAvatarImage {
   margin-left: 5px;

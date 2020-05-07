@@ -42,14 +42,15 @@
 <% end %>
 
 <script>
-    var featuredArtist = new Array;
+    var featuredArtistCount = new Array();
+    var featuredArtist = new Array();
     var imagesCount = 0;
     var imagefiles = new Array();
-    var songsCount = 0;
+    var songCount = 0;
     var songfiles;
     var totalGenreTags = 0;
-    var genre = new Array;
-    var tags = new Array;
+    var genre = new Array();
+    var tags = new Array();
     function submitPost(content) {
         var form = new FormData();
         form.append("content",content);
@@ -150,7 +151,6 @@
         });
         var audio;
 
-        var songCount = 0;
         var audioTag;
         var progressBar;
         var coverImage;
@@ -158,7 +158,6 @@
         var featuredArtistTextBox;
         var genreTagsTextBox;
         var titleTextBox;
-        var addFeaturedArtistButton;
         var rowDiv;
         var col2;
         var col9;
@@ -170,7 +169,6 @@
         var earnMoneyHyperLink;
         var linkText = document.createTextNode("Learn More");
         var audioplayer;
-
         $("#songs").change(function (event) {
             var files = event.target.files;
             for(var i = 0; i < files.length; i++){
@@ -183,15 +181,21 @@
                 coverImage.setAttribute('style', 'height: 100px; width: 100px;');
                 coverImage.setAttribute("src", 'default-avatar.jpg');
                 col2 = document.createElement('div');
-               // col2.setAttribute('class', 'col-2');
                 col2.setAttribute('style', 'width: 100px; flex: initial;');
                 col2.appendChild(coverImage);
                 rowDiv.appendChild(col2);
                 titleTextBox = document.createElement('input');
-                titleTextBox.setAttribute('style', 'height: 30px; width: 65%;');
+                titleTextBox.setAttribute('style', 'height: 30px; width: 62%;');
                 titleTextBox.setAttribute('placeholder', 'Title of Song');
+                featuredArtistTextBox = document.createElement('input');
+                featuredArtistTextBox.setAttribute('type', 'text');
+                featuredArtistTextBox.setAttribute('style', 'width: 200px; height: 25px; display: block;');
+                featuredArtistTextBox.setAttribute('placeholder', 'Featured Artist');
+                featuredArtistTextBox.setAttribute('id', 'featuredArtist');
+                featuredArtistTextBox.setAttribute('onkeyup', 'addFeaturedArtist(event, this)');
+                featuredArtistTextBox.setAttribute('onfocus', 'addAtSign(this)');
                 genreTagsTextBox = document.createElement('input');
-                genreTagsTextBox.setAttribute('style', 'width: 200px; height: 30px;');
+                genreTagsTextBox.setAttribute('style', 'width: 200px; height: 30px; display: block;');
                 genreTagsTextBox.setAttribute('type', 'text');
                 genreTagsTextBox.setAttribute('placeholder', 'Genres/#Tags');
                 genreTagsTextBox.setAttribute('id', 'genreTags');
@@ -211,6 +215,7 @@
                 earnMoneyHyperLink.setAttribute('href', '');
                 earnMoneyHyperLink.setAttribute("style", 'font-size: 13px; word-break: break-all');
                 col9.appendChild(earnMoneyHyperLink);
+                col9.appendChild(featuredArtistTextBox);
                 col9.appendChild(genreTagsTextBox);
 
                /*
@@ -282,6 +287,40 @@
         }, 0);
     }
 
+    function addAtSign(box){
+        box.value = "@";
+    }
+    function addFeaturedArtist(key, str){
+        var keynum;
+        var s = str.value;
+        if(window.event){
+            keynum = key.keyCode;
+        }else if(key.which){
+            keynum = key.which;
+        }
+        if(keynum == 8 && s.length == 1){
+            console.log('sdf');
+            str.value = "@";
+        }
+        if(keynum == 13) {
+            window.event.preventDefault();
+            console.log(s);
+            addFeaturedArtistElement(s);
+            str.value = "";
+        }
+    }
+
+    function addFeaturedArtistElement(str){
+        var span;
+        span = document.createElement('span');
+        span.setAttribute('style', ' margin-left: 3px; margin-right:3px; width: min-content; height: 25px; background-color: pink; display: inline;');
+        var textNode = document.createTextNode(str);
+        span.appendChild(textNode);
+        var colDiv = document.getElementById('test');
+        var featuredArtistBox = document.getElementById('featuredArtist');
+        colDiv.insertBefore(span, featuredArtistBox);
+       // totalGenreTags += 1;
+    }
     function addGenreTag(key, str){
         var keynum;
         var s = str.value;
