@@ -17,7 +17,7 @@
   </div>
   <div class="row justify-content-center" id="previewImages">
   </div>
-  <div class="container justify-content-center" style="display: flex;" id="previewSongs">
+  <div class="container justify-content-center" id="previewSongs">
 
   </div>
   <input hidden class="photo_upload" id="images" type="file" multiple="true" accept="image/jpeg, image/tiff, image/png">
@@ -47,7 +47,7 @@
     var imagesCount = 0;
     var imagefiles = new Array();
     var songCount = 0;
-    var songfiles;
+    var songfiles = new Array();
     var genreCount = 0;
     var genres = new Array();
     var tagCount = 0;
@@ -169,14 +169,20 @@
         earnMoney.appendChild(earnMoneyText);
         var earnMoneyHyperLink;
         var linkText = document.createTextNode("Learn More");
+        var previewRow;
         var audioplayer;
         $("#songs").change(function (event) {
             var files = event.target.files;
             for(var i = 0; i < files.length; i++){
                 songCount += 1;
+                var songfile = event.target.files[0];
+                songfiles.push(files[i]);
+                audio = new Audio();
+                reader = new FileReader();
+                reader.readAsDataURL(files[i]);
                 rowDiv = document.createElement('div');
                 rowDiv.setAttribute('class', 'row');
-                rowDiv.setAttribute('style', 'margin-left: -10px; width: 95%;');
+                rowDiv.setAttribute('style', 'margin-left: -10px; width: 98%;');
                 document.getElementById('previewSongs').appendChild(rowDiv);
                 coverImage = document.createElement("img");
                 coverImage.setAttribute('style', 'height: 100px; width: 100px;');
@@ -186,7 +192,7 @@
                 col2.appendChild(coverImage);
                 rowDiv.appendChild(col2);
                 titleTextBox = document.createElement('input');
-                titleTextBox.setAttribute('style', 'height: 30px; width: 62%;');
+                titleTextBox.setAttribute('style', 'height: 30px; width: 60%;');
                 titleTextBox.setAttribute('placeholder', 'Title of Song');
                 featuredArtistTextBox = document.createElement('input');
                 featuredArtistTextBox.setAttribute('type', 'text');
@@ -230,6 +236,67 @@
                 row3.setAttribute('id', 'row3');
                 row3.appendChild(genreTagsTextBox);
                 col9.appendChild(row3);
+                previewRow = document.createElement('div');
+                previewRow.setAttribute('class', 'row');
+                previewRow.setAttribute('style', 'height: min-content; margin-top:5px;');
+                previewRow.setAttribute('id', 'wave');
+                var setPreviewParagraph = document.createElement('p');
+                setPreviewParagraph.setAttribute('style', 'margin-left: 90px;');
+                var setPreviewText = document.createTextNode("Set Preview");
+                setPreviewParagraph.appendChild(setPreviewText);
+                previewRow.appendChild(setPreviewParagraph);
+                var playButton = document.createElement('button');
+                playButton.setAttribute('style', 'margin-left: 10px; height: 20px; width: 20px;');
+                previewRow.appendChild(playButton);
+                rowDiv.after(previewRow);
+                var wavesurfer = WaveSurfer.create({
+                    container: document.querySelector('#wave'),
+                    waveColor: 'violet',
+                    progressColor: 'purple',
+                    height: 100,
+                    plugins: [
+                       // WaveSurfer.regions.create({
+                         //   regions: [
+                           //     {
+                             //       start: 1,
+                               //     end: 30,
+                                 //   color: 'hsla(400, 100%, 30%, 0.5)'
+                               // }
+                            //],
+                            //dragSelection: {
+                             //   slop: 5
+                            //}
+                        //})
+                    ]
+                });
+
+               // var region = Object.create(WaveSurfer);
+                //var wavesurfer = Object.create(WaveSurfer.region);
+                reader.onload = function (e) {
+                    //audio.setAttribute('src', URL.createObjectURL(songfile));
+                   // audio.onload = function () {
+                        wavesurfer.load(URL.createObjectURL(songfile));
+                       // previewRow.appendChild(waveform);
+
+                    //};
+                };
+
+                var wave = document.getElementsByTagName('wave')[0];
+                wave.className = "wave";
+                wavesurfer.on('ready', function () {
+                    wavesurfer.play();
+                });
+                wavesurfer.on('seek', function () {
+                    console.log(wavesurfer.getCurrentTime());
+                });
+                playButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if(wavesurfer.isPlaying){
+                        wavesurfer.pause();
+                    } else {
+                        wavesurfer.play();
+                    }
+                });
                /*
                 audioplayer = document.createElement("audio");
                 audioplayer.setAttribute("id", "player");
@@ -284,6 +351,8 @@
 
             });
         });
+
+
 
     var textarea = document.querySelector('textarea');
 

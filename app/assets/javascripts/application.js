@@ -23,6 +23,8 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require croppie
+//= require wavesurfer
+//= require plugin/wavesurfer.regions
 //=
 
 let Server_Address = "172.25.61.104"; // broadcasting ipv4 remote host address
