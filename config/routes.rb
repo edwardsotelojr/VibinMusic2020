@@ -35,7 +35,13 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: [:create, :destroy]
 
-  root 'home#home'
+
+
+  get '*page', to: 'home#index', constraints: -> (req) do
+    !req.xhr? && req.format.html?
+  end
+  root 'home#index'
+
 
   get '/search' => 'home#search'
   get '/explore' => 'home#explore'
