@@ -86,9 +86,9 @@
   display: block;
   overflow: hidden;
   background-color: #4d7ce3;
-  width: 70%;
+  width: 60%;
   margin-bottom: 10px;
-  margin-left: auto;
+  margin-left: 7%;
   margin-right: auto;
   min-height: 150px;
   border-radius: 10px;
@@ -181,7 +181,7 @@
 }
 
 .imageExpanderDual {
-  max-width: 100%;
+  max-width: inherit;
   display: block;
   border: none;
   outline: none;
@@ -199,13 +199,12 @@
 }
 
 .imagePost2 {
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
-  width: auto;
-  display: block;
   margin: auto;
-  padding-bottom: 10px;
   border-radius: 15px;
+  overflow: hidden;
+
 }
 
 .imagePost3 {
@@ -214,49 +213,77 @@
   width: auto;
   padding-bottom: 10px;
   border-radius: 15px;
-  margin-left: -75%
+  margin-left: -75%;
+  overflow: hidden;
 }
 
 .imageExpanderLong {
-  max-width: 70%;
-  display: block;
   border: none;
   outline: none;
   background: transparent;
   margin-bottom: 20px;
   border-radius: 15px;
+  padding: 0px;
 }
 
 .firstCol {
   display: flex;
-  width: 66.5%;
-  margin: auto;
 }
 
-.secondCol {
-  width: 100%;
+.sCol {
+  max-width: 80%;
   display: block;
+  margin-right: auto;
+  margin-left: 2px;
+  max-height: 295px;
 }
 
 .divCropperLong {
-  width: 200px;
-  height: 250px;
+  max-width: 62%;
+  min-width: 48%;
+  height: 289px;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 6px;
+  border: none;
+  margin-left: 3px;
 }
 
 .divCropper {
-  width: 200px;
-  height: 120px;
+  max-width: 62%;
+  height: 143px;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 6px;
+  object-fit: cover;
+  min-width: 50%;
+  border: none;
+  padding-left: 24%;
+}
 
+.twoImageDivCropper {
+  max-width: 75%;
+  height: 143px;
+  overflow: hidden;
+  border-radius: 6px;
+  object-fit: cover;
+  min-width: 50%;
+  border: none;
+  padding-left: 24%;
 }
 
 .bottomImage {
-  margin-top: 10px;
+  margin-top: -87px;
 }
 
-.wave{
+.wave {
   width: 100%;
+}
+
+.imageCenter {
+  margin-left: 15%;
+  margin-right: auto;
+  width: 92%;
+  height: 295px;
+}
+.imageBackground{
+  background: black;
 }

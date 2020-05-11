@@ -1,24 +1,17 @@
-<div class="firstCol">
+<div style="display: flex;width: 95%;margin: auto;">
   <% html = image_tag (images[0]), class: "expandedImage" %>
   <% html2 = image_tag (images[1]), class: "expandedImage" %>
   <% html3 = image_tag (images[2]), class: "expandedImage" %>
-
-  <button class=imageExpanderLong onclick='expand("<%=escape_javascript html %>")'>
-    <div class="divCropperLong">
-      <%= image_tag (images[0]), class: "imagePost3", id: "postImage" %>
-    </div>
+  <button class="divCropperLong imageBackground" onclick='expand("<%=escape_javascript html %>")'>
+    <%= image_tag (images[0]), class: "imagePost3", id: "postImage" %>
   </button>
-
-  <div class="secondCol">
-    <button class=imageExpanderDual onclick='expand("<%= escape_javascript html2 %>")'>
-      <div class="divCropper">
-        <%= image_tag (images[1]), class: "imagePost3", id: "postImage" %>
-      </div>
+  <div class="sCol">
+    <button class="divCropper imageBackground" onclick='expand("<%=escape_javascript html2 %>")'>
+      <%= image_tag (images[1]), class: "imagePost3", id: "postImage" %>
     </button>
-    <button class=imageExpanderDual onclick='expand("<%= escape_javascript html3 %>")'>
-      <div class="divCropper bottomImage">
-        <%= image_tag (images[2]), class: "imagePost3", id: "postImage" %>
-      </div>
+    <button class="divCropper bottomImage imageBackground" onclick='expand("<%=escape_javascript html3 %>")'>
+      <%= image_tag (images[2]), class: "imagePost3", id: "postImage" %>
     </button>
   </div>
 </div>
+
