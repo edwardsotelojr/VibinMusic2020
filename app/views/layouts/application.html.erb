@@ -18,7 +18,7 @@
 -->
   <%= stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
   <!%= javascript_include_tag 'application.js', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application' %>
+
 </head>
 <body>
 <!--
@@ -32,7 +32,7 @@
 </div>
 <div class="Modal" id="modal">
   <div class="ModalContainer" role="document" id="modalDialog">
-    <%= render 'posts/form', post: @newPost %>
+    <!%= render 'posts/form', post: @newPost %>
   </div>
 </div>
 
