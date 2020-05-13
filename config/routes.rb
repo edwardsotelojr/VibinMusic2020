@@ -78,6 +78,8 @@ Rails.application.routes.draw do
   get '/deactivate_current_user', to: 'users#deactivate'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get '/logged_in', to: 'sessions#is_logged_in?'
+
   post "/newPost", to: 'posts#create'
   get 'users/:id/add_album', to: 'albums#new'
   get 'albums/new'

@@ -321,7 +321,6 @@ DEPENDENCIES
   searchkick
   spring
   spring-watcher-listen
-  sprockets-rails
   turbolinks (~> 5)
   tzinfo-data
   uglifier (~> 1.3)
