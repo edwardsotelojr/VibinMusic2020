@@ -2,6 +2,7 @@
 
 default: &default
   source_path: app/javascript
+  components: app/javascript/packs/components
   source_entry_path: packs
   public_root_path: public
   public_output_path: packs
