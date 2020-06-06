@@ -265,7 +265,6 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    wdm (0.1.1)
     web-console (4.0.2)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -278,7 +277,7 @@ GEM
       semantic_range (>= 2.3.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -326,7 +325,6 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   uglifier (~> 1.3)
-  wdm (>= 0.1.0)
   web-console
   webpacker
   will_paginate
